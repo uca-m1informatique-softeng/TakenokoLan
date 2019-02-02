@@ -1,0 +1,66 @@
+package takenoko.utilitaires;
+
+import takenoko.ia.IA;
+
+public class StatistiqueJoueur {
+    private IA ia;
+    private int nbVictoire;
+    private int nbToursTotal;
+    private int nbPointsTotal;
+    private int nbToursMIN = 0;
+    private int nbToursMAX = 0;
+
+    public StatistiqueJoueur(IA ia, int nbVictoire, int nbPointsTotal, int nbToursTotal) {
+        this.ia = ia;
+        this.nbVictoire = nbVictoire;
+        this.nbPointsTotal = nbPointsTotal;
+        this.nbToursTotal = nbToursTotal;
+    }
+
+    public IA getIa() {
+        return ia;
+    }
+
+    public int getNbVictoire() {
+        return nbVictoire;
+    }
+
+    public int getNbPointsTotal() {
+        return nbPointsTotal;
+    }
+
+    public void incrNVictoire() {
+        nbVictoire++;
+
+    }
+
+    public void incrNbPointsTotal(int nbPoints) {
+        nbPointsTotal = nbPointsTotal + nbPoints;
+    }
+
+    public void setIa(IA ia) {
+        this.ia = ia;
+    }
+
+    public void incrNbToursTotal(int nbTours) {
+        if(nbToursMIN==0 || nbToursMIN > nbTours){
+            nbToursMIN=nbTours;
+        }
+        if(nbToursMAX==0 || nbToursMAX < nbTours){
+            nbToursMAX=nbTours;
+        }
+        nbToursTotal = nbToursTotal + nbTours;
+    }
+
+    public int getNbToursTotal() {
+        return nbToursTotal;
+    }
+
+    public int getNbToursMIN() {
+        return nbToursMIN;
+    }
+
+    public int getNbToursMAX() {
+        return nbToursMAX;
+    }
+}
