@@ -23,7 +23,7 @@ public class Takenoko {
     private int nbNull = 0;
     private ArrayList<StatistiqueJoueur> listPlayer = new ArrayList<>();
 
-    public void nbPartie(int nbPartie, int nbBotBob, int nbBotJoe) {
+    public String nbPartie(int nbPartie, int nbBotBob, int nbBotJoe) {
         LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
         //init bot Bob
         for (int j = 0; j < nbBotBob; j++) {
@@ -50,6 +50,8 @@ public class Takenoko {
         }
         //affichage final de toutes les statistiques
         afficherVainqueur(listPlayer, nbPartie);
+
+        return "hello";
     }
 
     private void partie(ArrayList<StatistiqueJoueur> listPlayer) {
@@ -161,7 +163,7 @@ public class Takenoko {
     @Bean
     public Takenoko Takenoko() {
         LOGGER.setLevel(Level.ALL);
-        nbPartie(1000, 0, 1);
+        nbPartie(1, 0, 1);
         return new Takenoko();
     }
 }
