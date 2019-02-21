@@ -1,6 +1,7 @@
 package takenoko.ia;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import takenoko.entites.Entite;
 import takenoko.entites.Jardinier;
@@ -13,6 +14,7 @@ import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
 import takenoko.service.IClientService;
+import takenoko.service.impl.ClientService;
 import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.MainJoueur;
 import takenoko.utilitaires.TricheException;
@@ -32,16 +34,16 @@ public class IAPanda implements IA {
     private FeuilleJoueur feuilleJoueur;
     private String nomBot;
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
+    private ClientService iService;
 
     public FeuilleJoueur getFeuilleJoueur() {
         return feuilleJoueur;
     }
 
-    @Autowired
-    private IClientService iService;
 
     public IAPanda() {
         feuilleJoueur = new FeuilleJoueur();
+        iService=new ClientService();
         LOGGER.setLevel(Level.OFF);
     }
 
@@ -105,8 +107,7 @@ public class IAPanda implements IA {
         Parcelle coupJoue;
         if (feuilleJoueur.getActionChoisie() == 0) {
             // Bot pioche 3 parcelles, en choisit une aléatoirement et choisit une position aléatoire parmi la liste d'adjacences
-            ArrayList<Parcelle> main = piocheParcelle.piocherParcelle();
-            coupJoue = choisirParcelle(terrain.getZoneJouee(), main, piocheParcelle);
+            coupJoue = choisirParcelle(terrain.getZoneJouee(), iService.piocher(), piocheParcelle);
             //positionsCoupJoue
             coupJoue.setCoord(choisirPosition(terrain.getListeZonesPosables()));
             // Le terrain est mis à jour

@@ -41,6 +41,9 @@ public class Parcelle {
         }
     }
 
+    public Parcelle(){
+    }
+
     public Effet getEffet() {
         return effet;
     }
@@ -65,10 +68,6 @@ public class Parcelle {
         this.coord = coord;
     }
 
-    public String toString() {
-        return getCoord().toString();
-    }
-
     public void setEffet(Effet effet) {
         this.effet = effet;
     }
@@ -80,5 +79,16 @@ public class Parcelle {
     public void setIrriguee(boolean irriguee) {
         this.irriguee = irriguee;
         this.pousserBambou();
+    }
+
+    @Override
+    public String toString() {
+        return "Parcelle{" +
+                "coord=" + coord +
+                ", couleur=" + couleur +
+                ", effet=" + effet +
+                ", bambou=" + bambou +
+                ", irriguee=" + irriguee +
+                '}';
     }
 }
