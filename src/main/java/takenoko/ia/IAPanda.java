@@ -1,5 +1,6 @@
 package takenoko.ia;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import takenoko.entites.Entite;
 import takenoko.entites.Jardinier;
@@ -11,6 +12,7 @@ import takenoko.ressources.CarteObjectifPanda;
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
+import takenoko.service.IClientService;
 import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.MainJoueur;
 import takenoko.utilitaires.TricheException;
@@ -34,6 +36,9 @@ public class IAPanda implements IA {
     public FeuilleJoueur getFeuilleJoueur() {
         return feuilleJoueur;
     }
+
+    @Autowired
+    private IClientService iService;
 
     public IAPanda() {
         feuilleJoueur = new FeuilleJoueur();

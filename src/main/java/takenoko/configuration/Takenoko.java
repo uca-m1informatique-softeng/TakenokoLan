@@ -23,6 +23,11 @@ public class Takenoko {
     private int nbNull = 0;
     private ArrayList<StatistiqueJoueur> listPlayer = new ArrayList<>();
 
+    private Terrain terrain;
+    private Panda panda;
+    private Jardinier jardinier;
+    private LaPiocheParcelle laPiocheParcelle;
+
     public String nbPartie(int nbPartie, int nbBotBob, int nbBotJoe) {
         LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
         //init bot Bob
@@ -56,10 +61,10 @@ public class Takenoko {
 
     private void partie(ArrayList<StatistiqueJoueur> listPlayer) {
         // initialisations
-        Terrain terrain = new Terrain();
-        Panda panda = new Panda(terrain);
-        Jardinier jardinier = new Jardinier(terrain);
-        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+        terrain = new Terrain();
+        panda = new Panda(terrain);
+        jardinier = new Jardinier(terrain);
+        laPiocheParcelle = new LaPiocheParcelle();
         boolean finPartie = false;
         boolean jeuInfini = false;
 
@@ -164,5 +169,9 @@ public class Takenoko {
         LOGGER.setLevel(Level.ALL);
         nbPartie(1, 0, 1);
         return new Takenoko();
+    }
+
+    public LaPiocheParcelle getLaPiocheParcelle() {
+        return laPiocheParcelle;
     }
 }
