@@ -480,4 +480,8 @@ public class IAPanda implements IA {
     public void setNomBot(String nomBot) {
         this.nomBot = nomBot;
     }
+
+    public void setiService(ClientService iService) {
+        this.iService = iService;
+    }
 }

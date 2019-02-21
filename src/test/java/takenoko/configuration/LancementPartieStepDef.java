@@ -28,6 +28,6 @@ public class LancementPartieStepDef {
     }
     @Then("^on affiche hello")
     public void afficherHello() throws Throwable {
-        assertEquals("hello",takenoko.nbPartie(1,0,1));
+        assertEquals("hello",takenoko.nbPartie(1,1,0));
     }
 }

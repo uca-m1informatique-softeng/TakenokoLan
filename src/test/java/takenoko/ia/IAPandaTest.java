@@ -1,7 +1,21 @@
 package takenoko.ia;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.RestTemplate;
 import takenoko.entites.Entite;
 import takenoko.entites.Jardinier;
 import takenoko.entites.Panda;
@@ -11,11 +25,16 @@ import takenoko.pioches.LesPiochesObjectif;
 import takenoko.ressources.CarteObjectifPanda;
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.Parcelle;
+import takenoko.service.impl.ClientService;
 import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
+
+import static org.mockito.Mockito.when;
+
 
 public class IAPandaTest {
     private static final int TAILLE_MAIN_MAX = 5;
@@ -30,6 +49,10 @@ public class IAPandaTest {
         Jardinier jardinier = new Jardinier(terrain);
         Panda panda = new Panda(terrain);
         LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+
+        ClientService iService = Mockito.mock(ClientService.class);
+        IAPanda.setiService(iService);
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
 
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
@@ -61,6 +84,10 @@ public class IAPandaTest {
 
         terrain.changements(p1, IAPanda);
 
+        ClientService iService = Mockito.mock(ClientService.class);
+        IAPanda.setiService(iService);
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer une parcelle
         Assert.assertEquals(3, terrain.getZoneJouee().size());
@@ -88,6 +115,10 @@ public class IAPandaTest {
         p2.setCouleur(Parcelle.Couleur.ROSE);
         terrain.changements(p2, IAPanda);
         terrain.getZoneJouee().get(new Coordonnees(-1, 1, 0)).mangerBambou();
+
+        ClientService iService = Mockito.mock(ClientService.class);
+        IAPanda.setiService(iService);
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
 
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer une parcelle
