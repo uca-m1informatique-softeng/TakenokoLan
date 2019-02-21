@@ -160,7 +160,6 @@ public class Takenoko {
         }
     }
 
-    @Bean
     public Takenoko Takenoko() {
         LOGGER.setLevel(Level.ALL);
         nbPartie(1, 0, 1);
