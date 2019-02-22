@@ -8,6 +8,3 @@ Feature: Lancer une partie
     When la partie est en cours
     Then on affiche hello
 
-
-
-
