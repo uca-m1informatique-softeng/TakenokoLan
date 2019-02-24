@@ -11,16 +11,27 @@ import java.util.ArrayList;
 
 @Service
 public class ClientService implements IClientService {
-
-    private RestTemplate restTemplate= new RestTemplate();
+    private static String REST_SERVICE_URI = "http://localhost:8080";
+    private RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public ArrayList<Parcelle> piocher() {
         return restTemplate.exchange(
-                "http://localhost:8080/Piocher",
+                REST_SERVICE_URI + "/Piocher",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<ArrayList<Parcelle>>() {
                 }).getBody();
+    }
+
+    /**
+     * Méthode pour reposer les parcelles sous la pioche
+     *
+     * @param aRemettre les parcelles piocher que le bot doit remettre sous la pioche
+     */
+    @Override
+    public void reposeSousLaPioche(ArrayList<Parcelle> aRemettre) {
+        restTemplate.postForLocation(REST_SERVICE_URI + "/ReposeSousLaPioche", aRemettre, new ParameterizedTypeReference<ArrayList<Parcelle>>() {
+        });
     }
 }

@@ -88,7 +88,8 @@ public class IARandom implements IA {
         int choixParcelle = rand.nextInt(j);
         LOGGER.info(nomBot + "choisit la parcelle n°" + (choixParcelle + 1));
         p = troisParcelles.get(choixParcelle);
-        piocheParcelle.reposeSousLaPioche(troisParcelles, choixParcelle);
+        troisParcelles.remove(p);
+        piocheParcelle.reposeSousLaPioche(troisParcelles);
         return p;
     }
 

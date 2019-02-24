@@ -34,13 +34,15 @@ public class LaPiocheParcelleTest {
             main = laPiocheParcelle.piocherParcelle();
             if (i >= 2) {
                 Assert.assertEquals(laPiocheParcelle.NB_CARTE_A_PIOCHER, main.size());
-                laPiocheParcelle.reposeSousLaPioche(main, 1);
+                main.remove(1);
+                laPiocheParcelle.reposeSousLaPioche(main);
                 NB_PARCELLE_TOTAL--;
                 Assert.assertEquals(NB_PARCELLE_TOTAL, laPiocheParcelle.getPioche().size());
 
             } else {
                 Assert.assertEquals(i + 1, main.size());
-                laPiocheParcelle.reposeSousLaPioche(main, 1);
+                main.remove(1);
+                laPiocheParcelle.reposeSousLaPioche(main);
                 NB_PARCELLE_TOTAL--;
                 Assert.assertEquals(NB_PARCELLE_TOTAL, laPiocheParcelle.getPioche().size());
             }

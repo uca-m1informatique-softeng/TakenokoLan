@@ -75,8 +75,7 @@ public class LaPiocheParcelle {
         return main;
     }
 
-    public void reposeSousLaPioche(ArrayList<Parcelle> aRemettre, int parcellePosee) {
-        aRemettre.remove(parcellePosee);
+    public void reposeSousLaPioche(ArrayList<Parcelle> aRemettre) {
         pioche.addAll(aRemettre);
     }
 }
