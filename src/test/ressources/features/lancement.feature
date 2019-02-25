@@ -1,7 +1,7 @@
 Feature: Lancer une partie
 
   Background :
-    Given un terrain
+    Given le terrain
     And un bot
 
   Scenario: une partie est lancee

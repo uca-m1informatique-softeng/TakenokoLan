@@ -19,19 +19,19 @@ public class FairePousserBambousStepDef {
     Parcelle p = new Parcelle(new Coordonnees(1, 0, 1));
 
     @Given("^un terrain avec des parcelles irriguées")
-    public void initTerrain() throws Throwable {
+    public void initTerrain() {
 
         p1.setCouleur(Parcelle.Couleur.VERTE);
         p.setCouleur(Parcelle.Couleur.VERTE);
     }
 
     @And("^un jardinier")
-    public void initJardinier() throws Throwable {
+    public void initJardinier() {
         Jardinier jardinier = new Jardinier(terrain);
     }
 
     @When("^on pose d'une parcelle")
-    public void poseParcelle() throws Throwable {
+    public void poseParcelle() {
         initTerrain();
         terrain.getZoneJouee().put(p.getCoord(), p);
         p.setIrriguee(true);
@@ -40,14 +40,14 @@ public class FairePousserBambousStepDef {
 
     }
     @Then("^il y a un seul bambou")
-    public void nbBambou() throws Throwable {
+    public void nbBambou()  {
         initTerrain();
         Assert.assertEquals(1, p.getBambou());
     }
 
 
     @When("^le jardinier se déplace sur une parcelle")
-    public void deplacementJardinier() throws Throwable {
+    public void deplacementJardinier() {
         initTerrain();
         initJardinier();
         poseParcelle();
@@ -62,7 +62,7 @@ public class FairePousserBambousStepDef {
 
     }
     @Then("^le nombre de bambous augmente")
-    public void nbBambous() throws Throwable {
+    public void nbBambous()  {
         Assert.assertEquals(2, p1.getBambou());
     }
 }
