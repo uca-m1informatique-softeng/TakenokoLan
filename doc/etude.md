@@ -1,6 +1,6 @@
 ressources :  
 - Parcelles
-- Coordonnes
+- Coordonnees
 - CartesObjectifs(panda,jardinier,parcelle)
 
 Interface : 
