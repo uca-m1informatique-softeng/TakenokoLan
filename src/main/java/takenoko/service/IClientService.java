@@ -8,4 +8,6 @@ public interface IClientService {
     ArrayList<Parcelle> piocher();
 
     void reposeSousLaPioche(ArrayList<Parcelle> aRemettre);
+
+    public Boolean piocheParcelleIsEmpty();
 }

@@ -34,4 +34,13 @@ public class ClientService implements IClientService {
         restTemplate.postForLocation(REST_SERVICE_URI + "/ReposeSousLaPioche", aRemettre, new ParameterizedTypeReference<ArrayList<Parcelle>>() {
         });
     }
+
+    @Override
+    public Boolean piocheParcelleIsEmpty() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/PiocheParcelleVide",
+                HttpMethod.GET,
+                null,
+                boolean.class).getBody();
+    }
 }
