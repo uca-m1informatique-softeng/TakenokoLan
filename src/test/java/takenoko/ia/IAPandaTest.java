@@ -39,6 +39,7 @@ public class IAPandaTest {
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
 
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
