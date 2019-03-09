@@ -53,7 +53,7 @@ public class IAPanda implements IA {
         verifObjectif(terrain);
         while (feuilleJoueur.getNbAction() > 0) {
 
-            choisirAction(terrain, piocheParcelle);
+            choisirAction(terrain);
             faireAction(lesPiochesObjectif, terrain, jardinier, panda);
         }
         verifObjectif(terrain);
@@ -68,11 +68,11 @@ public class IAPanda implements IA {
         }
     }
 
-    private void choisirAction(Terrain terrain, LaPiocheParcelle piocheParcelle) {
+    private void choisirAction(Terrain terrain ) {
         int newAction;
         do {
             if (terrain.getZoneJouee().size() > 1) {
-                if (!uneCouleurDeChaque(terrain.getZoneJouee()) && feuilleJoueur.getActionChoisie() != 0 && !piocheParcelle.getPioche().isEmpty()) {
+                if (!uneCouleurDeChaque(terrain.getZoneJouee()) && feuilleJoueur.getActionChoisie() != 0 && !iService.piocheParcelleIsEmpty()) {
                     //sinon il pose une parcelle
                     newAction = 0;
                 } else {

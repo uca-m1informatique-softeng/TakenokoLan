@@ -38,7 +38,7 @@ public class ClientService implements IClientService {
     @Override
     public Boolean piocheParcelleIsEmpty() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/PiocheParcelleVide",
+                REST_SERVICE_URI + "/PiocheParcelleIsEmpty",
                 HttpMethod.GET,
                 null,
                 boolean.class).getBody();
