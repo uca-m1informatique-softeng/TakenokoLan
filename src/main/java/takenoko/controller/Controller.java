@@ -7,7 +7,7 @@ import takenoko.ressources.Parcelle;
 import java.util.ArrayList;
 
 @RestController
-public class controller {
+public class Controller {
 
     private Takenoko takenoko;
 
@@ -26,5 +26,10 @@ public class controller {
     @PostMapping(value = "/ReposeSousLaPioche")
     public void reposeSousLaPioche(@RequestBody ArrayList<Parcelle> aRemettre) {
         takenoko.getLaPiocheParcelle().reposeSousLaPioche(aRemettre);
+    }
+
+    @GetMapping(value = "/PiocheParcelleIsEmpty")
+    public Boolean reposeSousLaPioche() {
+        return takenoko.getLaPiocheParcelle().getPioche().isEmpty();
     }
 }
