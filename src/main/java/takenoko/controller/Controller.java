@@ -11,10 +11,17 @@ public class Controller {
 
     private Takenoko takenoko;
 
+    @GetMapping(value = "/init")
+    public String init() {
+        takenoko = new Takenoko();
+        takenoko.initPartie();
+        return "init done";
+    }
+
     @RequestMapping(path = "/launch")
     public String launch() {
         takenoko = new Takenoko();
-        takenoko.Takenoko();
+        takenoko.takenoko();
         return "done";
     }
 

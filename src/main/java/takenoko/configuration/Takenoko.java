@@ -1,7 +1,6 @@
 package takenoko.configuration;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import takenoko.entites.Jardinier;
 import takenoko.entites.Panda;
@@ -12,7 +11,6 @@ import takenoko.pioches.LesPiochesObjectif;
 import takenoko.utilitaires.StatistiqueJoueur;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +25,7 @@ public class Takenoko {
     private Panda panda;
     private Jardinier jardinier;
     private LaPiocheParcelle laPiocheParcelle;
+    private LesPiochesObjectif lesPiochesObjectif;
 
     public String nbPartie(int nbPartie, int nbBotBob, int nbBotJoe) {
         LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
@@ -61,16 +60,13 @@ public class Takenoko {
 
     private void partie(ArrayList<StatistiqueJoueur> listPlayer) {
         // initialisations
-        terrain = new Terrain();
-        panda = new Panda(terrain);
-        jardinier = new Jardinier(terrain);
-        laPiocheParcelle = new LaPiocheParcelle();
+        initPartie();
+
         boolean finPartie = false;
         boolean jeuInfini = false;
 
         int nbTour = 0;
 
-        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
         int memoirePoints[] = new int[listPlayer.size()];
         for (int j = 0; j < listPlayer.size(); j++) {
             memoirePoints[j] = -1;
@@ -165,7 +161,15 @@ public class Takenoko {
         }
     }
 
-    public Takenoko Takenoko() {
+    public void initPartie() {
+        terrain = new Terrain();
+        panda = new Panda(terrain);
+        jardinier = new Jardinier(terrain);
+        laPiocheParcelle = new LaPiocheParcelle();
+        lesPiochesObjectif = new LesPiochesObjectif();
+    }
+
+    public Takenoko takenoko() {
         LOGGER.setLevel(Level.ALL);
         nbPartie(1, 0, 1);
         return new Takenoko();
@@ -173,5 +177,21 @@ public class Takenoko {
 
     public LaPiocheParcelle getLaPiocheParcelle() {
         return laPiocheParcelle;
+    }
+
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public Panda getPanda() {
+        return panda;
+    }
+
+    public Jardinier getJardinier() {
+        return jardinier;
+    }
+
+    public LesPiochesObjectif getLesPiochesObjectif() {
+        return lesPiochesObjectif;
     }
 }
