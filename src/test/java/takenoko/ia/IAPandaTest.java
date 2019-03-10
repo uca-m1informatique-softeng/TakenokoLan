@@ -3,6 +3,7 @@ package takenoko.ia;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+import takenoko.configuration.Takenoko;
 import takenoko.entites.Entite;
 import takenoko.entites.Jardinier;
 import takenoko.entites.Panda;
@@ -54,13 +55,15 @@ public class IAPandaTest {
     //Parcelle & Panda
     @Test
     public void IAPandaTest2() throws TricheException {
+        Takenoko takenoko= new Takenoko();
+        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = new Terrain();
-        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
-        Jardinier jardinier = new Jardinier(terrain);
-        Panda panda = new Panda(terrain);
-        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+        Terrain terrain = takenoko.getTerrain();
+        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
+        Jardinier jardinier = takenoko.getJardinier();
+        Panda panda = takenoko.getPanda();
+        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
         cartesObjectifs.add(new CarteObjectifPanda(Parcelle.Couleur.ROSE, 5));
@@ -74,6 +77,8 @@ public class IAPandaTest {
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
 
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer une parcelle
@@ -121,13 +126,15 @@ public class IAPandaTest {
     // Panda & Jardinier + Panda & Objectif
     @Test
     public void IAPandaTest4()throws TricheException {
+        Takenoko takenoko= new Takenoko();
+        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = new Terrain();
-        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
-        Jardinier jardinier = new Jardinier(terrain);
-        Panda panda = new Panda(terrain);
-        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+        Terrain terrain = takenoko.getTerrain();
+        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
+        Jardinier jardinier = takenoko.getJardinier();
+        Panda panda = takenoko.getPanda();
+        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
         cartesObjectifs.add(new CarteObjectifPanda(Parcelle.Couleur.ROSE, 5));
@@ -156,6 +163,11 @@ public class IAPandaTest {
         } catch (TricheException e) {
             e.printStackTrace();
         }
+        ClientService iService = Mockito.mock(ClientService.class);
+        IAPanda.setiService(iService);
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
 
         //essaye de rejoindre p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
@@ -167,6 +179,9 @@ public class IAPandaTest {
         //IA Panda a bien jouer le jardinier
         Assert.assertTrue(verifDeplacementCoude(jardinier, p3));
 
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         //est sur p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
@@ -174,6 +189,9 @@ public class IAPandaTest {
         //IA Panda a bien jouer le jardinier
         Assert.assertEquals(p2.getCoord(), jardinier.getCoordonnees());
 
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         //ne pouvant pas aller sur p2 il essaye de deplacer au plus proche du centre soit ici 0,0,0
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
@@ -185,6 +203,9 @@ public class IAPandaTest {
         p2.pousserBambou();
         p2.pousserBambou();
 
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
         Assert.assertEquals(p2.getCoord(), panda.getCoordonnees());
@@ -197,13 +218,18 @@ public class IAPandaTest {
     //reussi un objectif une couleur de chaque quand le terrain est en place
     @Test
     public void IAPandaTest5() throws TricheException{
+        Takenoko takenoko= new Takenoko();
+        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = new Terrain();
-        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
-        Jardinier jardinier = new Jardinier(terrain);
-        Panda panda = new Panda(terrain);
-        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+        Terrain terrain = takenoko.getTerrain();
+        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
+        Jardinier jardinier = takenoko.getJardinier();
+        Panda panda = takenoko.getPanda();
+        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+
+        ClientService iService = Mockito.mock(ClientService.class);
+        IAPanda.setiService(iService);
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
         cartesObjectifs.add(new CarteObjectifPanda(6, Parcelle.Couleur.VERTE, Parcelle.Couleur.ROSE, Parcelle.Couleur.JAUNE));
@@ -228,8 +254,17 @@ public class IAPandaTest {
         terrain.changements(p3, IA.newIA(IA.Type.RANDOM));
         terrain.getZoneJouee().get(new Coordonnees(0, 1, -1)).mangerBambou();
 
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
         //reussi un objectif une couleur de chaque
@@ -268,13 +303,19 @@ public class IAPandaTest {
     //favorise un objectif pouvant etre fini sur cette action
     @Test
     public void IAPandaTest6() throws TricheException{
+        Takenoko takenoko= new Takenoko();
+        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = new Terrain();
-        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
-        Jardinier jardinier = new Jardinier(terrain);
-        Panda panda = new Panda(terrain);
-        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+        Terrain terrain = takenoko.getTerrain();
+        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
+        Jardinier jardinier = takenoko.getJardinier();
+        Panda panda = takenoko.getPanda();
+        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+
+        ClientService iService = Mockito.mock(ClientService.class);
+        IAPanda.setiService(iService);
+
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
         cartesObjectifs.add(new CarteObjectifPanda(Parcelle.Couleur.ROSE, 5));
@@ -299,6 +340,9 @@ public class IAPandaTest {
         terrain.changements(p3, IA.newIA(IA.Type.RANDOM));
         terrain.getZoneJouee().get(new Coordonnees(-1, 1, 0)).mangerBambou();
 
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         //IA Panda va faire l'objectif JAUNE car il peut le finir sur ce tour
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 

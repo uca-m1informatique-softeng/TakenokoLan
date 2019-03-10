@@ -1,5 +1,6 @@
 package takenoko.pioches;
 
+import cucumber.api.CucumberOptions;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -11,6 +12,7 @@ import takenoko.SpringRootTest;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
+@CucumberOptions(glue = "piocheParcelleIsEmpty.feature")
 
 public class PiocheParcelleIsEmpty extends SpringRootTest {
     private ResponseEntity<Boolean> response; // output

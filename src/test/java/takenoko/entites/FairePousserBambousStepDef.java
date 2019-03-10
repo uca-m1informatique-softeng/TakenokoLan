@@ -3,6 +3,7 @@ package takenoko.entites;
 import cucumber.api.java.en.*;
 
 import org.junit.Assert;
+import takenoko.SpringRootTest;
 import takenoko.ia.IAPanda;
 import takenoko.moteur.Terrain;
 import takenoko.ressources.Parcelle;
