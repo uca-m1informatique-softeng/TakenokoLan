@@ -3,6 +3,7 @@ package takenoko.controller;
 import org.springframework.web.bind.annotation.*;
 import takenoko.configuration.Takenoko;
 import takenoko.ressources.Parcelle;
+import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
 
@@ -38,5 +39,10 @@ public class Controller {
     @GetMapping(value = "/PiocheParcelleIsEmpty")
     public Boolean reposeSousLaPioche() {
         return takenoko.getLaPiocheParcelle().getPioche().isEmpty();
+    }
+
+    @GetMapping(value = "/PandaGetDeplacementsPossible")
+    public ArrayList<Coordonnees> pandaGetDeplacementsPossible() {
+        return takenoko.getPanda().getDeplacementsPossible(takenoko.getTerrain().getZoneJouee());
     }
 }
