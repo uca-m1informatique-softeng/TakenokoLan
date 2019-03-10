@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import takenoko.ressources.Parcelle;
 import takenoko.service.IClientService;
+import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
 
@@ -42,5 +43,15 @@ public class ClientService implements IClientService {
                 HttpMethod.GET,
                 null,
                 boolean.class).getBody();
+    }
+
+    @Override
+    public ArrayList<Coordonnees> pandaGetDeplacementsPossible() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/PandaGetDeplacementsPossible",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
+                }).getBody();
     }
 }

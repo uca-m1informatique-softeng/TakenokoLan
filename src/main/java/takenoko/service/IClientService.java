@@ -1,6 +1,7 @@
 package takenoko.service;
 
 import takenoko.ressources.Parcelle;
+import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
 
@@ -10,4 +11,6 @@ public interface IClientService {
     void reposeSousLaPioche(ArrayList<Parcelle> aRemettre);
 
     public Boolean piocheParcelleIsEmpty();
+
+    ArrayList<Coordonnees> pandaGetDeplacementsPossible();
 }
