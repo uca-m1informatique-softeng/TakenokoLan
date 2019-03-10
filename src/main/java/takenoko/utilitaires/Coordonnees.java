@@ -10,6 +10,8 @@ public class Coordonnees {
     private int y;
     private int z;
 
+    public Coordonnees(){}
+    
     public Coordonnees(int x, int y, int z) {
         this.x = x;
         this.y = y;
@@ -38,8 +40,13 @@ public class Coordonnees {
         return (x == ((Coordonnees) o).x && y == ((Coordonnees) o).y && z == ((Coordonnees) o).z);
     }
 
+    @Override
     public String toString() {
-        return "(" + getX() + "," + getY() + "," + getZ() + ")";
+        return "Coordonnees{" +
+                "x=" + x +
+                ", y=" + y +
+                ", z=" + z +
+                '}';
     }
 
     public int hashCode() {

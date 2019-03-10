@@ -130,7 +130,7 @@ public class IAPanda implements IA {
             }
         } else if (feuilleJoueur.getActionChoisie() == 2) {
             //Bot déplace le panda
-            valeurDeplacementPanda(terrain, panda.getDeplacementsPossible(terrain.getZoneJouee()));
+            valeurDeplacementPanda(terrain, iService.pandaGetDeplacementsPossible());
             deplacementPanda(posCartePanda(), panda, jardinier, terrain, lesPiochesObjectif);
         } else if (feuilleJoueur.getActionChoisie() == 3) {
             //Bot déplace le jardinier
@@ -356,7 +356,7 @@ public class IAPanda implements IA {
                 //on récupère  les coordonnes qui nous permettent d'aller sur celle voulu
                 co.deplacementPossible(terrain.getZoneJouee(), cooParcelle);
             }
-            for (Coordonnees co : panda.getDeplacementsPossible(terrain.getZoneJouee())) {
+            for (Coordonnees co : iService.pandaGetDeplacementsPossible()) {
                 if (cooParcelle.contains(co)) {
                     //si le panda peut si rendre
                     c = co;
@@ -364,7 +364,7 @@ public class IAPanda implements IA {
                 }
             }
         } else if (!panda.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(panda.getDeplacementsPossible(terrain.getZoneJouee()), panda);
+            c = procheDuCentre(iService.pandaGetDeplacementsPossible(), panda);
         }
         return c;
     }
