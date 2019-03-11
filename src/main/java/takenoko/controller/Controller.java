@@ -50,11 +50,4 @@ public class Controller {
     public Boolean piochePandaIsEmpty() {
         return takenoko.getLesPiochesObjectif().getLaPiocheObjectifsPanda().getPioche().isEmpty();
     }
-
-
-    @GetMapping(value = "/JardinierGetDeplacementsPossible")
-    public ArrayList<Coordonnees> jardinierGetDeplacementsPossible() {
-        return takenoko.getJardinier().getDeplacementsPossible(takenoko.getTerrain().getZoneJouee());
-    }
-
 }

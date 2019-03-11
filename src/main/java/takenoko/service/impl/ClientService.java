@@ -63,14 +63,4 @@ public class ClientService implements IClientService {
                 null,
                 boolean.class).getBody();
     }
-
-    @Override
-    public ArrayList<Coordonnees> jardinierGetDeplacementsPossible() {
-        return restTemplate.exchange(
-                REST_SERVICE_URI + "/JardinierGetDeplacementsPossible",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
-                }).getBody();
-    }
 }

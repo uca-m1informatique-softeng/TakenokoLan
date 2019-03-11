@@ -1,5 +1,7 @@
 package takenoko.ia;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import takenoko.entites.Entite;
 import takenoko.entites.Jardinier;
@@ -11,6 +13,7 @@ import takenoko.ressources.CarteObjectifPanda;
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
+import takenoko.service.IClientService;
 import takenoko.service.impl.ClientService;
 import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.MainJoueur;
@@ -131,7 +134,7 @@ public class IAPanda implements IA {
             deplacementPanda(posCartePanda(), panda, jardinier, terrain, lesPiochesObjectif);
         } else if (feuilleJoueur.getActionChoisie() == 3) {
             //Bot déplace le jardinier
-            valeurDeplacementJardinier(terrain, iService.jardinierGetDeplacementsPossible());
+            valeurDeplacementJardinier(terrain, jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
             deplacementJardinier(posCartePanda(), panda, jardinier, terrain, lesPiochesObjectif);
         }
     }
@@ -378,7 +381,7 @@ public class IAPanda implements IA {
                 //on récupère  les coordonnes qui nous permettent d'aller sur celle voulu
                 co.deplacementPossible(terrain.getZoneJouee(), cooParcelle);
             }
-            for (Coordonnees co : iService.jardinierGetDeplacementsPossible()) {
+            for (Coordonnees co : jardinier.getDeplacementsPossible(terrain.getZoneJouee())) {
                 if (cooParcelle.contains(co)) {
                     //si le jardinier peut si rendre
                     c = co;
@@ -386,7 +389,7 @@ public class IAPanda implements IA {
                 }
             }
         } else if (!jardinier.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), jardinier);
+            c = procheDuCentre(jardinier.getDeplacementsPossible(terrain.getZoneJouee()), jardinier);
         }
         return c;
     }
