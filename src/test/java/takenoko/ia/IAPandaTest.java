@@ -111,7 +111,7 @@ public class IAPandaTest {
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
-
+        when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer une parcelle
         Assert.assertEquals(3, terrain.getZoneJouee().size());
@@ -168,7 +168,7 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
-
+        when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
         //essaye de rejoindre p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda n'a pas poser de parcelle (3 poser plus haut + la source)
@@ -182,6 +182,8 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+
         //est sur p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
@@ -192,6 +194,8 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+
         //ne pouvant pas aller sur p2 il essaye de deplacer au plus proche du centre soit ici 0,0,0
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
@@ -261,10 +265,15 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
         //reussi un objectif une couleur de chaque
