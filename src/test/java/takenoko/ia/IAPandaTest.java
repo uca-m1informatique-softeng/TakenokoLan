@@ -119,7 +119,7 @@ public class IAPandaTest {
         if (verifPoseParcelleRose(terrain)) {
             Assert.assertEquals(Parcelle.Couleur.ROSE, terrain.getZoneJouee().get(jardinier.getCoordonnees()).getCouleur());
         } else {
-            Assert.assertEquals(Parcelle.Couleur.SOURCE, terrain.getZoneJouee().get(jardinier.getCoordonnees()).getCouleur());
+            Assert.assertEquals(Parcelle.Couleur.ROSE, terrain.getZoneJouee().get(jardinier.getCoordonnees()).getCouleur());
         }
     }
 
