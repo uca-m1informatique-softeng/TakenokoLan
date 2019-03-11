@@ -274,7 +274,7 @@ public class IAPanda implements IA {
             }
             //si il a une deuxieme action
             verifObjectif(terrain);
-            if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && feuilleJoueur.getActionChoisie() != 1 && !lesPiochesObjectif.isEmptyPiocheObjectifsPanda() && feuilleJoueur.getNbAction() == 1) {
+            if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && feuilleJoueur.getActionChoisie() != 1 && !iService.piochePandaIsEmpty() && feuilleJoueur.getNbAction() == 1) {
                 feuilleJoueur.setActionChoisie(1);
                 faireAction(lesPiochesObjectif, terrain, jardinier, panda);
             } else if (feuilleJoueur.getActionChoisie() != 3 && feuilleJoueur.getNbAction() == 1) {
@@ -305,7 +305,7 @@ public class IAPanda implements IA {
 
     private void aucunCoupInterressant(Panda panda, Jardinier jardinier, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
         verifObjectif(terrain);
-        if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && feuilleJoueur.getActionChoisie() != 1 && !lesPiochesObjectif.isEmptyPiocheObjectifsPanda() && feuilleJoueur.getNbAction() == 1) {
+        if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && feuilleJoueur.getActionChoisie() != 1 && !iService.piochePandaIsEmpty() && feuilleJoueur.getNbAction() == 1) {
             feuilleJoueur.setActionChoisie(1);
             faireAction(lesPiochesObjectif, terrain, jardinier, panda);
         } else {
