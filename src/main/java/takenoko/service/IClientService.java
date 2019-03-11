@@ -10,7 +10,9 @@ public interface IClientService {
 
     void reposeSousLaPioche(ArrayList<Parcelle> aRemettre);
 
-    public Boolean piocheParcelleIsEmpty();
+    Boolean piocheParcelleIsEmpty();
 
     ArrayList<Coordonnees> pandaGetDeplacementsPossible();
+
+    Boolean piochePandaIsEmpty();
 }

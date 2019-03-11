@@ -54,4 +54,13 @@ public class ClientService implements IClientService {
                 new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
                 }).getBody();
     }
+
+    @Override
+    public Boolean piochePandaIsEmpty() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/PiochePandaIsEmpty",
+                HttpMethod.GET,
+                null,
+                boolean.class).getBody();
+    }
 }
