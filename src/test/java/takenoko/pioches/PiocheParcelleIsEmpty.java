@@ -30,7 +30,7 @@ public class PiocheParcelleIsEmpty extends SpringRootTest {
     @Then("^le client reçoit status code (\\d+)$")
     public void clientRecoitStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response.getStatusCode();
-
+        assertEquals(currentStatusCode.value(),statusCode);
         assertThat("status code is incorrect : " + response.getBody(), currentStatusCode.value(), is(statusCode));
     }
 

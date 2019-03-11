@@ -37,12 +37,17 @@ public class Controller {
     }
 
     @GetMapping(value = "/PiocheParcelleIsEmpty")
-    public Boolean reposeSousLaPioche() {
+    public Boolean piocheParcelleIsEmpty() {
         return takenoko.getLaPiocheParcelle().getPioche().isEmpty();
     }
 
     @GetMapping(value = "/PandaGetDeplacementsPossible")
     public ArrayList<Coordonnees> pandaGetDeplacementsPossible() {
         return takenoko.getPanda().getDeplacementsPossible(takenoko.getTerrain().getZoneJouee());
+    }
+
+    @GetMapping(value = "/PiochePandaIsEmpty")
+    public Boolean piochePandaIsEmpty() {
+        return takenoko.getLesPiochesObjectif().getLaPiocheObjectifsPanda().getPioche().isEmpty();
     }
 }
