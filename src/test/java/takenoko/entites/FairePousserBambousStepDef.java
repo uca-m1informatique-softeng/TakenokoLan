@@ -3,11 +3,12 @@ package takenoko.entites;
 import cucumber.api.java.en.*;
 
 import org.junit.Assert;
-import takenoko.SpringRootTest;
 import takenoko.ia.IAPanda;
+import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 import java.util.ArrayList;
 
@@ -55,7 +56,7 @@ public class FairePousserBambousStepDef {
         deplacementPossible = jardinier.getDeplacementsPossible(terrain.getZoneJouee());
         int i = deplacementPossible.indexOf(p1.getCoord());
         try {
-            jardinier.deplacerEntite(deplacementPossible.get(i), new IAPanda());
+            jardinier.deplacerEntite(deplacementPossible.get(i), new FeuilleJoueur(""));
         }catch (TricheException e){
             e.printStackTrace();
         }

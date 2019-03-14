@@ -10,7 +10,7 @@ import takenoko.SpringRootTest;
 
 import static org.junit.Assert.assertEquals;
 
-public class PiocheParcelleIsEmpty extends SpringRootTest {
+public class PiocheParcelleIsEmptyStepDef extends SpringRootTest {
     private ResponseEntity<Boolean> response; // output
 
     @Given("^une partie$")

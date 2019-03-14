@@ -2,11 +2,15 @@ package takenoko.ressources;
 
 import takenoko.ia.IA;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FeuilleJoueur {
     public static final Logger LOGGER = Logger.getLogger(FeuilleJoueur.class.getCanonicalName());
+
+    private ArrayList<CartesObjectifs> mainObjectif = new ArrayList<>();
+    private String name;
     private int nbBambouJaune = 0;
     private int nbBambouRose = 0;
     private int nbBambouVert = 0;
@@ -20,7 +24,8 @@ public class FeuilleJoueur {
     private int pointsBot = 0;
     private int nbObjectifsValide = 0;
 
-    public FeuilleJoueur() {
+    public FeuilleJoueur(String name) {
+        this.name=name;
         LOGGER.setLevel(Level.OFF);
     }
 
@@ -72,10 +77,10 @@ public class FeuilleJoueur {
         return nb_irrigation;
     }
 
-    public void majPointsEtMain(CartesObjectifs carte, IA bot) {
+    public void majPointsEtMain(CartesObjectifs carte) {
         pointsBot = pointsBot + carte.getPoints();
-        LOGGER.info(bot.getNomBot() + " fini l'objectif de : " + carte + ".");
-        bot.getMainObjectif().remove(carte);
+        LOGGER.info(name + " fini l'objectif de : " + carte + ".");
+        mainObjectif.remove(carte);
         nbObjectifsValide++;
         LOGGER.info("nombre d'objectif validé : " + nbObjectifsValide);
     }
@@ -84,7 +89,7 @@ public class FeuilleJoueur {
         return nbObjectifsValide;
     }
 
-    public int getNb_bambou_jaune() {
+    public int getNbBambouJaune() {
         return nbBambouJaune;
     }
 
@@ -122,5 +127,32 @@ public class FeuilleJoueur {
 
     public void setPrecedant(int precedant) {
         this.precedant = precedant;
+    }
+
+    @Override
+    public String toString() {
+        return "FeuilleJoueur{" +
+                "nbBambouJaune=" + nbBambouJaune +
+                ", nbBambouRose=" + nbBambouRose +
+                ", nbBambouVert=" + nbBambouVert +
+                ", nb_irrigation=" + nb_irrigation +
+                ", nbAction=" + nbAction +
+                ", actionChoisie=" + actionChoisie +
+                ", precedant=" + precedant +
+                ", pointsBot=" + pointsBot +
+                ", nbObjectifsValide=" + nbObjectifsValide +
+                '}';
+    }
+
+    public ArrayList<CartesObjectifs> getMainObjectif() {
+        return mainObjectif;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setMainObjectif(ArrayList<CartesObjectifs> mainObjectif) {
+        this.mainObjectif = mainObjectif;
     }
 }

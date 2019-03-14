@@ -10,11 +10,8 @@ import takenoko.entites.Panda;
 import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
-import takenoko.ressources.CarteObjectifPanda;
-import takenoko.ressources.CartesObjectifs;
-import takenoko.ressources.Parcelle;
+import takenoko.ressources.*;
 import takenoko.service.impl.ClientService;
-import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -36,11 +33,16 @@ public class IAPandaTest {
         Jardinier jardinier = new Jardinier(terrain);
         Panda panda = new Panda(terrain);
         LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+        FeuilleJoueur feuilleJoueur= new FeuilleJoueur("IAPanda");
 
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
+        when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(),1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(feuilleJoueur.getActionChoisie(),0,0,1,1);
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
 
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
@@ -64,6 +66,7 @@ public class IAPandaTest {
         Jardinier jardinier = takenoko.getJardinier();
         Panda panda = takenoko.getPanda();
         LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        FeuilleJoueur feuilleJoueur= new FeuilleJoueur("IAPanda");
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
         cartesObjectifs.add(new CarteObjectifPanda(Parcelle.Couleur.ROSE, 5));
@@ -71,15 +74,17 @@ public class IAPandaTest {
 
         Parcelle p1 = new Parcelle(new Coordonnees(-1, 1, 0));
         p1.setCouleur(Parcelle.Couleur.ROSE);
-
-        terrain.changements(p1, IAPanda);
-
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
+
+        terrain.changements(p1, new FeuilleJoueur(""));
+
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
-
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(),1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,0,0,2,2);
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer une parcelle
         Assert.assertEquals(3, terrain.getZoneJouee().size());
@@ -98,6 +103,7 @@ public class IAPandaTest {
         Jardinier jardinier = new Jardinier(terrain);
         Panda panda = new Panda(terrain);
         LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
+        FeuilleJoueur feuilleJoueur= new FeuilleJoueur("IAPanda");
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
         cartesObjectifs.add(new CarteObjectifPanda(Parcelle.Couleur.ROSE, 5));
@@ -105,14 +111,19 @@ public class IAPandaTest {
 
         Parcelle p2 = new Parcelle(new Coordonnees(-1, 1, 0));
         p2.setCouleur(Parcelle.Couleur.ROSE);
-        terrain.changements(p2, IAPanda);
+        terrain.changements(p2, new FeuilleJoueur(""));
         terrain.getZoneJouee().get(new Coordonnees(-1, 1, 0)).mangerBambou();
 
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(),1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,0,0,3,3);
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+
         //IA Panda a bien jouer une parcelle
         Assert.assertEquals(3, terrain.getZoneJouee().size());
         //IA Panda a bien jouer le jardinier
@@ -135,6 +146,7 @@ public class IAPandaTest {
         Jardinier jardinier = takenoko.getJardinier();
         Panda panda = takenoko.getPanda();
         LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        FeuilleJoueur feuilleJoueur= new FeuilleJoueur("");
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
         cartesObjectifs.add(new CarteObjectifPanda(Parcelle.Couleur.ROSE, 5));
@@ -146,20 +158,20 @@ public class IAPandaTest {
 
         Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
         p1.setCouleur(Parcelle.Couleur.JAUNE);
-        terrain.changements(p1, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p1, new FeuilleJoueur(""));
         terrain.getZoneJouee().get(new Coordonnees(1, 0, -1)).mangerBambou();
 
         Parcelle p2 = new Parcelle(new Coordonnees(-1, 1, 0));
         p2.setCouleur(Parcelle.Couleur.ROSE);
-        terrain.changements(p2, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p2, new FeuilleJoueur(""));
 
         Parcelle p3 = new Parcelle(new Coordonnees(0, 1, -1));
         p3.setCouleur(Parcelle.Couleur.VERTE);
-        terrain.changements(p3, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p3, new FeuilleJoueur(""));
         terrain.getZoneJouee().get(new Coordonnees(0, 1, -1)).mangerBambou();
         try {
-            jardinier.deplacerEntite(p1.getCoord(), IA.newIA(IA.Type.RANDOM));
-            panda.deplacerEntite(p1.getCoord(), IA.newIA(IA.Type.RANDOM));
+            jardinier.deplacerEntite(p1.getCoord(), new FeuilleJoueur(""));
+            panda.deplacerEntite(p1.getCoord(), new FeuilleJoueur(""));
         } catch (TricheException e) {
             e.printStackTrace();
         }
@@ -169,6 +181,9 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(),1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,2,2,3,3);
         //essaye de rejoindre p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda n'a pas poser de parcelle (3 poser plus haut + la source)
@@ -183,6 +198,9 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(2,1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,2,2,2,3,3,3,3);
 
         //est sur p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
@@ -195,6 +213,9 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(2,1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,2,2,2,3,3,3,3);
 
         //ne pouvant pas aller sur p2 il essaye de deplacer au plus proche du centre soit ici 0,0,0
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
@@ -210,6 +231,9 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(2,1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,2,2,2,1,1);
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
         Assert.assertEquals(p2.getCoord(), panda.getCoordonnees());
@@ -231,6 +255,7 @@ public class IAPandaTest {
         Jardinier jardinier = takenoko.getJardinier();
         Panda panda = takenoko.getPanda();
         LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        FeuilleJoueur feuilleJoueur= new FeuilleJoueur("");
 
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
@@ -245,35 +270,43 @@ public class IAPandaTest {
 
         Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
         p1.setCouleur(Parcelle.Couleur.JAUNE);
-        terrain.changements(p1, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p1, new FeuilleJoueur(""));
         terrain.getZoneJouee().get(new Coordonnees(1, 0, -1)).mangerBambou();
 
         Parcelle p2 = new Parcelle(new Coordonnees(-1, 1, 0));
         p2.setCouleur(Parcelle.Couleur.ROSE);
-        terrain.changements(p2, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p2, new FeuilleJoueur(""));
         terrain.getZoneJouee().get(new Coordonnees(1, 0, -1)).mangerBambou();
 
         Parcelle p3 = new Parcelle(new Coordonnees(0, 1, -1));
         p3.setCouleur(Parcelle.Couleur.VERTE);
-        terrain.changements(p3, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p3,new FeuilleJoueur(""));
         terrain.getZoneJouee().get(new Coordonnees(0, 1, -1)).mangerBambou();
 
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(2,1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,2,2,2,3,3,3,3);
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
-
-
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(2,1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,2,2,2,3,3,3,3);
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
-
+        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(2,1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,2,2,2,3,3,3,3);
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
         //reussi un objectif une couleur de chaque
@@ -321,6 +354,7 @@ public class IAPandaTest {
         Jardinier jardinier = takenoko.getJardinier();
         Panda panda = takenoko.getPanda();
         LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        FeuilleJoueur feuilleJoueur= new FeuilleJoueur("");
 
         ClientService iService = Mockito.mock(ClientService.class);
         IAPanda.setiService(iService);
@@ -338,15 +372,15 @@ public class IAPandaTest {
 
         Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
         p1.setCouleur(Parcelle.Couleur.JAUNE);
-        terrain.changements(p1, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p1, new FeuilleJoueur(""));
 
         Parcelle p2 = new Parcelle(new Coordonnees(0, 1, -1));
         p2.setCouleur(Parcelle.Couleur.ROSE);
-        terrain.changements(p2, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p2, new FeuilleJoueur(""));
 
         Parcelle p3 = new Parcelle(new Coordonnees(-1, 1, 0));
         p3.setCouleur(Parcelle.Couleur.VERTE);
-        terrain.changements(p3, IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p3, new FeuilleJoueur(""));
         terrain.getZoneJouee().get(new Coordonnees(-1, 1, 0)).mangerBambou();
 
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());

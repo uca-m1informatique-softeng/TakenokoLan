@@ -8,7 +8,7 @@ import takenoko.moteur.Terrain;
 import takenoko.ressources.CarteObjectifJardinier;
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class LaPiocheObjectifsJardinierTest {
         CarteObjectifJardinier carteObjectifParcelle41 = new CarteObjectifJardinier(3, Parcelle.Couleur.JAUNE, 3, CartesObjectifs.Motif.LOSANGE);
         listeCartes.add(carteObjectifParcelle);
         listeCartes.add(carteObjectifParcelle2);
-
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
 
         for (int i = 0; i < 3; i++) {
@@ -87,6 +87,7 @@ public class LaPiocheObjectifsJardinierTest {
         IARandom.getFeuilleJoueur().setPointsBot(0);
         // cas G-HG
         listeCartes.add(carteObjectifParcelle3);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
@@ -96,6 +97,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -105,6 +107,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas HG-HD
         listeCartes.add(carteObjectifParcelle3);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
@@ -114,6 +117,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -123,6 +127,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas HD-D
         listeCartes.add(carteObjectifParcelle3);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
@@ -132,6 +137,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -141,6 +147,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas D-BD
         listeCartes.add(carteObjectifParcelle3);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
@@ -150,6 +157,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -159,6 +167,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas BD-BG
         listeCartes.add(carteObjectifParcelle3);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
@@ -168,6 +177,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -177,6 +187,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas BG-G
         listeCartes.add(carteObjectifParcelle3);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
@@ -186,6 +197,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -204,6 +216,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas HG-HD-HD/HG
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
@@ -214,6 +227,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -223,6 +237,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas HD-D-BD
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
@@ -233,6 +248,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -242,6 +258,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas HG-G-BD
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
@@ -252,6 +269,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -261,6 +279,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas BG-BD-BD/BG
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
@@ -271,6 +290,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -281,6 +301,7 @@ public class LaPiocheObjectifsJardinierTest {
         // cas HD-D-D/HD
         listeCartes.add(carteObjectifParcelle4);
         IARandom.setMainObjectif(listeCartes);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
@@ -290,6 +311,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -300,6 +322,7 @@ public class LaPiocheObjectifsJardinierTest {
         // cas BG-BD-D
         listeCartes.add(carteObjectifParcelle4);
         IARandom.setMainObjectif(listeCartes);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
@@ -309,6 +332,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -318,6 +342,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas G-HD-HD
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
@@ -328,6 +353,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -337,6 +363,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas G-BG-BG/G
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p2.getCoord(), p2);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
@@ -347,6 +374,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -356,6 +384,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas D-BD-BD/D
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
@@ -366,6 +395,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -375,6 +405,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas G-BG-BD
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
@@ -385,6 +416,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -394,6 +426,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas HG-HD-D
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p6.getCoord(), p6);
@@ -404,6 +437,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
@@ -413,6 +447,7 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas G-HG-HG/G
         listeCartes.add(carteObjectifParcelle4);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p6.getCoord(), p6);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
@@ -423,6 +458,7 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         IA.verifObjectifAccompli(terrain, IARandom);
         Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());

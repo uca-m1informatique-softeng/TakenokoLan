@@ -1,6 +1,7 @@
 package takenoko.utilitaires;
 
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 
 import java.util.ArrayList;
 

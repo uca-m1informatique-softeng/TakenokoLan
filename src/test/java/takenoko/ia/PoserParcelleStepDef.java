@@ -6,50 +6,60 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.mockito.Mockito;
+import org.mockito.internal.exceptions.Reporter;
+import org.springframework.beans.factory.annotation.Autowired;
+import takenoko.configuration.Takenoko;
 import takenoko.entites.Jardinier;
 import takenoko.entites.Panda;
 import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
+import takenoko.ressources.Parcelle;
 import takenoko.service.impl.ClientService;
+import takenoko.utilitaires.StatistiqueJoueur;
+import takenoko.utilitaires.TricheException;
+
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 public class PoserParcelleStepDef {
 
     LaPiocheParcelle laPiocheParcelle;
     Terrain terrain;
-    Jardinier jardinier;
-    Panda panda;
-    LesPiochesObjectif lesPiochesObjectif;
     IAPanda IAPanda;
+
+
+    Takenoko takenoko=new Takenoko();
 
     @Given("^un terrain")
     public void initTerrain(){
-        terrain = new Terrain();
+        terrain = takenoko.getTerrain();
     }
 
 
     @And("^une pioche de parcelles")
     public void initPiocheParcelles() {
-         laPiocheParcelle = new LaPiocheParcelle();
+         laPiocheParcelle = takenoko.getLaPiocheParcelle();
     }
 
     @When("^la parcelle est posée")
     public void poseParcelle()  {
+        takenoko.initPartie();
         initTerrain();
         initPiocheParcelles();
-        IAPanda = new IAPanda();
-
-        jardinier = new Jardinier(terrain);
-        panda = new Panda(terrain);
-
-        lesPiochesObjectif = new LesPiochesObjectif();
+        ArrayList<StatistiqueJoueur> listPlayer = new ArrayList<StatistiqueJoueur>();
+        listPlayer.add(new StatistiqueJoueur(IA.newIA(IA.Type.PANDA), 0, 0, 0,""));
+        takenoko.setListPlayer(listPlayer);
 
         ClientService iService = Mockito.mock(ClientService.class);
-        IAPanda.setiService(iService);
+        takenoko.getListPlayer().get(0).getIa().setiService(iService);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
+        when(iService.feuilleJoueurGetNbAction()).thenReturn(takenoko.getListPlayer().get(0).getFeuilleJoueur().getNbAction(),1,0);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(takenoko.getListPlayer().get(0).getFeuilleJoueur().getActionChoisie(),0,0,1,1);
 
-        IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+        takenoko.getListPlayer().get(0).getIa().joue(laPiocheParcelle, terrain, takenoko.getLesPiochesObjectif(), takenoko.getJardinier(), takenoko.getPanda());
 
     }
 

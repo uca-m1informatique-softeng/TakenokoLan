@@ -5,6 +5,10 @@ import takenoko.moteur.Terrain;
 
 public class CarteObjectifPanda extends CartesObjectifs {
 
+    public CarteObjectifPanda(){
+        super();
+    }
+
     public CarteObjectifPanda(Parcelle.Couleur couleur, int points) {
         super(couleur, points);
     }
@@ -22,45 +26,45 @@ public class CarteObjectifPanda extends CartesObjectifs {
     }
 
     @Override
-    public void verifObjectif(Terrain terrain, Parcelle valeur, IA bot) {
+    public void verifObjectif(Terrain terrain, Parcelle valeur, FeuilleJoueur feuilleJoueur) {
         switch (super.getPoints()) {
             case 3:
-                doubleBambou(Parcelle.Couleur.VERTE, bot);
+                doubleBambou(Parcelle.Couleur.VERTE, feuilleJoueur);
                 break;
             case 4:
-                doubleBambou(Parcelle.Couleur.JAUNE, bot);
+                doubleBambou(Parcelle.Couleur.JAUNE, feuilleJoueur);
                 break;
             case 5:
-                doubleBambou(Parcelle.Couleur.ROSE, bot);
+                doubleBambou(Parcelle.Couleur.ROSE, feuilleJoueur);
                 break;
             case 6:
-                tripleBambou(bot);
+                tripleBambou(feuilleJoueur);
                 break;
         }
     }
 
-    private void doubleBambou(Parcelle.Couleur couleur, IA bot) {
-        if (Parcelle.Couleur.JAUNE == couleur && bot.getFeuilleJoueur().getNb_bambou_jaune() >= 2) {
-            bot.getFeuilleJoueur().decBambouJaune();
-            bot.getFeuilleJoueur().decBambouJaune();
-            bot.getFeuilleJoueur().majPointsEtMain(this, bot);
-        } else if (Parcelle.Couleur.ROSE == couleur && bot.getFeuilleJoueur().getNbBambouRose() >= 2) {
-            bot.getFeuilleJoueur().decBambouRose();
-            bot.getFeuilleJoueur().decBambouRose();
-            bot.getFeuilleJoueur().majPointsEtMain(this, bot);
-        } else if (Parcelle.Couleur.VERTE == couleur && bot.getFeuilleJoueur().getNbBambouVert() >= 2) {
-            bot.getFeuilleJoueur().decBambouVert();
-            bot.getFeuilleJoueur().decBambouVert();
-            bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+    private void doubleBambou(Parcelle.Couleur couleur, FeuilleJoueur feuilleJoueur) {
+        if (Parcelle.Couleur.JAUNE == couleur &&feuilleJoueur.getNbBambouJaune() >= 2) {
+            feuilleJoueur.decBambouJaune();
+            feuilleJoueur.decBambouJaune();
+            feuilleJoueur.majPointsEtMain(this);
+        } else if (Parcelle.Couleur.ROSE == couleur && feuilleJoueur.getNbBambouRose() >= 2) {
+            feuilleJoueur.decBambouRose();
+            feuilleJoueur.decBambouRose();
+            feuilleJoueur.majPointsEtMain(this);
+        } else if (Parcelle.Couleur.VERTE == couleur && feuilleJoueur.getNbBambouVert() >= 2) {
+            feuilleJoueur.decBambouVert();
+            feuilleJoueur.decBambouVert();
+            feuilleJoueur.majPointsEtMain(this);
         }
     }
 
-    private void tripleBambou(IA bot) {
-        if (bot.getFeuilleJoueur().getNbBambouRose() >= 1 && bot.getFeuilleJoueur().getNb_bambou_jaune() >= 1 && bot.getFeuilleJoueur().getNbBambouVert() >= 1) {
-            bot.getFeuilleJoueur().decBambouVert();
-            bot.getFeuilleJoueur().decBambouRose();
-            bot.getFeuilleJoueur().decBambouJaune();
-            bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+    private void tripleBambou(FeuilleJoueur feuilleJoueur) {
+        if (feuilleJoueur.getNbBambouRose() >= 1 && feuilleJoueur.getNbBambouJaune() >= 1 && feuilleJoueur.getNbBambouVert() >= 1) {
+            feuilleJoueur.decBambouVert();
+            feuilleJoueur.decBambouRose();
+            feuilleJoueur.decBambouJaune();
+            feuilleJoueur.majPointsEtMain(this);
         }
     }
 }

@@ -1,7 +1,5 @@
 package takenoko.ressources;
 
-import takenoko.utilitaires.Coordonnees;
-
 public class Parcelle {
     private Coordonnees coord;
 

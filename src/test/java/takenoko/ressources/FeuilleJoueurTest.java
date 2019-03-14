@@ -7,12 +7,12 @@ public class FeuilleJoueurTest {
 
     @Test
     public void feuilleJoueurTest() {
-        FeuilleJoueur feuilleJoueur = new FeuilleJoueur();
+        FeuilleJoueur feuilleJoueur = new FeuilleJoueur("");
 
         Assert.assertEquals(2, feuilleJoueur.getNbAction());
         Assert.assertEquals(5, feuilleJoueur.getActionChoisie());
 
-        Assert.assertEquals(0, feuilleJoueur.getNb_bambou_jaune());
+        Assert.assertEquals(0, feuilleJoueur.getNbBambouJaune());
         Assert.assertEquals(0, feuilleJoueur.getNbBambouVert());
         Assert.assertEquals(0, feuilleJoueur.getNbBambouRose());
 
@@ -30,7 +30,7 @@ public class FeuilleJoueurTest {
         feuilleJoueur.incBambouRose();
         feuilleJoueur.incBambouVert();
 
-        Assert.assertEquals(1, feuilleJoueur.getNb_bambou_jaune());
+        Assert.assertEquals(1, feuilleJoueur.getNbBambouJaune());
         Assert.assertEquals(1, feuilleJoueur.getNbBambouVert());
         Assert.assertEquals(1, feuilleJoueur.getNbBambouRose());
 
@@ -38,7 +38,7 @@ public class FeuilleJoueurTest {
         feuilleJoueur.decBambouRose();
         feuilleJoueur.decBambouVert();
 
-        Assert.assertEquals(0, feuilleJoueur.getNb_bambou_jaune());
+        Assert.assertEquals(0, feuilleJoueur.getNbBambouJaune());
         Assert.assertEquals(0, feuilleJoueur.getNbBambouVert());
         Assert.assertEquals(0, feuilleJoueur.getNbBambouRose());
 

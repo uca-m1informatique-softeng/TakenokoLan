@@ -10,7 +10,7 @@ import takenoko.entites.Panda;
 import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 
 import java.util.Random;
 

@@ -3,8 +3,9 @@ package takenoko.moteur;
 import org.junit.Assert;
 import org.junit.Test;
 import takenoko.ia.IA;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -46,7 +47,7 @@ public class TerrainTest {
         LinkedHashMap<Coordonnees, Parcelle> zoneJouee = new LinkedHashMap<>();
         terrain.getZoneJouee().put(source.getCoord(), source);
 
-        terrain.changements(p1,IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p1,new FeuilleJoueur(""));
         ArrayList<Coordonnees> listeZonesPosablesAprCoup = terrain.getListeZonesPosables();
         Assert.assertTrue("Problème changement terrain", contenir(listeZonesPosablesAvtCoup, listeZonesPosablesAprCoup));
 
@@ -54,11 +55,11 @@ public class TerrainTest {
         Parcelle p7 = new Parcelle(new Coordonnees(-1, 2, -1));
 
         // parcelle irriguée car proximité de la source
-        terrain.changements(p2,IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p2,new FeuilleJoueur(""));
         Assert.assertTrue(p2.isIrriguee());
 
         // parcelle non irriguée car non connectée via une irrigation
-        terrain.changements(p7,IA.newIA(IA.Type.RANDOM));
+        terrain.changements(p7,new FeuilleJoueur(""));
         Assert.assertFalse(p7.isIrriguee());
 
         // parcelle irriguée car connectée à une irrigation

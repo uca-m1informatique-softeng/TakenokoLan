@@ -31,11 +31,11 @@ public class Takenoko {
         LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
         //init bot Bob
         for (int j = 0; j < nbBotBob; j++) {
-            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0));
+            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0,"IA random" + (j + 1)));
         }
         //init bot Joe
         for (int j = nbBotBob; j < (nbBotJoe + nbBotBob); j++) {
-            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0));
+            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0,"IA panda" + (j + 1)));
         }
         //Boucle sur le nombre de partie
         for (int i = 0; i < nbPartie; i++) {
@@ -58,7 +58,14 @@ public class Takenoko {
         return "hello";
     }
 
+    public void lancerParti(ArrayList<StatistiqueJoueur> listPlayer){
+        this.listPlayer=listPlayer;
+        LOGGER.info("Partie lancer avec "+listPlayer.size()+" joueur(s)");
+        partie(listPlayer);
+        afficherVainqueur(listPlayer,1);
+    }
     private void partie(ArrayList<StatistiqueJoueur> listPlayer) {
+
         // initialisations
         initPartie();
 
@@ -79,12 +86,12 @@ public class Takenoko {
                 c.getIa().joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
             }
             for (int j = 0; j < listPlayer.size(); j++) {
-                if (listPlayer.get(j).getIa().getFeuilleJoueur().getNbObjectifsValide() >= 9 && j == 0) {
-                    listPlayer.get(j).getIa().getFeuilleJoueur().setPointsBot(listPlayer.get(j).getIa().getFeuilleJoueur().getPointsBot() + 2);
+                if (listPlayer.get(j).getFeuilleJoueur().getNbObjectifsValide() >= 9 && j == 0) {
+                    listPlayer.get(j).getFeuilleJoueur().setPointsBot(listPlayer.get(j).getFeuilleJoueur().getPointsBot() + 2);
                     finPartie = true;
                 }
-                if (listPlayer.get(j).getIa().getFeuilleJoueur().getNbObjectifsValide() >= 9 && j != 0) {
-                    listPlayer.get(j).getIa().getFeuilleJoueur().setPointsBot(listPlayer.get(j).getIa().getFeuilleJoueur().getPointsBot() + 2);
+                if (listPlayer.get(j).getFeuilleJoueur().getNbObjectifsValide() >= 9 && j != 0) {
+                    listPlayer.get(j).getFeuilleJoueur().setPointsBot(listPlayer.get(j).getFeuilleJoueur().getPointsBot() + 2);
                     finPartie = true;
                     //fait joué tout les autres joueurs sauf lui
                     for (StatistiqueJoueur c : listPlayer) {
@@ -96,7 +103,7 @@ public class Takenoko {
             }
 
             for (int j = 0; j < listPlayer.size(); j++) {
-                if (memoirePoints[j] == listPlayer.get(j).getIa().getFeuilleJoueur().getPointsBot()) {
+                if (memoirePoints[j] == listPlayer.get(j).getFeuilleJoueur().getPointsBot()) {
                     jeuInfini = true;
                 } else {
                     jeuInfini = false;
@@ -110,7 +117,7 @@ public class Takenoko {
             } else {
                 nbTourSansObjectif = 0;
                 for (int j = 0; j < listPlayer.size(); j++) {
-                    memoirePoints[j] = listPlayer.get(j).getIa().getFeuilleJoueur().getPointsBot();
+                    memoirePoints[j] = listPlayer.get(j).getFeuilleJoueur().getPointsBot();
                 }
             }
             nbTour++;
@@ -140,13 +147,13 @@ public class Takenoko {
     private void pointVictoire(ArrayList<StatistiqueJoueur> listPlayer, int nbTour) {
         int maxPoints = 0;
         for (int i = 0; i < listPlayer.size(); i++) {
-            if (maxPoints < listPlayer.get(i).getIa().getFeuilleJoueur().getPointsBot()) {
-                maxPoints = listPlayer.get(i).getIa().getFeuilleJoueur().getPointsBot();
+            if (maxPoints < listPlayer.get(i).getFeuilleJoueur().getPointsBot()) {
+                maxPoints = listPlayer.get(i).getFeuilleJoueur().getPointsBot();
             }
         }
         ArrayList<StatistiqueJoueur> aGagner = new ArrayList<>();
         for (int i = 0; i < listPlayer.size(); i++) {
-            if (listPlayer.get(i).getIa().getFeuilleJoueur().getPointsBot() == maxPoints) {
+            if (listPlayer.get(i).getFeuilleJoueur().getPointsBot() == maxPoints) {
                 aGagner.add(listPlayer.get(i));
             }
         }
@@ -157,7 +164,7 @@ public class Takenoko {
             nbNull++;
         }
         for (StatistiqueJoueur s : listPlayer) {
-            s.incrNbPointsTotal(s.getIa().getFeuilleJoueur().getPointsBot());
+            s.incrNbPointsTotal(s.getFeuilleJoueur().getPointsBot());
         }
     }
 
@@ -193,5 +200,13 @@ public class Takenoko {
 
     public LesPiochesObjectif getLesPiochesObjectif() {
         return lesPiochesObjectif;
+    }
+
+    public ArrayList<StatistiqueJoueur> getListPlayer() {
+        return listPlayer;
+    }
+
+    public void setListPlayer(ArrayList<StatistiqueJoueur> listPlayer) {
+        this.listPlayer = listPlayer;
     }
 }

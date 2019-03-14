@@ -4,8 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -63,22 +64,22 @@ public class PandaTest {
         deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
         try {
-            panda.deplacerEntite(deplacementPossible.get(getPosition(p1.getCoord(),deplacementPossible)), new IARandom());
+            panda.deplacerEntite(deplacementPossible.get(getPosition(p1.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(2, p1.getBambou());
 
             deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
-            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(),deplacementPossible)), new IARandom());
+            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(0, p2.getBambou());
 
             deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
-            panda.deplacerEntite(deplacementPossible.get(getPosition(source.getCoord(),deplacementPossible)), new IARandom());
+            panda.deplacerEntite(deplacementPossible.get(getPosition(source.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(0, source.getBambou());
 
             deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
-            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(),deplacementPossible)), new IARandom());
+            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(0, p2.getBambou());
 
 

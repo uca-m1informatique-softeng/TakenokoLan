@@ -1,9 +1,7 @@
 package takenoko.moteur;
 
 import takenoko.ia.IA;
-import takenoko.ressources.Irrigation;
-import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.*;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -139,11 +137,11 @@ public class Terrain {
         return listeZonesPosables;
     }
 
-    public void changements(Parcelle coupJoue, IA bot) throws TricheException{
-        if (bot.getFeuilleJoueur().getPrecedant() != 0) {
+    public void changements(Parcelle coupJoue, FeuilleJoueur feuilleJoueur) throws TricheException{
+        if (feuilleJoueur.getPrecedant() != 0) {
             if (zoneDispo.containsKey(coupJoue.getCoord())) {
-                bot.getFeuilleJoueur().decNbACtion();
-                bot.getFeuilleJoueur().setPrecedant(0);
+                feuilleJoueur.decNbACtion();
+                feuilleJoueur.setPrecedant(0);
                 // si le coup joué est autour de la source, alors la parcelle est irriguée (et un bambou pousse)
                 for (int i = 0; i < listeAdjacentsSource.size(); i++) {
                     if (coupJoue.getCoord().equals(listeAdjacentsSource.get(i))) {
@@ -286,6 +284,17 @@ public class Terrain {
         // On ajoute chaque irrigation coupJoue / adjacent dans listeIrrigationsDispo
         for (int i = 0; i < listeProximite.size(); i++) {
             listeIrrigationsDispo.add(new Irrigation(coupJoue.getCoord(), listeProximite.get(i)));
+        }
+    }
+
+    public void verifObjectifAccompli( FeuilleJoueur feuilleJoueur) {
+        ArrayList<CartesObjectifs> mainObjectif = feuilleJoueur.getMainObjectif();
+        for (Map.Entry<Coordonnees, Parcelle> entry : zoneJouee.entrySet()) {
+            Parcelle valeur = entry.getValue();
+            for (int i = 0; i < mainObjectif.size(); i++) {
+                mainObjectif.get(i).verifObjectif(this, valeur, feuilleJoueur);
+            }
+            feuilleJoueur.setMainObjectif(mainObjectif);
         }
     }
 }

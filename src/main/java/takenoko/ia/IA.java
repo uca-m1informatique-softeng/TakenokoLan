@@ -8,7 +8,8 @@ import takenoko.pioches.LesPiochesObjectif;
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
+import takenoko.service.impl.ClientService;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -41,9 +42,11 @@ public interface IA {
         for (Map.Entry<Coordonnees, Parcelle> entry : terrain.getZoneJouee().entrySet()) {
             Parcelle valeur = entry.getValue();
             for (int i = 0; i < mainObjectif.size(); i++) {
-                mainObjectif.get(i).verifObjectif(terrain, valeur, bot);
+                mainObjectif.get(i).verifObjectif(terrain, valeur, bot.getFeuilleJoueur());
             }
             bot.setMainObjectif(mainObjectif);
         }
     }
+
+    void setiService(ClientService iService);
 }

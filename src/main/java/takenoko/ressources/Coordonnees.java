@@ -1,6 +1,4 @@
-package takenoko.utilitaires;
-
-import takenoko.ressources.Parcelle;
+package takenoko.ressources;
 
 import java.util.ArrayList;
 import java.util.HashMap;

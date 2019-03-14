@@ -1,6 +1,7 @@
 package takenoko.pioches;
 
 import takenoko.ia.IA;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.utilitaires.TricheException;
 
 import java.util.logging.Level;
@@ -40,28 +41,28 @@ public class LesPiochesObjectif {
         }
     }
 
-    public void piocherUnObjectif(IA bot, int i) throws TricheException {
-        if (bot.getFeuilleJoueur().getPrecedant() != 1) {
+    public void piocherUnObjectif(FeuilleJoueur feuilleJoueur, int i) throws TricheException {
+        if (feuilleJoueur.getPrecedant() != 1) {
             //Bot pioche une carte objectif Parcelle
             if (i == 0 && !laPiocheObjectifParcelles.getPioche().isEmpty()) {
-                bot.getFeuilleJoueur().decNbACtion();
-                bot.getFeuilleJoueur().setPrecedant(1);
-                bot.getMainObjectif().add(laPiocheObjectifParcelles.piocher());
-                LOGGER.info(bot.getNomBot() + " obtient l'objectif de parcelle : " + bot.getMainObjectif().get(bot.getMainObjectif().size() - 1));
+                feuilleJoueur.decNbACtion();
+                feuilleJoueur.setPrecedant(1);
+                feuilleJoueur.getMainObjectif().add(laPiocheObjectifParcelles.piocher());
+                LOGGER.info(feuilleJoueur.getName() + " obtient l'objectif de parcelle : " + feuilleJoueur.getMainObjectif().get(feuilleJoueur.getMainObjectif().size() - 1));
             }
             //Bot pioche une carte objectif Jardiner
             if (i == 1 && !laPiocheObjectifsJardinier.getPioche().isEmpty()) {
-                bot.getFeuilleJoueur().decNbACtion();
-                bot.getFeuilleJoueur().setPrecedant(1);
-                bot.getMainObjectif().add(laPiocheObjectifsJardinier.piocher());
-                LOGGER.info(bot.getNomBot() + " obtient l'objectif de jardinier : " + bot.getMainObjectif().get(bot.getMainObjectif().size() - 1));
+                feuilleJoueur.decNbACtion();
+                feuilleJoueur.setPrecedant(1);
+                feuilleJoueur.getMainObjectif().add(laPiocheObjectifsJardinier.piocher());
+                LOGGER.info(feuilleJoueur.getName() + " obtient l'objectif de jardinier : " + feuilleJoueur.getMainObjectif().get(feuilleJoueur.getMainObjectif().size() - 1));
             }
             //Bot pioche une carte objectif Panda
             if (i == 2 && !laPiocheObjectifsPanda.getPioche().isEmpty()) {
-                bot.getFeuilleJoueur().decNbACtion();
-                bot.getFeuilleJoueur().setPrecedant(1);
-                bot.getMainObjectif().add(laPiocheObjectifsPanda.piocher());
-                LOGGER.info(bot.getNomBot() + " obtient l'objectif de panda : " + bot.getMainObjectif().get(bot.getMainObjectif().size() - 1));
+                feuilleJoueur.decNbACtion();
+                feuilleJoueur.setPrecedant(1);
+                feuilleJoueur.getMainObjectif().add(laPiocheObjectifsPanda.piocher());
+                LOGGER.info(feuilleJoueur.getName() + " obtient l'objectif de panda : " + feuilleJoueur.getMainObjectif().get(feuilleJoueur.getMainObjectif().size() - 1));
             }
         } else {
             throw new TricheException("impossible de piocher 2 fois");

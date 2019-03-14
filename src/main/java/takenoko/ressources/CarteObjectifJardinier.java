@@ -2,11 +2,14 @@ package takenoko.ressources;
 
 import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
-import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
 
 public class CarteObjectifJardinier extends CartesObjectifs {
+
+    public CarteObjectifJardinier(){
+        super();
+    }
 
     public CarteObjectifJardinier(int nbBambou, Parcelle.Couleur couleur, int points, Motif motif, Parcelle.Effet effet) {
         super(couleur, points, motif, nbBambou, effet);
@@ -21,32 +24,32 @@ public class CarteObjectifJardinier extends CartesObjectifs {
     }
 
     @Override
-    public void verifObjectif(Terrain terrain, Parcelle valeur, IA bot) {
+    public void verifObjectif(Terrain terrain, Parcelle valeur, FeuilleJoueur feuilleJoueur) {
         if (getMotif() != Motif.COURBE) {
             switch (getMotif()) {
                 case POINT:
-                    detecterBambou(valeur, bot);
+                    detecterBambou(valeur, feuilleJoueur);
                     break;
                 case LIGNE:
-                    detecterLigneBambou(terrain, valeur, bot);
+                    detecterLigneBambou(terrain, valeur, feuilleJoueur);
                     break;
                 case TRIANGLE:
-                    detecterTriangleBambou(terrain, valeur, bot);
+                    detecterTriangleBambou(terrain, valeur, feuilleJoueur);
                     break;
                 case LOSANGE:
-                    detecterLosangeBambou(terrain, valeur, bot);
+                    detecterLosangeBambou(terrain, valeur, feuilleJoueur);
                     break;
             }
         }
     }
 
-    private void detecterBambou(Parcelle parcelle, IA bot) {
+    private void detecterBambou(Parcelle parcelle, FeuilleJoueur feuilleJoueur) {
         if (parcelle.getCouleur() == this.getCouleur() && parcelle.getBambou() == this.getBambou() && parcelle.getEffet() == this.getEffet()) {
-            bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+            feuilleJoueur.majPointsEtMain(this);
         }
     }
 
-    private void detecterLigneBambou(Terrain terrain, Parcelle parcelle, IA bot) {
+    private void detecterLigneBambou(Terrain terrain, Parcelle parcelle, FeuilleJoueur feuilleJoueur) {
         int i = 0;
         ArrayList<Coordonnees> adja = terrain.getAdjacents(parcelle.getCoord());
         ArrayList<Parcelle> par = new ArrayList<>();
@@ -60,7 +63,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                 }
             }
             if (i != 0) {
-                bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                feuilleJoueur.majPointsEtMain(this);
             }
         }
     }
@@ -69,48 +72,48 @@ public class CarteObjectifJardinier extends CartesObjectifs {
         return (p1.getBambou() == this.getBambou() && p2.getBambou() == this.getBambou() && p2.isIrriguee() && p1.getCouleur() == this.getCouleur() && p2.getCouleur() == this.getCouleur());
     }
 
-    private void detecterTriangleBambou(Terrain terrain, Parcelle parcelle, IA bot) {
+    private void detecterTriangleBambou(Terrain terrain, Parcelle parcelle, FeuilleJoueur feuilleJoueur) {
         if (parcelle.getCouleur() == this.getCouleur() && parcelle.getBambou() == this.getBambou()) {
             // G-HG
             if (terrain.getZoneJouee().containsKey(terrain.getGauche(parcelle.getCoord())) &&
                     terrain.getZoneJouee().containsKey(terrain.getHautGauche(parcelle.getCoord())) &&
                     bambouEtCouleur(terrain.getZoneJouee().get(terrain.getGauche(parcelle.getCoord())), terrain.getZoneJouee().get(terrain.getHautGauche(parcelle.getCoord())))) {
-                bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                feuilleJoueur.majPointsEtMain(this);
             }
             // HG-HD
             else if (terrain.getZoneJouee().containsKey(terrain.getHautGauche(parcelle.getCoord())) &&
                     terrain.getZoneJouee().containsKey(terrain.getHautDroite(parcelle.getCoord())) &&
                     bambouEtCouleur(terrain.getZoneJouee().get(terrain.getHautGauche(parcelle.getCoord())), terrain.getZoneJouee().get(terrain.getHautDroite(parcelle.getCoord())))) {
-                bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                feuilleJoueur.majPointsEtMain(this);
             }
             // HD-D
             else if (terrain.getZoneJouee().containsKey(terrain.getHautDroite(parcelle.getCoord())) &&
                     terrain.getZoneJouee().containsKey(terrain.getDroite(parcelle.getCoord())) &&
                     bambouEtCouleur(terrain.getZoneJouee().get(terrain.getDroite(parcelle.getCoord())), terrain.getZoneJouee().get(terrain.getHautDroite(parcelle.getCoord())))) {
-                bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                feuilleJoueur.majPointsEtMain(this);
             }
             // D-BD
             else if (terrain.getZoneJouee().containsKey(terrain.getDroite(parcelle.getCoord())) &&
                     terrain.getZoneJouee().containsKey(terrain.getBasDroite(parcelle.getCoord())) &&
                     bambouEtCouleur(terrain.getZoneJouee().get(terrain.getBasDroite(parcelle.getCoord())), terrain.getZoneJouee().get(terrain.getDroite(parcelle.getCoord())))) {
-                bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                feuilleJoueur.majPointsEtMain(this);
             }
             // BD-BG
             else if (terrain.getZoneJouee().containsKey(terrain.getBasDroite(parcelle.getCoord())) &&
                     terrain.getZoneJouee().containsKey(terrain.getBasGauche(parcelle.getCoord())) &&
                     bambouEtCouleur(terrain.getZoneJouee().get(terrain.getBasGauche(parcelle.getCoord())), terrain.getZoneJouee().get(terrain.getBasDroite(parcelle.getCoord())))) {
-                bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                feuilleJoueur.majPointsEtMain(this);
             }
             // BG-G
             else if (terrain.getZoneJouee().containsKey(terrain.getBasGauche(parcelle.getCoord())) &&
                     terrain.getZoneJouee().containsKey(terrain.getGauche(parcelle.getCoord())) &&
                     bambouEtCouleur(terrain.getZoneJouee().get(terrain.getBasGauche(parcelle.getCoord())), terrain.getZoneJouee().get(terrain.getGauche(parcelle.getCoord())))) {
-                bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                feuilleJoueur.majPointsEtMain(this);
             }
         }
     }
 
-    private void detecterLosangeBambou(Terrain terrain, Parcelle parcelle, IA bot) {
+    private void detecterLosangeBambou(Terrain terrain, Parcelle parcelle, FeuilleJoueur feuilleJoueur) {
         if (parcelle.getCouleur() == this.getCouleur() && parcelle.getBambou() == this.getBambou()) {
             // HG-HD-HD/HG
             if (terrain.getZoneJouee().containsKey(terrain.getHautGauche(parcelle.getCoord())) && terrain.getZoneJouee().containsKey(terrain.getHautDroite(parcelle.getCoord())) && terrain.getZoneJouee().containsKey(terrain.getHautDroite(terrain.getHautGauche(parcelle.getCoord())))) {
@@ -120,7 +123,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getHautGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getHautDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getHautDroite(terrain.getHautGauche(parcelle.getCoord()))).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // HD-D-BD
@@ -131,7 +134,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getHautDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasDroite(parcelle.getCoord())).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // HG-G-BG
@@ -142,7 +145,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getHautGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasGauche(parcelle.getCoord())).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // BG-BD-BD/BG
@@ -153,7 +156,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getBasGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasDroite(terrain.getBasGauche(parcelle.getCoord()))).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // HD-D-D/HD
@@ -164,7 +167,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getHautDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getDroite(terrain.getHautDroite(parcelle.getCoord()))).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // BG-BD-D
@@ -175,7 +178,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getBasGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getDroite(parcelle.getCoord())).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // G-HG-HD
@@ -186,7 +189,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getHautGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getHautDroite(parcelle.getCoord())).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // G-BG-BG/G
@@ -197,7 +200,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasGauche(terrain.getGauche(parcelle.getCoord()))).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // D-BD-BD/D
@@ -208,7 +211,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasDroite(terrain.getDroite(parcelle.getCoord()))).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // G-BG-BD
@@ -219,7 +222,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getBasDroite(parcelle.getCoord())).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // HG-HD-D
@@ -230,7 +233,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getHautGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getHautDroite(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getDroite(parcelle.getCoord())).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
             // G-HG-HG/G
@@ -241,7 +244,7 @@ public class CarteObjectifJardinier extends CartesObjectifs {
                         terrain.getZoneJouee().get(terrain.getGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getHautGauche(parcelle.getCoord())).getCouleur() == this.getCouleur() &&
                         terrain.getZoneJouee().get(terrain.getHautGauche(terrain.getGauche(parcelle.getCoord()))).getCouleur() == this.getCouleur()) {
-                    bot.getFeuilleJoueur().majPointsEtMain(this, bot);
+                    feuilleJoueur.majPointsEtMain(this);
                 }
             }
         }

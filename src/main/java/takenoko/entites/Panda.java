@@ -2,8 +2,9 @@ package takenoko.entites;
 
 import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -21,13 +22,13 @@ public class Panda extends Entite {
     }
 
     @Override
-    public void deplacerEntite(Coordonnees choixDeplacement, IA bot) throws TricheException {
-        if (bot.getFeuilleJoueur().getPrecedant() != 2) {
+    public void deplacerEntite(Coordonnees choixDeplacement, FeuilleJoueur feuilleJoueur) throws TricheException {
+        if (feuilleJoueur.getPrecedant() != 2) {
             if (getDeplacementsPossible(terrain.getZoneJouee()).contains(choixDeplacement)) {
-                bot.getFeuilleJoueur().decNbACtion();
-                bot.getFeuilleJoueur().setPrecedant(2);
+                feuilleJoueur.decNbACtion();
+                feuilleJoueur.setPrecedant(2);
                 this.coordonnees = choixDeplacement;
-                mangerBambou(terrain.getZoneJouee().get(choixDeplacement), bot);
+                mangerBambou(terrain.getZoneJouee().get(choixDeplacement), feuilleJoueur);
             } else {
                 throw new TricheException("déplacement sur cette parcelle impossible");
             }
@@ -36,14 +37,14 @@ public class Panda extends Entite {
         }
     }
 
-    private void mangerBambou(Parcelle aManger, IA bot) {
+    private void mangerBambou(Parcelle aManger, FeuilleJoueur feuilleJoueur) {
         if (aManger.getEffet() != Parcelle.Effet.ENCLOS && aManger.mangerBambou()) {
             if (aManger.getCouleur() == Parcelle.Couleur.VERTE) {
-                bot.getFeuilleJoueur().incBambouVert();
+                feuilleJoueur.incBambouVert();
             } else if (aManger.getCouleur() == Parcelle.Couleur.JAUNE) {
-                bot.getFeuilleJoueur().incBambouJaune();
+                feuilleJoueur.incBambouJaune();
             } else if (aManger.getCouleur() == Parcelle.Couleur.ROSE) {
-                bot.getFeuilleJoueur().incBambouRose();
+                feuilleJoueur.incBambouRose();
             }
         }
     }

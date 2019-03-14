@@ -4,8 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class JardinierTest {
 
         int i = deplacementPossible.indexOf(p5.getCoord());
         try {
-            jardinier.deplacerEntite(deplacementPossible.get(i), new IARandom());
+            jardinier.deplacerEntite(deplacementPossible.get(i), new FeuilleJoueur(""));
         }catch (TricheException e){
             e.printStackTrace();
         }

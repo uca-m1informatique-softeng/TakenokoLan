@@ -2,6 +2,7 @@ package takenoko.utilitaires;
 
 import org.junit.Assert;
 import org.junit.Test;
+import takenoko.ressources.Coordonnees;
 
 public class CoordonneesTest {
 
