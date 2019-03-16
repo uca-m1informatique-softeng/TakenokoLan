@@ -1,7 +1,6 @@
 package takenoko.entites;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
 import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
@@ -15,7 +14,7 @@ public abstract class Entite {
 
     public abstract Coordonnees getCoordonnees();
 
-    public abstract void deplacerEntite(Coordonnees coordonnees, FeuilleJoueur feuilleJoueur)throws TricheException;
+    public abstract void deplacerEntite(Coordonnees coordonnees, FeuilleJoueur feuilleJoueur) throws TricheException;
 
 
 }

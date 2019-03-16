@@ -1,10 +1,9 @@
 package takenoko.entites;
 
-import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;

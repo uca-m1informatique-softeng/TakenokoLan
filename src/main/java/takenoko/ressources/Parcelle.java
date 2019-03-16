@@ -34,12 +34,12 @@ public class Parcelle {
     public Parcelle(Couleur couleur, Effet effet) {
         this.couleur = couleur;
         this.effet = effet;
-        if(effet==Effet.PUIT){
+        if (effet == Effet.PUIT) {
             setIrriguee(true);
         }
     }
 
-    public Parcelle(){
+    public Parcelle() {
     }
 
     public Effet getEffet() {

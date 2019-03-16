@@ -31,11 +31,11 @@ public class Takenoko {
         LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
         //init bot Bob
         for (int j = 0; j < nbBotBob; j++) {
-            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0,"IA random" + (j + 1)));
+            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0, "IA random" + (j + 1)));
         }
         //init bot Joe
         for (int j = nbBotBob; j < (nbBotJoe + nbBotBob); j++) {
-            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0,"IA panda" + (j + 1)));
+            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0, "IA panda" + (j + 1)));
         }
         //Boucle sur le nombre de partie
         for (int i = 0; i < nbPartie; i++) {
@@ -58,12 +58,13 @@ public class Takenoko {
         return "hello";
     }
 
-    public void lancerParti(ArrayList<StatistiqueJoueur> listPlayer){
-        this.listPlayer=listPlayer;
-        LOGGER.info("Partie lancer avec "+listPlayer.size()+" joueur(s)");
+    public void lancerParti(ArrayList<StatistiqueJoueur> listPlayer) {
+        this.listPlayer = listPlayer;
+        LOGGER.info("Partie lancer avec " + listPlayer.size() + " joueur(s)");
         partie(listPlayer);
-        afficherVainqueur(listPlayer,1);
+        afficherVainqueur(listPlayer, 1);
     }
+
     private void partie(ArrayList<StatistiqueJoueur> listPlayer) {
 
         // initialisations

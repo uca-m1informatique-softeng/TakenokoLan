@@ -2,13 +2,13 @@ package takenoko.pioches;
 
 import org.junit.Assert;
 import org.junit.Test;
-import takenoko.ia.IARandom;
 import takenoko.ia.IA;
+import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
 import takenoko.ressources.CarteObjectifParcelle;
 import takenoko.ressources.CartesObjectifs;
-import takenoko.ressources.Parcelle;
 import takenoko.ressources.Coordonnees;
+import takenoko.ressources.Parcelle;
 
 import java.util.ArrayList;
 

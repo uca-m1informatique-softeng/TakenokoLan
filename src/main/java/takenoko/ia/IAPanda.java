@@ -1,25 +1,19 @@
 package takenoko.ia;
 
 import org.springframework.stereotype.Component;
-import takenoko.entites.Entite;
 import takenoko.entites.Jardinier;
 import takenoko.entites.Panda;
 import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
-import takenoko.ressources.CarteObjectifPanda;
-import takenoko.ressources.CartesObjectifs;
-import takenoko.ressources.FeuilleJoueur;
-import takenoko.ressources.Parcelle;
+import takenoko.ressources.*;
 import takenoko.service.impl.ClientService;
-import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.MainJoueur;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.PrimitiveIterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -58,7 +52,7 @@ public class IAPanda implements IA {
 
     private void verifObjectif(Terrain terrain) {
         iService.verifObjectifAccompli();
-        mainObjectif=iService.feuilleJoueurGetMainObjectif();
+        mainObjectif = iService.feuilleJoueurGetMainObjectif();
         mainObjectifValeur.clear();
         for (CartesObjectifs c : mainObjectif) {
             mainObjectifValeur.add(new MainJoueur(c, 0));
@@ -109,7 +103,7 @@ public class IAPanda implements IA {
             coupJoue.setCoord(choisirPosition(terrain.getListeZonesPosables()));
             // Le terrain est mis à jour
             try {
-            iService.poserParcelle(coupJoue);
+                iService.poserParcelle(coupJoue);
             } catch (TricheException e) {
                 e.printStackTrace();
             }
@@ -121,7 +115,7 @@ public class IAPanda implements IA {
             } catch (TricheException e) {
                 e.printStackTrace();
             }
-            mainObjectif=iService.feuilleJoueurGetMainObjectif();
+            mainObjectif = iService.feuilleJoueurGetMainObjectif();
             mainObjectifValeur.clear();
             for (CartesObjectifs c : mainObjectif) {
                 mainObjectifValeur.add(new MainJoueur(c, 0));

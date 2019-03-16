@@ -6,10 +6,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
 import takenoko.service.IClientService;
-import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -112,7 +112,7 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public void feuilleJoueurSetActionChoisie(int actionChoisie ) {
+    public void feuilleJoueurSetActionChoisie(int actionChoisie) {
         restTemplate.postForObject(REST_SERVICE_URI + "/FeuilleJoueurSetActionChoisie", actionChoisie, int.class);
     }
 
@@ -144,58 +144,58 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public void feuilleJoueurDecNbACtion( ) {
+    public void feuilleJoueurDecNbACtion() {
         restTemplate.postForObject(REST_SERVICE_URI + "/FeuilleJoueurDecNbACtion", null, FeuilleJoueur.class);
     }
 
     @Override
-    public void deplacerPanda(Coordonnees coordonnees )throws TricheException {
+    public void deplacerPanda(Coordonnees coordonnees) throws TricheException {
         HttpEntity<Coordonnees> request = new HttpEntity<>(coordonnees);
         String result = restTemplate.exchange(
                 REST_SERVICE_URI + "/DeplacerPanda",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
-        if(!result.equals("done")){
+        if (!result.equals("done")) {
             throw new TricheException("impossible de deplacer 2 fois panda");
         }
     }
 
     @Override
-    public void deplacerJardinier(Coordonnees coordonnees ) throws TricheException {
+    public void deplacerJardinier(Coordonnees coordonnees) throws TricheException {
         HttpEntity<Coordonnees> request = new HttpEntity<>(coordonnees);
-        String result= restTemplate.exchange(
+        String result = restTemplate.exchange(
                 REST_SERVICE_URI + "/DeplacerJardinier",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
-        if(!result.equals("done")){
+        if (!result.equals("done")) {
             throw new TricheException("impossible de deplacer 2 fois jardinier");
         }
     }
 
     @Override
-    public void poserParcelle(Parcelle parcelle )throws TricheException {
+    public void poserParcelle(Parcelle parcelle) throws TricheException {
         HttpEntity<Parcelle> request = new HttpEntity<>(parcelle);
-        String result= restTemplate.exchange(
+        String result = restTemplate.exchange(
                 REST_SERVICE_URI + "/PoserParcelle",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
-        if(!result.equals("done")){
+        if (!result.equals("done")) {
             throw new TricheException("impossible de poser 2 fois une parcelle");
         }
     }
 
     @Override
-    public void piocherUnObjectif(int i )throws TricheException {
+    public void piocherUnObjectif(int i) throws TricheException {
         HttpEntity<Integer> request = new HttpEntity<>(i);
-        String result= restTemplate.exchange(
+        String result = restTemplate.exchange(
                 REST_SERVICE_URI + "/PiocherUnObjectif",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
-        if(!result.equals("done")){
+        if (!result.equals("done")) {
             throw new TricheException("impossible de piocher 2 fois");
         }
     }
@@ -211,7 +211,7 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public void verifObjectifAccompli( ) {
+    public void verifObjectifAccompli() {
         restTemplate.postForObject(REST_SERVICE_URI + "/VerifObjectifAccompli", null, CartesObjectifs.class);
     }
 

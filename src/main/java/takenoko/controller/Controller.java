@@ -4,9 +4,9 @@ import org.springframework.web.bind.annotation.*;
 import takenoko.configuration.Takenoko;
 import takenoko.ia.IA;
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.StatistiqueJoueur;
 import takenoko.utilitaires.TricheException;
 
@@ -27,8 +27,8 @@ public class Controller {
     @RequestMapping(path = "/launch")
     public String launch() {
         takenoko = new Takenoko();
-        ArrayList<StatistiqueJoueur> listPlayer= new ArrayList<>();
-        listPlayer.add(new StatistiqueJoueur(IA.newIA(IA.Type.PANDA), 0, 0, 0,"IAPANDA"));
+        ArrayList<StatistiqueJoueur> listPlayer = new ArrayList<>();
+        listPlayer.add(new StatistiqueJoueur(IA.newIA(IA.Type.PANDA), 0, 0, 0, "IAPANDA"));
         takenoko.lancerParti(listPlayer);
         return "done";
     }
@@ -112,9 +112,9 @@ public class Controller {
     @PostMapping(value = "/DeplacerPanda")
     public String deplacerPanda(@RequestBody Coordonnees coordonnees) {
         try {
-            takenoko.getPanda().deplacerEntite(coordonnees,takenoko.getListPlayer().get(0).getFeuilleJoueur() );
+            takenoko.getPanda().deplacerEntite(coordonnees, takenoko.getListPlayer().get(0).getFeuilleJoueur());
             return "done";
-        }catch (TricheException e){
+        } catch (TricheException e) {
             return "can't";
         }
     }
@@ -122,9 +122,9 @@ public class Controller {
     @PostMapping(value = "/DeplacerJardinier")
     public String deplacerJardinier(@RequestBody Coordonnees coordonnees) {
         try {
-            takenoko.getJardinier().deplacerEntite(coordonnees,takenoko.getListPlayer().get(0).getFeuilleJoueur() );
+            takenoko.getJardinier().deplacerEntite(coordonnees, takenoko.getListPlayer().get(0).getFeuilleJoueur());
             return "done";
-        }catch (TricheException e){
+        } catch (TricheException e) {
             return "can't";
         }
     }
@@ -132,9 +132,9 @@ public class Controller {
     @PostMapping(value = "/PoserParcelle")
     public String poserParcelle(@RequestBody Parcelle parcelle) {
         try {
-            takenoko.getTerrain().changements(parcelle,takenoko.getListPlayer().get(0).getFeuilleJoueur() );
+            takenoko.getTerrain().changements(parcelle, takenoko.getListPlayer().get(0).getFeuilleJoueur());
             return "done";
-        }catch (TricheException e){
+        } catch (TricheException e) {
             return "can't";
         }
     }
@@ -142,9 +142,9 @@ public class Controller {
     @PostMapping(value = "/PiocherUnObjectif")
     public String piocherUnObjectif(@RequestBody int i) {
         try {
-            takenoko.getLesPiochesObjectif().piocherUnObjectif(takenoko.getListPlayer().get(0).getFeuilleJoueur(),i );
+            takenoko.getLesPiochesObjectif().piocherUnObjectif(takenoko.getListPlayer().get(0).getFeuilleJoueur(), i);
             return "done";
-        }catch (TricheException e){
+        } catch (TricheException e) {
             return "can't";
         }
     }

@@ -19,7 +19,6 @@ import takenoko.utilitaires.TricheException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
@@ -373,7 +372,7 @@ public class IAPandaTest {
                 new Answer() {
                     @Override
                     public Object answer(InvocationOnMock invocation) throws Throwable {
-                       lesPiochesObjectif.piocherUnObjectif(feuilleJoueur,2);
+                        lesPiochesObjectif.piocherUnObjectif(feuilleJoueur, 2);
                         return null;
                     }
                 }).when(iService).piocherUnObjectif(2);
@@ -462,7 +461,7 @@ public class IAPandaTest {
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
-        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,  3, 3, 3, 3,3,2, 2, 2);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 3, 3, 3, 3, 3, 2, 2, 2);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
         when(iService.feuilleJoueurGetNbBambouRose()).thenReturn(feuilleJoueur.getNbBambouRose());
         when(iService.feuilleJoueurGetNbBambouVert()).thenReturn(feuilleJoueur.getNbBambouVert());
@@ -492,7 +491,7 @@ public class IAPandaTest {
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
-        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0,  3, 3, 3, 3,3,2, 2, 2);
+        when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 3, 3, 3, 3, 3, 2, 2, 2);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
         when(iService.feuilleJoueurGetNbBambouRose()).thenReturn(feuilleJoueur.getNbBambouRose());
         when(iService.feuilleJoueurGetNbBambouVert()).thenReturn(feuilleJoueur.getNbBambouVert());
@@ -518,7 +517,7 @@ public class IAPandaTest {
                 new Answer() {
                     @Override
                     public Object answer(InvocationOnMock invocation) throws Throwable {
-                       terrain.verifObjectifAccompli(feuilleJoueur);
+                        terrain.verifObjectifAccompli(feuilleJoueur);
                         return null;
                     }
                 }).when(iService).verifObjectifAccompli();

@@ -6,9 +6,9 @@ import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.ressources.Coordonnees;
 import takenoko.service.impl.ClientService;
 
 import java.util.ArrayList;

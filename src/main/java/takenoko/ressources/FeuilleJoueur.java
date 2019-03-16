@@ -1,7 +1,5 @@
 package takenoko.ressources;
 
-import takenoko.ia.IA;
-
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +23,7 @@ public class FeuilleJoueur {
     private int nbObjectifsValide = 0;
 
     public FeuilleJoueur(String name) {
-        this.name=name;
+        this.name = name;
         LOGGER.setLevel(Level.OFF);
     }
 
@@ -36,7 +34,7 @@ public class FeuilleJoueur {
     public void initNbAction() {
         nbAction = 2;
         actionChoisie = 5;
-        precedant=15;
+        precedant = 15;
     }
 
     public void decBambouJaune() {

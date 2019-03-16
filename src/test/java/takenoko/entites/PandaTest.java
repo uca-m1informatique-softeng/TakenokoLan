@@ -2,11 +2,10 @@ package takenoko.entites;
 
 import org.junit.Assert;
 import org.junit.Test;
-import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -64,38 +63,37 @@ public class PandaTest {
         deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
         try {
-            panda.deplacerEntite(deplacementPossible.get(getPosition(p1.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
+            panda.deplacerEntite(deplacementPossible.get(getPosition(p1.getCoord(), deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(2, p1.getBambou());
 
             deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
-            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
+            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(), deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(0, p2.getBambou());
 
             deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
-            panda.deplacerEntite(deplacementPossible.get(getPosition(source.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
+            panda.deplacerEntite(deplacementPossible.get(getPosition(source.getCoord(), deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(0, source.getBambou());
 
             deplacementPossible = panda.getDeplacementsPossible(terrain.getZoneJouee());
 
-            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(),deplacementPossible)), new FeuilleJoueur(""));
+            panda.deplacerEntite(deplacementPossible.get(getPosition(p2.getCoord(), deplacementPossible)), new FeuilleJoueur(""));
             Assert.assertEquals(0, p2.getBambou());
 
 
-
-        }catch (TricheException e){
+        } catch (TricheException e) {
             e.printStackTrace();
-        }catch(ArrayIndexOutOfBoundsException e){
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("trouve pas la coordonnee voulue");
             e.getMessage();
         }
     }
 
-    private int getPosition(Coordonnees coordonnees, ArrayList<Coordonnees> deplacementsPossible){
+    private int getPosition(Coordonnees coordonnees, ArrayList<Coordonnees> deplacementsPossible) {
 
-        for(Coordonnees c:deplacementsPossible){
-            if(c.equals(coordonnees)){
+        for (Coordonnees c : deplacementsPossible) {
+            if (c.equals(coordonnees)) {
                 return deplacementsPossible.indexOf(c);
             }
         }

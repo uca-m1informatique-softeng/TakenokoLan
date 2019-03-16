@@ -1,6 +1,5 @@
 package takenoko.pioches;
 
-import takenoko.ia.IA;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.utilitaires.TricheException;
 

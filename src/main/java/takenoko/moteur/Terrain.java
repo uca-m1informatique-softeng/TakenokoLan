@@ -1,6 +1,5 @@
 package takenoko.moteur;
 
-import takenoko.ia.IA;
 import takenoko.ressources.*;
 import takenoko.utilitaires.TricheException;
 
@@ -137,7 +136,7 @@ public class Terrain {
         return listeZonesPosables;
     }
 
-    public void changements(Parcelle coupJoue, FeuilleJoueur feuilleJoueur) throws TricheException{
+    public void changements(Parcelle coupJoue, FeuilleJoueur feuilleJoueur) throws TricheException {
         if (feuilleJoueur.getPrecedant() != 0) {
             if (zoneDispo.containsKey(coupJoue.getCoord())) {
                 feuilleJoueur.decNbACtion();
@@ -287,7 +286,7 @@ public class Terrain {
         }
     }
 
-    public void verifObjectifAccompli( FeuilleJoueur feuilleJoueur) {
+    public void verifObjectifAccompli(FeuilleJoueur feuilleJoueur) {
         ArrayList<CartesObjectifs> mainObjectif = feuilleJoueur.getMainObjectif();
         for (Map.Entry<Coordonnees, Parcelle> entry : zoneJouee.entrySet()) {
             Parcelle valeur = entry.getValue();

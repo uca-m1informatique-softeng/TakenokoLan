@@ -1,13 +1,12 @@
 package takenoko.ressources;
 
-import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
 
 import java.util.ArrayList;
 
 public class CarteObjectifJardinier extends CartesObjectifs {
 
-    public CarteObjectifJardinier(){
+    public CarteObjectifJardinier() {
         super();
     }
 

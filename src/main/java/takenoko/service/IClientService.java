@@ -1,9 +1,9 @@
 package takenoko.service;
 
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public interface IClientService {
 
     int feuilleJoueurGetActionChoisie();
 
-    void feuilleJoueurSetActionChoisie(int actionChoisie );
+    void feuilleJoueurSetActionChoisie(int actionChoisie);
 
     int feuilleJoueurGetNbBambouRose();
 
@@ -39,13 +39,13 @@ public interface IClientService {
 
     void feuilleJoueurDecNbACtion();
 
-    void deplacerPanda(Coordonnees coordonnees ) throws TricheException;
+    void deplacerPanda(Coordonnees coordonnees) throws TricheException;
 
-    void deplacerJardinier(Coordonnees coordonnees ) throws TricheException;
+    void deplacerJardinier(Coordonnees coordonnees) throws TricheException;
 
-    void poserParcelle(Parcelle parcelle )throws TricheException;
+    void poserParcelle(Parcelle parcelle) throws TricheException;
 
-    void piocherUnObjectif(int i )throws TricheException;
+    void piocherUnObjectif(int i) throws TricheException;
 
     ArrayList<CartesObjectifs> feuilleJoueurGetMainObjectif();
 

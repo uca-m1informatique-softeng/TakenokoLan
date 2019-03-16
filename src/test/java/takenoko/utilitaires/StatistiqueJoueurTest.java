@@ -2,11 +2,11 @@ package takenoko.utilitaires;
 
 import org.junit.Assert;
 import org.junit.Test;
-import takenoko.ia.IAPanda;
 import takenoko.ia.IA;
+import takenoko.ia.IAPanda;
 
 public class StatistiqueJoueurTest {
-    StatistiqueJoueur statistiqueJoueur = new StatistiqueJoueur(IA.newIA(IA.Type.PANDA), 0, 0, 0,"");
+    StatistiqueJoueur statistiqueJoueur = new StatistiqueJoueur(IA.newIA(IA.Type.PANDA), 0, 0, 0, "");
 
     @Test
     public void getIa() {

@@ -7,9 +7,9 @@ import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.ressources.Coordonnees;
 import takenoko.service.impl.ClientService;
 import takenoko.utilitaires.TricheException;
 
@@ -51,7 +51,7 @@ public class IARandom implements IA {
             placerIrrigations(terrain);
         }
         IA.verifObjectifAccompli(terrain, this);
-        mainObjectif=feuilleJoueur.getMainObjectif();
+        mainObjectif = feuilleJoueur.getMainObjectif();
         LOGGER.info(nomBot + " possède " + feuilleJoueur.getPointsBot() + " points");
     }
 
@@ -146,7 +146,7 @@ public class IARandom implements IA {
                 //Bot pioche un objectif
                 if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF) {
                     lesPiochesObjectif.piocherUnObjectif(feuilleJoueur, 2 /*rand.nextInt(3)*/);
-                    mainObjectif=feuilleJoueur.getMainObjectif();
+                    mainObjectif = feuilleJoueur.getMainObjectif();
                 } else {
                     LOGGER.info("main objectif taille max");
                     choisirAction(terrain);

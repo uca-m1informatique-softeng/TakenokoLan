@@ -2,11 +2,10 @@ package takenoko.entites;
 
 import org.junit.Assert;
 import org.junit.Test;
-import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.ressources.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;

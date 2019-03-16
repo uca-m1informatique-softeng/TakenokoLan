@@ -2,18 +2,12 @@ package takenoko.pioches;
 
 import org.junit.Assert;
 import org.junit.Test;
-import takenoko.configuration.Takenoko;
-import takenoko.ia.IA;
-import takenoko.ia.IAPanda;
 import takenoko.ia.IARandom;
 import takenoko.ressources.CarteObjectifJardinier;
 import takenoko.ressources.CarteObjectifPanda;
 import takenoko.ressources.CarteObjectifParcelle;
 import takenoko.ressources.CartesObjectifs;
-import takenoko.utilitaires.StatistiqueJoueur;
 import takenoko.utilitaires.TricheException;
-
-import java.util.ArrayList;
 
 public class LesPiochesObjectifTest {
 
@@ -21,7 +15,7 @@ public class LesPiochesObjectifTest {
     public void LesPiochesObjectif() {
         try {
 
-            IARandom iaRandom=new IARandom();
+            IARandom iaRandom = new IARandom();
             iaRandom.setNomBot("Joe");
             LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
 

@@ -1,6 +1,5 @@
 package takenoko.utilitaires;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import takenoko.ia.IA;
 import takenoko.ressources.FeuilleJoueur;
 
@@ -14,12 +13,13 @@ public class StatistiqueJoueur {
 
 
     private FeuilleJoueur feuilleJoueur;
-    public StatistiqueJoueur(IA ia, int nbVictoire, int nbPointsTotal, int nbToursTotal,String name) {
+
+    public StatistiqueJoueur(IA ia, int nbVictoire, int nbPointsTotal, int nbToursTotal, String name) {
         this.ia = ia;
         this.nbVictoire = nbVictoire;
         this.nbPointsTotal = nbPointsTotal;
         this.nbToursTotal = nbToursTotal;
-        feuilleJoueur=new FeuilleJoueur(name);
+        feuilleJoueur = new FeuilleJoueur(name);
     }
 
     public IA getIa() {
@@ -48,11 +48,11 @@ public class StatistiqueJoueur {
     }
 
     public void incrNbToursTotal(int nbTours) {
-        if(nbToursMIN==0 || nbToursMIN > nbTours){
-            nbToursMIN=nbTours;
+        if (nbToursMIN == 0 || nbToursMIN > nbTours) {
+            nbToursMIN = nbTours;
         }
-        if(nbToursMAX==0 || nbToursMAX < nbTours){
-            nbToursMAX=nbTours;
+        if (nbToursMAX == 0 || nbToursMAX < nbTours) {
+            nbToursMAX = nbTours;
         }
         nbToursTotal = nbToursTotal + nbTours;
     }

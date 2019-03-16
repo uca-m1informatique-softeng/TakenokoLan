@@ -1,11 +1,10 @@
 package takenoko.ressources;
 
-import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
 
 public class CarteObjectifPanda extends CartesObjectifs {
 
-    public CarteObjectifPanda(){
+    public CarteObjectifPanda() {
         super();
     }
 
@@ -14,7 +13,7 @@ public class CarteObjectifPanda extends CartesObjectifs {
     }
 
     public CarteObjectifPanda(int points, Parcelle.Couleur couleur, Parcelle.Couleur couleur2, Parcelle.Couleur couleur3) {
-        super(points,couleur,couleur2,couleur3);
+        super(points, couleur, couleur2, couleur3);
     }
 
     public String toString() {
@@ -44,7 +43,7 @@ public class CarteObjectifPanda extends CartesObjectifs {
     }
 
     private void doubleBambou(Parcelle.Couleur couleur, FeuilleJoueur feuilleJoueur) {
-        if (Parcelle.Couleur.JAUNE == couleur &&feuilleJoueur.getNbBambouJaune() >= 2) {
+        if (Parcelle.Couleur.JAUNE == couleur && feuilleJoueur.getNbBambouJaune() >= 2) {
             feuilleJoueur.decBambouJaune();
             feuilleJoueur.decBambouJaune();
             feuilleJoueur.majPointsEtMain(this);

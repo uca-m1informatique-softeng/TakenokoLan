@@ -3,8 +3,8 @@ package takenoko.ressources;
 import org.junit.Assert;
 import org.junit.Test;
 import takenoko.entites.Panda;
-import takenoko.ia.IARandom;
 import takenoko.ia.IA;
+import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
 import takenoko.utilitaires.TricheException;
 

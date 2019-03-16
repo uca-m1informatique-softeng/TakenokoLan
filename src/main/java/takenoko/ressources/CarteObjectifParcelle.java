@@ -1,6 +1,5 @@
 package takenoko.ressources;
 
-import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
 
 public class CarteObjectifParcelle extends CartesObjectifs {

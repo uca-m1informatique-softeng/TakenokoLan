@@ -6,16 +6,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.mockito.Mockito;
-import org.mockito.internal.exceptions.Reporter;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.springframework.beans.factory.annotation.Autowired;
 import takenoko.configuration.Takenoko;
-import takenoko.entites.Jardinier;
-import takenoko.entites.Panda;
 import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
-import takenoko.pioches.LesPiochesObjectif;
 import takenoko.ressources.Coordonnees;
 import takenoko.ressources.Parcelle;
 import takenoko.service.impl.ClientService;
@@ -24,7 +19,8 @@ import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.when;
 
 public class PoserParcelleStepDef {
 
@@ -75,7 +71,7 @@ public class PoserParcelleStepDef {
                             return null;
                         }
                     }).when(iService).poserParcelle(p1);
-        }catch (TricheException e){
+        } catch (TricheException e) {
 
         }
 

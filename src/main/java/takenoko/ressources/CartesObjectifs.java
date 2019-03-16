@@ -55,7 +55,9 @@ public abstract class CartesObjectifs {
         this.couleur3 = couleur3;
 
     }
-    public CartesObjectifs(){}
+
+    public CartesObjectifs() {
+    }
 
     @Override
     public String toString() {
