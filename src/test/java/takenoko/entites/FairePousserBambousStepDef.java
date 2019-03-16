@@ -1,14 +1,16 @@
 package takenoko.entites;
 
-import cucumber.api.java.en.*;
-
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.junit.Assert;
-import takenoko.SpringRootTest;
 import takenoko.ia.IAPanda;
 import takenoko.moteur.Terrain;
 import takenoko.ressources.Parcelle;
 import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.TricheException;
+
 import java.util.ArrayList;
 
 public class FairePousserBambousStepDef {
