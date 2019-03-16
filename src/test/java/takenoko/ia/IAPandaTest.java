@@ -261,6 +261,7 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
+        when(iService.pandaGetCoordonnees()).thenReturn(panda.getCoordonnees());
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
