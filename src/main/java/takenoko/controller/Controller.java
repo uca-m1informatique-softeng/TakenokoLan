@@ -61,4 +61,10 @@ public class Controller {
     public Coordonnees pandaGetCoordonnees() {
         return takenoko.getPanda().getCoordonnees();
     }
+
+    @GetMapping(value = "/JardinierGetCoordonnees")
+    public Coordonnees jardinierGetCoordonnees() {
+        return takenoko.getJardinier().getCoordonnees();
+    }
+}
 }
