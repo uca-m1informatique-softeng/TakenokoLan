@@ -362,7 +362,7 @@ public class IAPanda implements IA {
                 }
             }
         } else if (!panda.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.pandaGetDeplacementsPossible(), panda);
+            c = procheDuCentre(iService.pandaGetDeplacementsPossible(), panda.getCoordonnees());
         }
         return c;
     }
@@ -387,18 +387,18 @@ public class IAPanda implements IA {
                 }
             }
         } else if (!jardinier.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), jardinier);
+            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), jardinier.getCoordonnees());
         }
         return c;
     }
 
-    private Coordonnees procheDuCentre(ArrayList<Coordonnees> deplacementPossible, Entite entite) {
+    private Coordonnees procheDuCentre(ArrayList<Coordonnees> deplacementPossible, Coordonnees coordonnees) {
         Coordonnees choix = null;
         int[][] tab = new int[deplacementPossible.size()][1];
         for (int i = 0; i < deplacementPossible.size(); i++) {
             tab[i][0] = Math.abs(deplacementPossible.get(i).getX()) + Math.abs(deplacementPossible.get(i).getY()) + Math.abs(deplacementPossible.get(i).getZ());
         }
-        int max = Math.abs(entite.getCoordonnees().getX()) + Math.abs(entite.getCoordonnees().getY()) + Math.abs(entite.getCoordonnees().getZ());
+        int max = Math.abs(coordonnees.getX()) + Math.abs(coordonnees.getY()) + Math.abs(coordonnees.getZ());
         for (int i = 0; i < deplacementPossible.size(); i++) {
             if (tab[i][0] <= max) {
                 choix = deplacementPossible.get(i);
