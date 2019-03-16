@@ -4,6 +4,7 @@ import takenoko.ressources.Parcelle;
 import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public interface IClientService {
     ArrayList<Parcelle> piocher();
@@ -21,4 +22,6 @@ public interface IClientService {
     Coordonnees pandaGetCoordonnees();
 
     Coordonnees jardinierGetCoordonnees();
+
+    LinkedHashMap<Coordonnees,Parcelle> getZoneJouee();
 }

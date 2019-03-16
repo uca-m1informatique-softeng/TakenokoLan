@@ -9,6 +9,7 @@ import takenoko.service.IClientService;
 import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 @Service
 public class ClientService implements IClientService {
@@ -90,5 +91,15 @@ public class ClientService implements IClientService {
                 HttpMethod.GET,
                 null,
                 Coordonnees.class).getBody();
+    }
+
+    @Override
+    public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/GetZoneJouee",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<LinkedHashMap<Coordonnees,Parcelle>>() {
+                }).getBody();
     }
 }

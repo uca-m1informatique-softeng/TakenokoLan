@@ -6,6 +6,7 @@ import takenoko.ressources.Parcelle;
 import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 @RestController
 public class Controller {
@@ -24,6 +25,11 @@ public class Controller {
         takenoko = new Takenoko();
         takenoko.takenoko();
         return "done";
+    }
+
+    @GetMapping(value = "/getZoneJouee")
+    public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
+        return takenoko.getTerrain().getZoneJouee();
     }
 
     @GetMapping(value = "/Piocher")
