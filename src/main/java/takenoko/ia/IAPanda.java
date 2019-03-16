@@ -356,7 +356,7 @@ public class IAPanda implements IA {
                 }
             }
         } else if (!panda.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.pandaGetDeplacementsPossible(), panda.getCoordonnees());
+            c = procheDuCentre(iService.pandaGetDeplacementsPossible(), iService.pandaGetCoordonnees());
         }
         return c;
     }
@@ -381,10 +381,11 @@ public class IAPanda implements IA {
                 }
             }
         } else if (!jardinier.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), jardinier.getCoordonnees());
+            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), iService.jardinierGetCoordonnees());
         }
         return c;
     }
+
 
     private Coordonnees procheDuCentre(ArrayList<Coordonnees> deplacementPossible, Coordonnees coordonnees) {
         Coordonnees choix = null;

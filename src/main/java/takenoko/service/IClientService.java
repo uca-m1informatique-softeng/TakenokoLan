@@ -3,10 +3,12 @@ package takenoko.service;
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
+import takenoko.moteur.Terrain;
 import takenoko.ressources.Parcelle;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 public interface IClientService {
     ArrayList<Parcelle> piocher();
@@ -50,4 +52,10 @@ public interface IClientService {
     ArrayList<CartesObjectifs> feuilleJoueurGetMainObjectif();
 
     void verifObjectifAccompli();
+
+    Coordonnees pandaGetCoordonnees();
+
+    Coordonnees jardinierGetCoordonnees();
+
+    LinkedHashMap<Coordonnees,Parcelle> getZoneJouee();
 }

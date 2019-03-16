@@ -5,14 +5,17 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
+import takenoko.moteur.Terrain;
 import takenoko.ressources.Parcelle;
 import takenoko.service.IClientService;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 @Service
 public class ClientService implements IClientService {
@@ -79,6 +82,7 @@ public class ClientService implements IClientService {
     }
 
     @Override
+
     public FeuilleJoueur getFeuilleJoueur() {
         return restTemplate.exchange(
                 REST_SERVICE_URI + "/GetFeuilleJoueur",
@@ -215,4 +219,31 @@ public class ClientService implements IClientService {
         restTemplate.postForObject(REST_SERVICE_URI + "/VerifObjectifAccompli", null, CartesObjectifs.class);
     }
 
+
+    public Coordonnees pandaGetCoordonnees() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/PandaGetCoordonnees",
+                HttpMethod.GET,
+                null,
+                Coordonnees.class).getBody();
+    }
+
+    @Override
+    public Coordonnees jardinierGetCoordonnees() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/JardinierGetCoordonnees",
+                HttpMethod.GET,
+                null,
+                Coordonnees.class).getBody();
+    }
+
+    @Override
+    public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/GetZoneJouee",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<LinkedHashMap<Coordonnees,Parcelle>>() {
+                }).getBody();
+    }
 }

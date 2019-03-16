@@ -11,6 +11,7 @@ import takenoko.utilitaires.StatistiqueJoueur;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 @RestController
 public class Controller {
@@ -31,6 +32,11 @@ public class Controller {
         listPlayer.add(new StatistiqueJoueur(IA.newIA(IA.Type.PANDA), 0, 0, 0, "IAPANDA"));
         takenoko.lancerParti(listPlayer);
         return "done";
+    }
+
+    @GetMapping(value = "/GetZoneJouee")
+    public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
+        return takenoko.getTerrain().getZoneJouee();
     }
 
     @GetMapping(value = "/Piocher")
@@ -63,6 +69,7 @@ public class Controller {
     public ArrayList<Coordonnees> jardinierGetDeplacementsPossible() {
         return takenoko.getJardinier().getDeplacementsPossible(takenoko.getTerrain().getZoneJouee());
     }
+
 
     @GetMapping(value = "/GetFeuilleJoueur")
     public FeuilleJoueur getFeuilleJoueur() {
@@ -159,4 +166,15 @@ public class Controller {
         takenoko.getTerrain().verifObjectifAccompli(takenoko.getListPlayer().get(0).getFeuilleJoueur());
     }
 
+
+    @GetMapping(value = "/PandaGetCoordonnees")
+    public Coordonnees pandaGetCoordonnees() {
+        return takenoko.getPanda().getCoordonnees();
+    }
+
+    @GetMapping(value = "/JardinierGetCoordonnees")
+    public Coordonnees jardinierGetCoordonnees() {
+        return takenoko.getJardinier().getCoordonnees();
+    }
 }
+
