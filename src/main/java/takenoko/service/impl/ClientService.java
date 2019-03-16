@@ -73,4 +73,13 @@ public class ClientService implements IClientService {
                 new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
                 }).getBody();
     }
+
+    @Override
+    public Coordonnees pandaGetCoordonnees() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/PandaGetCoordonnees",
+                HttpMethod.GET,
+                null,
+                Coordonnees.class).getBody();
+    }
 }

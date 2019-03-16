@@ -17,4 +17,6 @@ public interface IClientService {
     Boolean piochePandaIsEmpty();
 
     ArrayList<Coordonnees> jardinierGetDeplacementsPossible();
+
+    Coordonnees pandaGetCoordonnees();
 }
