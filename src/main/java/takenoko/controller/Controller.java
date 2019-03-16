@@ -57,4 +57,8 @@ public class Controller {
         return takenoko.getJardinier().getDeplacementsPossible(takenoko.getTerrain().getZoneJouee());
     }
 
+    @GetMapping(value = "/PandaGetCoordonnees")
+    public Coordonnees pandaGetCoordonnees() {
+        return takenoko.getPanda().getCoordonnees();
+    }
 }
