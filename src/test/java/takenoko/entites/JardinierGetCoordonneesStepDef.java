@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 
 import static org.junit.Assert.assertEquals;
 

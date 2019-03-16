@@ -5,11 +5,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
-import takenoko.moteur.Terrain;
 import takenoko.ressources.Parcelle;
 import takenoko.service.IClientService;
 import takenoko.utilitaires.TricheException;
