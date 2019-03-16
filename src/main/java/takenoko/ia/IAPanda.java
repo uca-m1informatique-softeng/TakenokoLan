@@ -386,7 +386,7 @@ public class IAPanda implements IA {
                 }
             }
         } else if (!jardinier.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), jardinier.getCoordonnees());
+            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), iService.jardinierGetCoordonnees());
         }
         return c;
     }
