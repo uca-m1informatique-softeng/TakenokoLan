@@ -67,4 +67,4 @@ public class Controller {
         return takenoko.getJardinier().getCoordonnees();
     }
 }
-}
+

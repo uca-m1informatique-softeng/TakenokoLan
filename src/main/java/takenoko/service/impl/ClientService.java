@@ -82,4 +82,13 @@ public class ClientService implements IClientService {
                 null,
                 Coordonnees.class).getBody();
     }
+
+    @Override
+    public Coordonnees jardinierGetCoordonnees() {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/JardinierGetCoordonnees",
+                HttpMethod.GET,
+                null,
+                Coordonnees.class).getBody();
+    }
 }
