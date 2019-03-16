@@ -1,5 +1,6 @@
 package takenoko.service;
 
+import takenoko.moteur.Terrain;
 import takenoko.ressources.Parcelle;
 import takenoko.utilitaires.Coordonnees;
 

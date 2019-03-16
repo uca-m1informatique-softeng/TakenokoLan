@@ -27,7 +27,7 @@ public class Controller {
         return "done";
     }
 
-    @GetMapping(value = "/getZoneJouee")
+    @GetMapping(value = "/GetZoneJouee")
     public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
         return takenoko.getTerrain().getZoneJouee();
     }
