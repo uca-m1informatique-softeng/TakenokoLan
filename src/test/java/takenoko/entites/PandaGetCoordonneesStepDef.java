@@ -8,7 +8,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 
 import static org.junit.Assert.assertEquals;
 
@@ -38,6 +38,6 @@ public class PandaGetCoordonneesStepDef {
     @And("^le client reçoit les coordonnees du panda$")
     public void clientRecoitCoordonneesPanda() {
         //par defaut le panda est a la coordonnee 0,0,0
-        assertEquals(response.getBody(),new Coordonnees(0,0,0));
+        assertEquals(response.getBody(), new Coordonnees(0, 0, 0));
     }
 }

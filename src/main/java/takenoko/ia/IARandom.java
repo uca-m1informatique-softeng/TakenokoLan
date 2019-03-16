@@ -7,9 +7,10 @@ import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.service.impl.ClientService;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class IARandom implements IA {
     private ArrayList<CartesObjectifs> mainObjectif = new ArrayList<>();
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
     private String nomBot;
-
+    private ClientService iService;
     private FeuilleJoueur feuilleJoueur;
 
     public FeuilleJoueur getFeuilleJoueur() {
@@ -34,7 +35,7 @@ public class IARandom implements IA {
     }
 
     public IARandom() {
-        feuilleJoueur = new FeuilleJoueur();
+        feuilleJoueur = new FeuilleJoueur(nomBot);
         LOGGER.setLevel(Level.OFF);
     }
 
@@ -50,6 +51,7 @@ public class IARandom implements IA {
             placerIrrigations(terrain);
         }
         IA.verifObjectifAccompli(terrain, this);
+        mainObjectif = feuilleJoueur.getMainObjectif();
         LOGGER.info(nomBot + " possède " + feuilleJoueur.getPointsBot() + " points");
     }
 
@@ -134,7 +136,7 @@ public class IARandom implements IA {
                     //positionsCoupJoue
                     coupJoue.setCoord(choisirPosition(terrain.getListeZonesPosables()));
                     // Le terrain est mis à jour
-                    terrain.changements(coupJoue, this);
+                    terrain.changements(coupJoue, feuilleJoueur);
                 } else {
                     LOGGER.info("pioche parcelle vide");
                     choisirAction(terrain);
@@ -143,7 +145,8 @@ public class IARandom implements IA {
             } else if (feuilleJoueur.getActionChoisie() == 1) {
                 //Bot pioche un objectif
                 if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF) {
-                    lesPiochesObjectif.piocherUnObjectif(this, 2 /*rand.nextInt(3)*/);
+                    lesPiochesObjectif.piocherUnObjectif(feuilleJoueur, 2 /*rand.nextInt(3)*/);
+                    mainObjectif = feuilleJoueur.getMainObjectif();
                 } else {
                     LOGGER.info("main objectif taille max");
                     choisirAction(terrain);
@@ -151,11 +154,11 @@ public class IARandom implements IA {
                 }
             } else if (feuilleJoueur.getActionChoisie() == 2) {
                 //Bot déplace le panda
-                panda.deplacerEntite(choixDeplacement(panda.getDeplacementsPossible(terrain.getZoneJouee())), this);
+                panda.deplacerEntite(choixDeplacement(panda.getDeplacementsPossible(terrain.getZoneJouee())), feuilleJoueur);
                 LOGGER.warning(nomBot + " a déplacé le panda a la coordonnée :  " + panda.getCoordonnees());
             } else if (feuilleJoueur.getActionChoisie() == 3) {
                 //Bot déplace le jardinier
-                jardinier.deplacerEntite(choixDeplacement(jardinier.getDeplacementsPossible(terrain.getZoneJouee())), this);
+                jardinier.deplacerEntite(choixDeplacement(jardinier.getDeplacementsPossible(terrain.getZoneJouee())), feuilleJoueur);
                 LOGGER.warning(nomBot + " a déplacé le jardinier a la coordonnée :  " + jardinier.getCoordonnees());
             }
             // piocher une irrigation
@@ -178,6 +181,11 @@ public class IARandom implements IA {
 
     public void setNomBot(String nomBot) {
         this.nomBot = nomBot;
+    }
+
+    @Override
+    public void setiService(ClientService iService) {
+        this.iService = iService;
     }
 }
 

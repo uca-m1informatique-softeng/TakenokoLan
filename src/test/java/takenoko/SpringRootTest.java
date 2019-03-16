@@ -8,5 +8,5 @@ import org.springframework.test.context.ContextConfiguration;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration
 public class SpringRootTest {
-    protected TestRestTemplate template=new TestRestTemplate();
+    protected TestRestTemplate template = new TestRestTemplate();
 }

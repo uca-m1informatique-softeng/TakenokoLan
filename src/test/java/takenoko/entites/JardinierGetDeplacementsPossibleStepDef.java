@@ -9,8 +9,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import takenoko.SpringRootTest;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-public class JardinierGetDeplacementsPossibleStepDef  {
+public class JardinierGetDeplacementsPossibleStepDef {
     private ResponseEntity<ArrayList<Coordonnees>> response; // output
 
     private TestRestTemplate restTemplate = new TestRestTemplate();

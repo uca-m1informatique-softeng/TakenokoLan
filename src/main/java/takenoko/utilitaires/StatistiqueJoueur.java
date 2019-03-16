@@ -1,6 +1,7 @@
 package takenoko.utilitaires;
 
 import takenoko.ia.IA;
+import takenoko.ressources.FeuilleJoueur;
 
 public class StatistiqueJoueur {
     private IA ia;
@@ -10,11 +11,15 @@ public class StatistiqueJoueur {
     private int nbToursMIN = 0;
     private int nbToursMAX = 0;
 
-    public StatistiqueJoueur(IA ia, int nbVictoire, int nbPointsTotal, int nbToursTotal) {
+
+    private FeuilleJoueur feuilleJoueur;
+
+    public StatistiqueJoueur(IA ia, int nbVictoire, int nbPointsTotal, int nbToursTotal, String name) {
         this.ia = ia;
         this.nbVictoire = nbVictoire;
         this.nbPointsTotal = nbPointsTotal;
         this.nbToursTotal = nbToursTotal;
+        feuilleJoueur = new FeuilleJoueur(name);
     }
 
     public IA getIa() {
@@ -43,11 +48,11 @@ public class StatistiqueJoueur {
     }
 
     public void incrNbToursTotal(int nbTours) {
-        if(nbToursMIN==0 || nbToursMIN > nbTours){
-            nbToursMIN=nbTours;
+        if (nbToursMIN == 0 || nbToursMIN > nbTours) {
+            nbToursMIN = nbTours;
         }
-        if(nbToursMAX==0 || nbToursMAX < nbTours){
-            nbToursMAX=nbTours;
+        if (nbToursMAX == 0 || nbToursMAX < nbTours) {
+            nbToursMAX = nbTours;
         }
         nbToursTotal = nbToursTotal + nbTours;
     }
@@ -62,5 +67,13 @@ public class StatistiqueJoueur {
 
     public int getNbToursMAX() {
         return nbToursMAX;
+    }
+
+    public FeuilleJoueur getFeuilleJoueur() {
+        return feuilleJoueur;
+    }
+
+    public void setFeuilleJoueur(FeuilleJoueur feuilleJoueur) {
+        this.feuilleJoueur = feuilleJoueur;
     }
 }

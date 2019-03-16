@@ -2,13 +2,13 @@ package takenoko.pioches;
 
 import org.junit.Assert;
 import org.junit.Test;
-import takenoko.ia.IARandom;
 import takenoko.ia.IA;
+import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
 import takenoko.ressources.CarteObjectifParcelle;
 import takenoko.ressources.CartesObjectifs;
+import takenoko.ressources.Coordonnees;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
 
 import java.util.ArrayList;
 
@@ -63,6 +63,7 @@ public class LaPiocheObjectifsParcellesTest {
         p9.setIrriguee(true);
         // cas G-HG
         listeCartes.add(carteObjectifParcelleTriangle);
+        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
         IARandom.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p7.getCoord(), p7);

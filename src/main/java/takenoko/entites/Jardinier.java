@@ -1,9 +1,9 @@
 package takenoko.entites;
 
-import takenoko.ia.IA;
 import takenoko.moteur.Terrain;
+import takenoko.ressources.Coordonnees;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -22,17 +22,17 @@ public class Jardinier extends Entite {
     }
 
     @Override
-    public void deplacerEntite(Coordonnees coordonnees, IA bot)throws TricheException {
-        if(bot.getFeuilleJoueur().getPrecedant()!=3){
+    public void deplacerEntite(Coordonnees coordonnees, FeuilleJoueur feuilleJoueur) throws TricheException {
+        if (feuilleJoueur.getPrecedant() != 3) {
             if (getDeplacementsPossible(terrain.getZoneJouee()).contains(coordonnees)) {
-                bot.getFeuilleJoueur().decNbACtion();
-                bot.getFeuilleJoueur().setPrecedant(3);
+                feuilleJoueur.decNbACtion();
+                feuilleJoueur.setPrecedant(3);
                 this.coordonnees = coordonnees;
                 pousserBambou();
-            }else{
+            } else {
                 throw new TricheException("déplacement sur cette parcelle impossible");
             }
-        }else{
+        } else {
             throw new TricheException("impossible de deplacer 2 fois jardinier");
         }
     }

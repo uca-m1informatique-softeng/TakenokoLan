@@ -3,10 +3,9 @@ package takenoko.ressources;
 import org.junit.Assert;
 import org.junit.Test;
 import takenoko.entites.Panda;
-import takenoko.ia.IARandom;
 import takenoko.ia.IA;
+import takenoko.ia.IARandom;
 import takenoko.moteur.Terrain;
-import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -48,11 +47,11 @@ public class CarteObjectifPandaTest {
         p1.pousserBambou();
 
         try {
-            panda.deplacerEntite(p1.getCoord(), IARandom);
+            panda.deplacerEntite(p1.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p2.getCoord(), IARandom);
+            panda.deplacerEntite(p2.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p1.getCoord(), IARandom);
+            panda.deplacerEntite(p1.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
 
         } catch (TricheException e) {
@@ -68,11 +67,11 @@ public class CarteObjectifPandaTest {
         p2.pousserBambou();
 
         try {
-            panda.deplacerEntite(p2.getCoord(), IARandom);
+            panda.deplacerEntite(p2.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p1.getCoord(), IARandom);
+            panda.deplacerEntite(p1.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p2.getCoord(), IARandom);
+            panda.deplacerEntite(p2.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
 
             IA.verifObjectifAccompli(terrain, IARandom);
@@ -86,11 +85,11 @@ public class CarteObjectifPandaTest {
             p3.pousserBambou();
 
 
-            panda.deplacerEntite(p3.getCoord(), IARandom);
+            panda.deplacerEntite(p3.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p2.getCoord(), IARandom);
+            panda.deplacerEntite(p2.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p3.getCoord(), IARandom);
+            panda.deplacerEntite(p3.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
 
             IA.verifObjectifAccompli(terrain, IARandom);
@@ -104,13 +103,13 @@ public class CarteObjectifPandaTest {
             p2.pousserBambou();
             p3.pousserBambou();
 
-            panda.deplacerEntite(p2.getCoord(), IARandom);
+            panda.deplacerEntite(p2.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p1.getCoord(), IARandom);
+            panda.deplacerEntite(p1.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p2.getCoord(), IARandom);
+            panda.deplacerEntite(p2.getCoord(), IARandom.getFeuilleJoueur());
             IARandom.getFeuilleJoueur().setPrecedant(15);
-            panda.deplacerEntite(p3.getCoord(), IARandom);
+            panda.deplacerEntite(p3.getCoord(), IARandom.getFeuilleJoueur());
 
 
         } catch (TricheException e) {

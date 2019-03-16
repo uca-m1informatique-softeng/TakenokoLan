@@ -5,10 +5,11 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
-import takenoko.ia.IAPanda;
+
 import takenoko.moteur.Terrain;
+import takenoko.ressources.Coordonnees;
+import takenoko.ressources.FeuilleJoueur;
 import takenoko.ressources.Parcelle;
-import takenoko.utilitaires.Coordonnees;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
@@ -42,8 +43,9 @@ public class FairePousserBambousStepDef {
         p1.setIrriguee(true);
 
     }
+
     @Then("^il y a un seul bambou")
-    public void nbBambou()  {
+    public void nbBambou() {
         initTerrain();
         Assert.assertEquals(1, p.getBambou());
     }
@@ -57,15 +59,16 @@ public class FairePousserBambousStepDef {
         deplacementPossible = jardinier.getDeplacementsPossible(terrain.getZoneJouee());
         int i = deplacementPossible.indexOf(p1.getCoord());
         try {
-            jardinier.deplacerEntite(deplacementPossible.get(i), new IAPanda());
-        }catch (TricheException e){
+            jardinier.deplacerEntite(deplacementPossible.get(i), new FeuilleJoueur(""));
+        } catch (TricheException e) {
             e.printStackTrace();
         }
         Assert.assertEquals(jardinier.getCoordonnees(), deplacementPossible.get(i));
 
     }
+
     @Then("^le nombre de bambous augmente")
-    public void nbBambous()  {
+    public void nbBambous() {
         Assert.assertEquals(2, p1.getBambou());
     }
 }

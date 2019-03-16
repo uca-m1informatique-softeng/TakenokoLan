@@ -1,7 +1,5 @@
 package takenoko.ressources;
 
-import takenoko.utilitaires.Coordonnees;
-
 public class Parcelle {
     private Coordonnees coord;
 
@@ -36,12 +34,12 @@ public class Parcelle {
     public Parcelle(Couleur couleur, Effet effet) {
         this.couleur = couleur;
         this.effet = effet;
-        if(effet==Effet.PUIT){
+        if (effet == Effet.PUIT) {
             setIrriguee(true);
         }
     }
 
-    public Parcelle(){
+    public Parcelle() {
     }
 
     public Effet getEffet() {

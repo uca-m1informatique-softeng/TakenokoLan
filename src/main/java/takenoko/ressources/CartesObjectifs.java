@@ -1,8 +1,9 @@
 package takenoko.ressources;
 
-import takenoko.ia.IA;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import takenoko.moteur.Terrain;
 
+@JsonDeserialize(as = CarteObjectifPanda.class)
 public abstract class CartesObjectifs {
     public enum Motif {LIGNE, COURBE, TRIANGLE, LOSANGE, POINT}
 
@@ -55,6 +56,22 @@ public abstract class CartesObjectifs {
 
     }
 
+    public CartesObjectifs() {
+    }
+
+    @Override
+    public String toString() {
+        return "CartesObjectifs{" +
+                "couleur=" + couleur +
+                ", couleur2=" + couleur2 +
+                ", couleur3=" + couleur3 +
+                ", points=" + points +
+                ", motif=" + motif +
+                ", bambou=" + bambou +
+                ", effet=" + effet +
+                '}';
+    }
+
     public int getPoints() {
         return points;
     }
@@ -83,5 +100,5 @@ public abstract class CartesObjectifs {
         return effet;
     }
 
-    public abstract void verifObjectif(Terrain terrain, Parcelle valeur, IA bot);
+    public abstract void verifObjectif(Terrain terrain, Parcelle valeur, FeuilleJoueur feuilleJoueur);
 }

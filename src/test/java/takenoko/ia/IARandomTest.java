@@ -10,7 +10,7 @@ import takenoko.entites.Panda;
 import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
-import takenoko.utilitaires.Coordonnees;
+import takenoko.ressources.Coordonnees;
 
 import java.util.Random;
 
@@ -42,7 +42,7 @@ public class IARandomTest {
         Assert.assertNotEquals(new Coordonnees(0, 0, 0), jardinier.getCoordonnees());
 
         for (int i = 2; i <= 5; i++) {
-            when(random.nextInt(5)).thenReturn(1,0);
+            when(random.nextInt(5)).thenReturn(1, 0);
             when(random.nextBoolean()).thenReturn(false);
             IARandom.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
             Assert.assertEquals(i, IARandom.getMainObjectif().size());
