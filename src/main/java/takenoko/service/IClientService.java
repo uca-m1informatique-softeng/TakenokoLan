@@ -3,7 +3,6 @@ package takenoko.service;
 import takenoko.ressources.CartesObjectifs;
 import takenoko.ressources.Coordonnees;
 import takenoko.ressources.FeuilleJoueur;
-import takenoko.moteur.Terrain;
 import takenoko.ressources.Parcelle;
 import takenoko.utilitaires.TricheException;
 

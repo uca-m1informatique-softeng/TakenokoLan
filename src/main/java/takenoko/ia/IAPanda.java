@@ -40,17 +40,17 @@ public class IAPanda implements IA {
     @Override
     public void joue(LaPiocheParcelle piocheParcelle, Terrain terrain, LesPiochesObjectif lesPiochesObjectif, Jardinier jardinier, Panda panda) {
         iService.feuilleJoueurInitNbAction();
-        verifObjectif(terrain);
+        verifObjectif();
 
         while (iService.feuilleJoueurGetNbAction() > 0) {
             choisirAction(terrain);
-            faireAction(lesPiochesObjectif, terrain, jardinier, panda);
+            faireAction(lesPiochesObjectif, terrain);
         }
-        verifObjectif(terrain);
+        verifObjectif();
         //LOGGER.info(nomBot + "%s possède " + iService.getFeuilleJoueur().getPointsBot() + " points");
     }
 
-    private void verifObjectif(Terrain terrain) {
+    private void verifObjectif() {
         iService.verifObjectifAccompli();
         mainObjectif = iService.feuilleJoueurGetMainObjectif();
         mainObjectifValeur.clear();
@@ -94,7 +94,7 @@ public class IAPanda implements IA {
         return false;
     }
 
-    private void faireAction(LesPiochesObjectif lesPiochesObjectif, Terrain terrain, Jardinier jardinier, Panda panda) {
+    private void faireAction(LesPiochesObjectif lesPiochesObjectif, Terrain terrain) {
         Parcelle coupJoue;
         if (iService.feuilleJoueurGetActionChoisie() == 0) {
             // Bot pioche 3 parcelles, en choisit une aléatoirement et choisit une position aléatoire parmi la liste d'adjacences
@@ -123,11 +123,11 @@ public class IAPanda implements IA {
         } else if (iService.feuilleJoueurGetActionChoisie() == 2) {
             //Bot déplace le panda
             valeurDeplacementPanda(terrain, iService.pandaGetDeplacementsPossible());
-            deplacementPanda(posCartePanda(), panda, jardinier, terrain, lesPiochesObjectif);
+            deplacementPanda(posCartePanda(), terrain, lesPiochesObjectif);
         } else if (iService.feuilleJoueurGetActionChoisie() == 3) {
             //Bot déplace le jardinier
             valeurDeplacementJardinier(terrain, iService.jardinierGetDeplacementsPossible());
-            deplacementJardinier(posCartePanda(), panda, jardinier, terrain, lesPiochesObjectif);
+            deplacementJardinier(posCartePanda(), terrain, lesPiochesObjectif);
         }
     }
 
@@ -255,63 +255,63 @@ public class IAPanda implements IA {
         return p;
     }
 
-    private void deplacementPanda(int j, Panda panda, Jardinier jardinier, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
+    private void deplacementPanda(int j, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
         //si un deplacement interessant
         if (j != 15 && mainObjectifValeur.get(j).getCout() != 0) {
             try {
                 iService.deplacerPanda(mainObjectifValeur.get(j).getCoordonneesPandaPossible().get(0));
-                LOGGER.info(nomBot + " a déplacé le panda a la coordonnée : " + panda.getCoordonnees());
+                LOGGER.info(nomBot + " a déplacé le panda a la coordonnée : " + iService.pandaGetCoordonnees());
             } catch (TricheException e) {
                 LOGGER.warning(e.getMessage());
             }
             //si il a une deuxieme action
-            verifObjectif(terrain);
+            verifObjectif();
             if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && iService.feuilleJoueurGetActionChoisie() != 1 && !iService.piochePandaIsEmpty() && iService.feuilleJoueurGetNbAction() == 1) {
                 iService.feuilleJoueurSetActionChoisie(1);
-                faireAction(lesPiochesObjectif, terrain, jardinier, panda);
+                faireAction(lesPiochesObjectif, terrain);
             } else if (iService.feuilleJoueurGetActionChoisie() != 3 && iService.feuilleJoueurGetNbAction() == 1) {
                 iService.feuilleJoueurSetActionChoisie(3);
-                faireAction(lesPiochesObjectif, terrain, jardinier, panda);
+                faireAction(lesPiochesObjectif, terrain);
             }
         } else {
             //sinon on essaye le jardinier
             iService.feuilleJoueurSetActionChoisie(3);
-            faireAction(lesPiochesObjectif, terrain, jardinier, panda);
+            faireAction(lesPiochesObjectif, terrain);
         }
     }
 
-    private void deplacementJardinier(int j, Panda panda, Jardinier jardinier, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
+    private void deplacementJardinier(int j, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
         //si un deplacement interessant
         if (j != 15 && mainObjectifValeur.get(j).getCout() != 0) {
             try {
                 iService.deplacerJardinier(mainObjectifValeur.get(j).getCoordonneesJardinierPossible().get(0));
-                LOGGER.info(nomBot + " a déplacé le jardinier a la coordonnée : " + jardinier.getCoordonnees());
+                LOGGER.info(nomBot + " a déplacé le jardinier a la coordonnée : " + iService.jardinierGetCoordonnees());
             } catch (TricheException e) {
-                aucunCoupInterressant(panda, jardinier, terrain, lesPiochesObjectif);
+                aucunCoupInterressant(terrain, lesPiochesObjectif);
             }
         } else {
             //sinon
-            aucunCoupInterressant(panda, jardinier, terrain, lesPiochesObjectif);
+            aucunCoupInterressant(terrain, lesPiochesObjectif);
         }
     }
 
-    private void aucunCoupInterressant(Panda panda, Jardinier jardinier, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
-        verifObjectif(terrain);
+    private void aucunCoupInterressant(Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
+        verifObjectif();
         if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && iService.feuilleJoueurGetActionChoisie() != 1 && !iService.piochePandaIsEmpty() && iService.feuilleJoueurGetNbAction() == 1) {
             iService.feuilleJoueurSetActionChoisie(1);
-            faireAction(lesPiochesObjectif, terrain, jardinier, panda);
+            faireAction(lesPiochesObjectif, terrain);
         } else {
             try {
-                Coordonnees c = deplacementAvancePanda(terrain, panda);
+                Coordonnees c = deplacementAvancePanda(terrain);
                 if (c != null) {
                     iService.deplacerPanda(c);
-                    LOGGER.info(nomBot + " a déplacé le panda a la coordonnée (avancee): " + panda.getCoordonnees());
+                    LOGGER.info(nomBot + " a déplacé le panda a la coordonnée (avancee): " + iService.pandaGetCoordonnees());
                 } else {
-                    c = deplacementAvanceJardinier(terrain, jardinier);
+                    c = deplacementAvanceJardinier(terrain);
                     if (c != null) {
                         try {
                             iService.deplacerJardinier(c);
-                            LOGGER.info(nomBot + " a déplacé le jardinier a la coordonnée (avancee): " + jardinier.getCoordonnees());
+                            LOGGER.info(nomBot + " a déplacé le jardinier a la coordonnée (avancee): " + iService.jardinierGetCoordonnees());
                         } catch (TricheException x) {
                             iService.feuilleJoueurDecNbACtion();
                         }
@@ -320,11 +320,11 @@ public class IAPanda implements IA {
                     }
                 }
             } catch (TricheException e) {
-                Coordonnees c = deplacementAvanceJardinier(terrain, jardinier);
+                Coordonnees c = deplacementAvanceJardinier(terrain);
                 if (c != null) {
                     try {
                         iService.deplacerJardinier(c);
-                        LOGGER.info(nomBot + " a déplacé le jardinier a la coordonnée (avancee) : " + jardinier.getCoordonnees());
+                        LOGGER.info(nomBot + " a déplacé le jardinier a la coordonnée (avancee) : " + iService.jardinierGetCoordonnees());
                     } catch (TricheException x) {
                         iService.feuilleJoueurDecNbACtion();
                     }
@@ -335,7 +335,7 @@ public class IAPanda implements IA {
         }
     }
 
-    private Coordonnees deplacementAvancePanda(Terrain terrain, Panda panda) {
+    private Coordonnees deplacementAvancePanda(Terrain terrain) {
         Coordonnees c = null;
         valeurDeplacementPanda(terrain, listZoneJouee(terrain));
         int posCarte = posCartePanda();
@@ -355,13 +355,13 @@ public class IAPanda implements IA {
                     break;
                 }
             }
-        } else if (!panda.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
+        } else if (!iService.pandaGetCoordonnees().equals(new Coordonnees(0, 0, 0))) {
             c = procheDuCentre(iService.pandaGetDeplacementsPossible(), iService.pandaGetCoordonnees());
         }
         return c;
     }
 
-    private Coordonnees deplacementAvanceJardinier(Terrain terrain, Jardinier jardinier) {
+    private Coordonnees deplacementAvanceJardinier(Terrain terrain) {
         Coordonnees c = null;
         valeurDeplacementJardinier(terrain, listZoneJouee(terrain));
         int posCarte = posCartePanda();
@@ -380,7 +380,7 @@ public class IAPanda implements IA {
                     break;
                 }
             }
-        } else if (!jardinier.getCoordonnees().equals(new Coordonnees(0, 0, 0))) {
+        } else if (!iService.jardinierGetCoordonnees().equals(new Coordonnees(0, 0, 0))) {
             c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), iService.jardinierGetCoordonnees());
         }
         return c;
