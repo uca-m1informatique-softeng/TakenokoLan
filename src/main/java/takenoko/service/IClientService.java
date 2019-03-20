@@ -22,6 +22,7 @@ public interface IClientService {
 
     ArrayList<Coordonnees> jardinierGetDeplacementsPossible();
 
+
     FeuilleJoueur getFeuilleJoueur();
 
     void feuilleJoueurInitNbAction();
@@ -39,6 +40,7 @@ public interface IClientService {
     int feuilleJoueurGetNbBambouJaune();
 
     void feuilleJoueurDecNbACtion();
+    
 
     void deplacerPanda(Coordonnees coordonnees) throws TricheException;
 
