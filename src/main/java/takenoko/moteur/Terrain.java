@@ -128,6 +128,15 @@ public class Terrain {
         return zoneJouee;
     }
 
+    public ArrayList<Parcelle> getZoneJoueeParcelles() {
+        ArrayList<Parcelle> parcellesJouees = new ArrayList<>();
+        for (Map.Entry<Coordonnees, Parcelle> entry : zoneJouee.entrySet()) {
+            Parcelle parcelle = entry.getValue();
+            parcellesJouees.add(parcelle);
+        }
+        return parcellesJouees;
+    }
+
     public HashMap<Coordonnees, Integer> getZoneDispo() {
         return zoneDispo;
     }

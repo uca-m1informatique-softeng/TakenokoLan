@@ -58,5 +58,5 @@ public interface IClientService {
 
     Coordonnees jardinierGetCoordonnees();
 
-    LinkedHashMap<Coordonnees,Parcelle> getZoneJouee();
+    ArrayList<Parcelle> getZoneJouee();
 }

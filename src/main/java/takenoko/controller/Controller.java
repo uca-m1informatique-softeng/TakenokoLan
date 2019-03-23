@@ -35,8 +35,8 @@ public class Controller {
     }
 
     @GetMapping(value = "/GetZoneJouee")
-    public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
-        return takenoko.getTerrain().getZoneJouee();
+    public ArrayList<Parcelle> getZoneJouee() {
+        return takenoko.getTerrain().getZoneJoueeParcelles();
     }
 
     @GetMapping(value = "/Piocher")

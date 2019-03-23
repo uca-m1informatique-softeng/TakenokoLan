@@ -236,12 +236,12 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
+    public ArrayList<Parcelle> getZoneJouee() {
         return restTemplate.exchange(
                 REST_SERVICE_URI + "/GetZoneJouee",
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<LinkedHashMap<Coordonnees,Parcelle>>() {
+                new ParameterizedTypeReference<ArrayList<Parcelle>>() {
                 }).getBody();
     }
 }
