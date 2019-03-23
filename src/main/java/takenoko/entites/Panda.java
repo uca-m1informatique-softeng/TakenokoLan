@@ -8,6 +8,8 @@ import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Panda extends Entite {
 
@@ -48,12 +50,21 @@ public class Panda extends Entite {
         }
     }
 
-    public ArrayList<Coordonnees> getDeplacementsPossible(HashMap<Coordonnees, Parcelle> zoneJoue) {
+    public ArrayList<Coordonnees> getDeplacementsPossible(LinkedHashMap<Coordonnees, Parcelle> zoneJoue) {
         ArrayList<Coordonnees> deplacementsPossible = new ArrayList<>();
 
-        coordonnees.deplacementPossible(zoneJoue, deplacementsPossible);
+        coordonnees.deplacementPossible(getZoneJoueeParcelles(zoneJoue), deplacementsPossible);
         deplacementsPossible.remove(this.coordonnees);
         return deplacementsPossible;
+    }
+
+    public ArrayList<Parcelle> getZoneJoueeParcelles(LinkedHashMap<Coordonnees, Parcelle> zoneJouee) {
+        ArrayList<Parcelle> parcellesJouees = new ArrayList<>();
+        for (Map.Entry<Coordonnees, Parcelle> entry : zoneJouee.entrySet()) {
+            Parcelle parcelle = entry.getValue();
+            parcellesJouees.add(parcelle);
+        }
+        return parcellesJouees;
     }
 
 }

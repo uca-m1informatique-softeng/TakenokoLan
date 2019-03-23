@@ -246,12 +246,13 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public Parcelle getParcelle(Coordonnees coordonnees) {
+    public Parcelle coordToParcelle(Coordonnees coordonnees) {
+        HttpEntity<Coordonnees> request = new HttpEntity<>(coordonnees);
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/GetParcelle",
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<Parcelle>() {
+                REST_SERVICE_URI + "/CoordToParcelle",
+                HttpMethod.POST,
+                request,
+                new ParameterizedTypeReference<Parcelle>(){
                 }).getBody();
     }
 }

@@ -79,15 +79,14 @@ public class IAPanda implements IA {
     }
 
     //renvoi vrai si une parcelle de chaque couleur qui est irriguee et sans enclos
-    private boolean uneCouleurDeChaque(HashMap<Coordonnees, Parcelle> zoneJoue) {
+    private boolean uneCouleurDeChaque(ArrayList<Parcelle> zoneJoue) {
         return couleurParcellePresente(zoneJoue, Parcelle.Couleur.VERTE) && couleurParcellePresente(zoneJoue, Parcelle.Couleur.JAUNE) && couleurParcellePresente(zoneJoue, Parcelle.Couleur.ROSE);
     }
 
     //renvoi vrai si une parcelle est irriguee et sans enclos
-    private boolean couleurParcellePresente(HashMap<Coordonnees, Parcelle> zoneJoue, Parcelle.Couleur couleur) {
-        for (Map.Entry<Coordonnees, Parcelle> entry : zoneJoue.entrySet()) {
-            Parcelle valeur = entry.getValue();
-            if (valeur.getCouleur() == couleur && valeur.isIrriguee() && valeur.getEffet() != Parcelle.Effet.ENCLOS) {
+    private boolean couleurParcellePresente(ArrayList<Parcelle> zoneJoue, Parcelle.Couleur couleur) {
+        for (int i = 0; i < zoneJoue.size(); i++) {
+            if (zoneJoue.get(i).getCouleur() == couleur && zoneJoue.get(i).isIrriguee() && zoneJoue.get(i).getEffet() != Parcelle.Effet.ENCLOS) {
                 return true;
             }
         }
@@ -220,7 +219,7 @@ public class IAPanda implements IA {
         }
     }
 
-    private Parcelle choisirParcelle(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Parcelle> troisParcelles) {
+    private Parcelle choisirParcelle(ArrayList<Parcelle> zoneJoue, ArrayList<Parcelle> troisParcelles) {
         Parcelle p;
         LOGGER.info(nomBot + " peux choisir entre :");
 
@@ -406,7 +405,7 @@ public class IAPanda implements IA {
         ArrayList<Coordonnees> coordonneesPossible = new ArrayList<>();
         for (Parcelle.Couleur couleur : couleurPossible) {
             for (Coordonnees c : deplacementsPossibles) {
-                if (iService.getParcelle(c).getCouleur() == couleur && iService.getParcelle(c).getEffet() != Parcelle.Effet.ENCLOS && iService.getParcelle(c).getBambou() != 0) {
+                if (iService.coordToParcelle(c).getCouleur() == couleur && iService.coordToParcelle(c).getEffet() != Parcelle.Effet.ENCLOS && iService.coordToParcelle(c).getBambou() != 0) {
                     coordonneesPossible.add(c);
                 }
             }
@@ -418,7 +417,7 @@ public class IAPanda implements IA {
         ArrayList<Coordonnees> coordonneesPossible = new ArrayList<>();
         for (Parcelle.Couleur couleur : couleurPossible) {
             for (Coordonnees c : deplacementsPossibles) {
-                if (iService.getParcelle(c).getCouleur() == couleur && iService.getParcelle(c).getEffet() != Parcelle.Effet.ENCLOS && iService.getParcelle(c).getBambou() <= 2 && iService.getParcelle(c).isIrriguee()) {
+                if (iService.coordToParcelle(c).getCouleur() == couleur && iService.coordToParcelle(c).getEffet() != Parcelle.Effet.ENCLOS && iService.coordToParcelle(c).getBambou() <= 2 && iService.coordToParcelle(c).isIrriguee()) {
                     coordonneesPossible.add(c);
                 }
             }
@@ -447,12 +446,11 @@ public class IAPanda implements IA {
         return j;
     }
 
-    //transforme la hashmap en arraylist
+    // transforme la hashmap en arraylist de Coordonnees
     private ArrayList<Coordonnees> listZoneJouee(Terrain terrain) {
         ArrayList<Coordonnees> coordonnees = new ArrayList<>();
-        for (Map.Entry<Coordonnees, Parcelle> entry : iService.getZoneJouee().entrySet()) {
-            Coordonnees c = entry.getKey();
-            coordonnees.add(c);
+        for (int i = 0; i < iService.getZoneJouee().size(); i++) {
+            coordonnees.add(iService.getZoneJouee().get(i).getCoord());
         }
         return coordonnees;
     }

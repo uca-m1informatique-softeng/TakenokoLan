@@ -60,5 +60,5 @@ public interface IClientService {
 
     ArrayList<Parcelle> getZoneJouee();
 
-    Parcelle getParcelle(Coordonnees coordonnees);
+    Parcelle coordToParcelle(Coordonnees coordonnees);
 }
