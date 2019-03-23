@@ -24,7 +24,7 @@ public class PandaGetCoordonneesStepDef {
 
     @When("^le client appelle /PandaGetCoordonnees")
     public void pandaGetCoordonnees() {
-        response = template.exchange("http://localhost:8080/PandaGetCoordonnees", HttpMethod.GET, null,
+        response = template.exchange("http://localhost:8080/0/PandaGetCoordonnees", HttpMethod.GET, null,
                 Coordonnees.class);
     }
 
@@ -32,7 +32,7 @@ public class PandaGetCoordonneesStepDef {
     public void clientRecoitStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response.getStatusCode();
 
-        assertEquals(currentStatusCode.value(), statusCode);
+        assertEquals(statusCode, currentStatusCode.value());
     }
 
     @And("^le client reçoit les coordonnees du panda$")

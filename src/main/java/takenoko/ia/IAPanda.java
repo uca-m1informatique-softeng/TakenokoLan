@@ -7,6 +7,7 @@ import takenoko.moteur.Terrain;
 import takenoko.pioches.LaPiocheParcelle;
 import takenoko.pioches.LesPiochesObjectif;
 import takenoko.ressources.*;
+import takenoko.service.IClientService;
 import takenoko.service.impl.ClientService;
 import takenoko.utilitaires.MainJoueur;
 import takenoko.utilitaires.TricheException;
@@ -25,8 +26,8 @@ public class IAPanda implements IA {
     private ArrayList<MainJoueur> mainObjectifValeur = new ArrayList<>();
     private String nomBot;
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
-    private ClientService iService;
-
+    private IClientService iService;
+    int[] numeroParti;
     public FeuilleJoueur getFeuilleJoueur() {
         return iService.getFeuilleJoueur();
     }
@@ -35,6 +36,9 @@ public class IAPanda implements IA {
     public IAPanda() {
         iService = new ClientService();
         LOGGER.setLevel(Level.OFF);
+    }
+    public void connect(){
+        numeroParti=iService.connect();
     }
 
     @Override
@@ -265,7 +269,7 @@ public class IAPanda implements IA {
                 LOGGER.warning(e.getMessage());
             }
             //si il a une deuxieme action
-            verifObjectif();
+            verifObjectif(  );
             if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && iService.feuilleJoueurGetActionChoisie() != 1 && !iService.piochePandaIsEmpty() && iService.feuilleJoueurGetNbAction() == 1) {
                 iService.feuilleJoueurSetActionChoisie(1);
                 faireAction(lesPiochesObjectif, terrain);

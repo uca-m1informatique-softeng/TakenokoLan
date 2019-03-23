@@ -24,7 +24,7 @@ public class JardinierGetCoordonneesStepDef {
 
     @When("^le client appelle /JardinierGetCoordonnees")
     public void jardinierGetCoordonnees() {
-        response = template.exchange("http://localhost:8080/JardinierGetCoordonnees", HttpMethod.GET, null,
+        response = template.exchange("http://localhost:8080/0/JardinierGetCoordonnees", HttpMethod.GET, null,
                 Coordonnees.class);
     }
 
@@ -32,7 +32,7 @@ public class JardinierGetCoordonneesStepDef {
     public void clientRecoitStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response.getStatusCode();
 
-        assertEquals(currentStatusCode.value(), statusCode);
+        assertEquals(statusCode, currentStatusCode.value());
     }
 
     @And("^le client reçoit les coordonnees du jardinier")
