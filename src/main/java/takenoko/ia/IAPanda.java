@@ -62,8 +62,8 @@ public class IAPanda implements IA {
     private void choisirAction(Terrain terrain) {
         int newAction;
         do {
-            if (terrain.getZoneJouee().size() > 1) {
-                if (!uneCouleurDeChaque(terrain.getZoneJouee()) && iService.feuilleJoueurGetActionChoisie() != 0 && !iService.piocheParcelleIsEmpty()) {
+            if (iService.getZoneJouee().size() > 1) {
+                if (!uneCouleurDeChaque(iService.getZoneJouee()) && iService.feuilleJoueurGetActionChoisie() != 0 && !iService.piocheParcelleIsEmpty()) {
                     //sinon il pose une parcelle
                     newAction = 0;
                 } else {
@@ -98,7 +98,7 @@ public class IAPanda implements IA {
         Parcelle coupJoue;
         if (iService.feuilleJoueurGetActionChoisie() == 0) {
             // Bot pioche 3 parcelles, en choisit une aléatoirement et choisit une position aléatoire parmi la liste d'adjacences
-            coupJoue = choisirParcelle(terrain.getZoneJouee(), iService.piocher());
+            coupJoue = choisirParcelle(iService.getZoneJouee(), iService.piocher());
             //positionsCoupJoue
             coupJoue.setCoord(choisirPosition(terrain.getListeZonesPosables()));
             // Le terrain est mis à jour
@@ -346,7 +346,7 @@ public class IAPanda implements IA {
             coordonnees = mainObjectifValeur.get(posCarte).getCoordonneesPandaPossible();
             for (Coordonnees co : coordonnees) {
                 //on récupère  les coordonnes qui nous permettent d'aller sur celle voulu
-                co.deplacementPossible(terrain.getZoneJouee(), cooParcelle);
+                co.deplacementPossible(iService.getZoneJouee(), cooParcelle);
             }
             for (Coordonnees co : iService.pandaGetDeplacementsPossible()) {
                 if (cooParcelle.contains(co)) {
@@ -371,7 +371,7 @@ public class IAPanda implements IA {
             coordonnees = mainObjectifValeur.get(posCarte).getCoordonneesJardinierPossible();
             for (Coordonnees co : coordonnees) {
                 //on récupère  les coordonnes qui nous permettent d'aller sur celle voulu
-                co.deplacementPossible(terrain.getZoneJouee(), cooParcelle);
+                co.deplacementPossible(iService.getZoneJouee(), cooParcelle);
             }
             for (Coordonnees co : iService.jardinierGetDeplacementsPossible()) {
                 if (cooParcelle.contains(co)) {
@@ -406,7 +406,7 @@ public class IAPanda implements IA {
         ArrayList<Coordonnees> coordonneesPossible = new ArrayList<>();
         for (Parcelle.Couleur couleur : couleurPossible) {
             for (Coordonnees c : deplacementsPossibles) {
-                if (terrain.getZoneJouee().get(c).getCouleur() == couleur && terrain.getZoneJouee().get(c).getEffet() != Parcelle.Effet.ENCLOS && terrain.getZoneJouee().get(c).getBambou() != 0) {
+                if (iService.getParcelle(c).getCouleur() == couleur && iService.getParcelle(c).getEffet() != Parcelle.Effet.ENCLOS && iService.getParcelle(c).getBambou() != 0) {
                     coordonneesPossible.add(c);
                 }
             }
@@ -418,7 +418,7 @@ public class IAPanda implements IA {
         ArrayList<Coordonnees> coordonneesPossible = new ArrayList<>();
         for (Parcelle.Couleur couleur : couleurPossible) {
             for (Coordonnees c : deplacementsPossibles) {
-                if (terrain.getZoneJouee().get(c).getCouleur() == couleur && terrain.getZoneJouee().get(c).getEffet() != Parcelle.Effet.ENCLOS && terrain.getZoneJouee().get(c).getBambou() <= 2 && terrain.getZoneJouee().get(c).isIrriguee()) {
+                if (iService.getParcelle(c).getCouleur() == couleur && iService.getParcelle(c).getEffet() != Parcelle.Effet.ENCLOS && iService.getParcelle(c).getBambou() <= 2 && iService.getParcelle(c).isIrriguee()) {
                     coordonneesPossible.add(c);
                 }
             }
@@ -450,7 +450,7 @@ public class IAPanda implements IA {
     //transforme la hashmap en arraylist
     private ArrayList<Coordonnees> listZoneJouee(Terrain terrain) {
         ArrayList<Coordonnees> coordonnees = new ArrayList<>();
-        for (Map.Entry<Coordonnees, Parcelle> entry : terrain.getZoneJouee().entrySet()) {
+        for (Map.Entry<Coordonnees, Parcelle> entry : iService.getZoneJouee().entrySet()) {
             Coordonnees c = entry.getKey();
             coordonnees.add(c);
         }

@@ -59,4 +59,6 @@ public interface IClientService {
     Coordonnees jardinierGetCoordonnees();
 
     ArrayList<Parcelle> getZoneJouee();
+
+    Parcelle getParcelle(Coordonnees coordonnees);
 }

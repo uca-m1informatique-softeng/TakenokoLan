@@ -137,6 +137,15 @@ public class Terrain {
         return parcellesJouees;
     }
 
+    public Parcelle getParcelle(Coordonnees coordonnees){
+        Parcelle p = new Parcelle();
+        for (Map.Entry<Coordonnees, Parcelle> entry : zoneJouee.entrySet()) {
+            if (entry.getKey().equals(coordonnees))
+                p = entry.getValue();
+        }
+        return p;
+    }
+
     public HashMap<Coordonnees, Integer> getZoneDispo() {
         return zoneDispo;
     }

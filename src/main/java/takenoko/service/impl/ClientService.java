@@ -244,4 +244,14 @@ public class ClientService implements IClientService {
                 new ParameterizedTypeReference<ArrayList<Parcelle>>() {
                 }).getBody();
     }
+
+    @Override
+    public Parcelle getParcelle(Coordonnees coordonnees) {
+        return restTemplate.exchange(
+                REST_SERVICE_URI + "/GetParcelle",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<Parcelle>() {
+                }).getBody();
+    }
 }

@@ -39,6 +39,11 @@ public class Controller {
         return takenoko.getTerrain().getZoneJoueeParcelles();
     }
 
+    @PostMapping(value = "/GetParcelle")
+    public Parcelle getParcelle(@RequestBody Coordonnees coordonnees) {
+        return takenoko.getTerrain().getParcelle(coordonnees);
+    }
+
     @GetMapping(value = "/Piocher")
     public ArrayList<Parcelle> piocher() {
         return takenoko.getLaPiocheParcelle().piocherParcelle();
