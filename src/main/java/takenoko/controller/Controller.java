@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 @RestController
 public class Controller {
-    private ArrayList<Takenoko> listParti=new ArrayList<>();
+    private ArrayList<Takenoko> listParti = new ArrayList<>();
     IA player;
 
     @GetMapping(value = "/init")
@@ -28,42 +28,45 @@ public class Controller {
 
     @GetMapping(value = "/Connect")
     public int[] connect() {
-        int[] tab=new int[2];
-        if(listParti.isEmpty()){
+        int[] tab = new int[2];
+        if (listParti.isEmpty()) {
             listParti.add(new Takenoko());
             listParti.get(0).getListPlayer().add(new StatistiqueJoueur(player, 0, 0, 0, "IAPANDA"));
-            tab[0]=0; tab[1]=0;
+            tab[0] = 0;
+            tab[1] = 0;
             return tab;
-        }else{
-            for(int i=0; i<listParti.size();i++){
+        } else {
+            for (int i = 0; i < listParti.size(); i++) {
                 // 1 joueur par parti pour le moment
-                if(listParti.get(i).getListPlayer().size()<=1) {
+                if (listParti.get(i).getListPlayer().size() <= 1) {
                     listParti.add(new Takenoko());
                     listParti.get(i + 1).getListPlayer().add(new StatistiqueJoueur(player, 0, 0, 0, "IAPANDA"));
-                    tab[0]=i+1; tab[1]=0;
+                    tab[0] = i + 1;
+                    tab[1] = 0;
                     return tab;
-                }else{
+                } else {
                     listParti.get(i).getListPlayer().add(new StatistiqueJoueur(player, 0, 0, 0, "IAPANDA"));
-                    tab[0]=i; tab[1]=0;
+                    tab[0] = i;
+                    tab[1] = 0;
                     return tab;
                 }
             }
         }
-        return  tab;
+        return tab;
     }
 
     @RequestMapping(path = "/launch")
     public String launch() {
-        IAPanda iaPanda=new IAPanda();
-        player=iaPanda;
+        IAPanda iaPanda = new IAPanda();
+        player = iaPanda;
         iaPanda.connect();
         listParti.get(0).lancerParti(listParti.get(0).getListPlayer());
         return "done";
     }
 
-    @GetMapping(value = "/GetZoneJouee")
-    public ArrayList<Parcelle> getZoneJouee() {
-        return takenoko.getTerrain().getZoneJoueeParcelles();
+    @GetMapping(value = "/{id}/GetZoneJouee")
+    public ArrayList<Parcelle> getZoneJouee(@PathVariable(value = "id") int id) {
+        return listParti.get(id).getTerrain().getZoneJoueeParcelles();
     }
 
     @GetMapping(value = "/{id}/Piocher")
@@ -72,7 +75,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/{id}/ReposeSousLaPioche")
-    public void reposeSousLaPioche(@RequestBody ArrayList<Parcelle> aRemettre,@PathVariable(value = "id") int id) {
+    public void reposeSousLaPioche(@RequestBody ArrayList<Parcelle> aRemettre, @PathVariable(value = "id") int id) {
         listParti.get(id).getLaPiocheParcelle().reposeSousLaPioche(aRemettre);
     }
 
@@ -119,7 +122,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/{id}/FeuilleJoueurSetActionChoisie")
-    public void FeuilleJoueurSetActionChoisie(@RequestBody int actioneChoisie,@PathVariable(value = "id") int id) {
+    public void FeuilleJoueurSetActionChoisie(@RequestBody int actioneChoisie, @PathVariable(value = "id") int id) {
         listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().setActionChoisie(actioneChoisie);
     }
 
@@ -144,7 +147,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/{id}/DeplacerPanda")
-    public String deplacerPanda(@RequestBody Coordonnees coordonnees,@PathVariable(value = "id") int id) {
+    public String deplacerPanda(@RequestBody Coordonnees coordonnees, @PathVariable(value = "id") int id) {
         try {
             listParti.get(id).getPanda().deplacerEntite(coordonnees, listParti.get(id).getListPlayer().get(0).getFeuilleJoueur());
             return "done";
@@ -154,7 +157,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/{id}/DeplacerJardinier")
-    public String deplacerJardinier(@RequestBody Coordonnees coordonnees,@PathVariable(value = "id") int id) {
+    public String deplacerJardinier(@RequestBody Coordonnees coordonnees, @PathVariable(value = "id") int id) {
         try {
             listParti.get(id).getJardinier().deplacerEntite(coordonnees, listParti.get(id).getListPlayer().get(0).getFeuilleJoueur());
             return "done";
@@ -164,7 +167,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/{id}/PoserParcelle")
-    public String poserParcelle(@RequestBody Parcelle parcelle,@PathVariable(value = "id") int id) {
+    public String poserParcelle(@RequestBody Parcelle parcelle, @PathVariable(value = "id") int id) {
         try {
             listParti.get(id).getTerrain().changements(parcelle, listParti.get(id).getListPlayer().get(0).getFeuilleJoueur());
             return "done";
@@ -174,7 +177,7 @@ public class Controller {
     }
 
     @PostMapping(value = "/{id}/PiocherUnObjectif")
-    public String piocherUnObjectif(@RequestBody int i,@PathVariable(value = "id") int id) {
+    public String piocherUnObjectif(@RequestBody int i, @PathVariable(value = "id") int id) {
         try {
             listParti.get(id).getLesPiochesObjectif().piocherUnObjectif(listParti.get(id).getListPlayer().get(0).getFeuilleJoueur(), i);
             return "done";
@@ -204,9 +207,9 @@ public class Controller {
         return listParti.get(id).getJardinier().getCoordonnees();
     }
 
-    @GetMapping(value = "/GetListeZonesPosables")
-    public ArrayList<Coordonnees> getListeZonesPosables() {
-        return takenoko.getTerrain().getListeZonesPosables();
+    @GetMapping(value = "/{id}/GetListeZonesPosables")
+    public ArrayList<Coordonnees> getListeZonesPosables(@PathVariable(value = "id") int id) {
+        return listParti.get(id).getTerrain().getListeZonesPosables();
     }
 }
 
