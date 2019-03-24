@@ -36,8 +36,8 @@ public class JardinierGetCoordonneesStepDef {
     }
 
     @And("^le client reçoit les coordonnees du jardinier")
-    public void clientRecoitCoordonneesPanda() {
-        //par defaut le panda est a la coordonnee 0,0,0
+    public void clientRecoitCoordonneesJardinier() {
+        //par defaut le jardinier est a la coordonnee 0,0,0
         assertEquals(response.getBody(),new Coordonnees(0,0,0));
     }
 }
