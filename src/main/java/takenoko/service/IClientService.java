@@ -57,8 +57,11 @@ public interface IClientService {
     Coordonnees pandaGetCoordonnees();
 
     Coordonnees jardinierGetCoordonnees();
+  
+    int[] connect();
 
     ArrayList<Parcelle> getZoneJouee();
 
     ArrayList<Coordonnees> getListeZonesPosables();
+
 }

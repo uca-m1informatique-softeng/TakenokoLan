@@ -13,8 +13,7 @@ import takenoko.ressources.Coordonnees;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class PandaGetDeplacementsPossibleStepDef extends SpringRootTest {
@@ -27,7 +26,7 @@ public class PandaGetDeplacementsPossibleStepDef extends SpringRootTest {
 
     @When("^le client appelle /PandaGetDeplacementsPossible$")
     public void clientGETPandaGetDeplacementsPossible() {
-        response = template.exchange("http://localhost:8080/PandaGetDeplacementsPossible", HttpMethod.GET, null,
+        response = template.exchange("http://localhost:8080/0/PandaGetDeplacementsPossible", HttpMethod.GET, null,
                 new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
                 });
     }
@@ -36,7 +35,7 @@ public class PandaGetDeplacementsPossibleStepDef extends SpringRootTest {
     public void clientRecoitStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response.getStatusCode();
 
-        assertThat("status code is incorrect : " + response.getBody(), currentStatusCode.value(), is(statusCode));
+        assertEquals(statusCode, currentStatusCode.value());
     }
 
     @And("^le client reçoit une liste vide$")

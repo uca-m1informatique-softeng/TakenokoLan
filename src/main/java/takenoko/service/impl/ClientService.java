@@ -253,4 +253,16 @@ public class ClientService implements IClientService {
                 new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
                 }).getBody();
     }
+
+    @Override
+    public int[] connect() {
+        int[] tab =
+         restTemplate.exchange(
+                REST_SERVICE_URI + "/Connect",
+                HttpMethod.GET,
+                null,
+                int[].class).getBody();
+        REST_SERVICE_URI = REST_SERVICE_URI+"/"+tab[0];
+        return tab;
+    }
 }

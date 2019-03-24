@@ -13,8 +13,7 @@ import takenoko.ressources.Coordonnees;
 
 import java.util.ArrayList;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class JardinierGetDeplacementsPossibleStepDef {
@@ -29,7 +28,7 @@ public class JardinierGetDeplacementsPossibleStepDef {
 
     @When("^le client appelle /JardinierGetDeplacementsPossible$")
     public void clientGETPandaGetDeplacementsPossible() {
-        response = restTemplate.exchange("http://localhost:8080/JardinierGetDeplacementsPossible", HttpMethod.GET, null,
+        response = restTemplate.exchange("http://localhost:8080/0/JardinierGetDeplacementsPossible", HttpMethod.GET, null,
                 new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
                 });
     }
@@ -38,7 +37,7 @@ public class JardinierGetDeplacementsPossibleStepDef {
     public void clientRecoitStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response.getStatusCode();
 
-        assertThat("status code is incorrect : " + response.getBody(), currentStatusCode.value(), is(statusCode));
+        assertEquals(statusCode, currentStatusCode.value());
     }
 
     @And("^le client reçoit liste vide$")

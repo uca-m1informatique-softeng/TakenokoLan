@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class PiochePandaIsEmptyStepDef {
     private ResponseEntity<Boolean> response; // output
@@ -22,18 +23,18 @@ public class PiochePandaIsEmptyStepDef {
 
     @When("^le client appelle /PiochePandaIsEmpty")
     public void clientGETPiochePandaIsEmpty() {
-        response = testRestTemplate.getForEntity("http://localhost:8080/PiochePandaIsEmpty", Boolean.class);
+        response = testRestTemplate.getForEntity("http://localhost:8080/0/PiochePandaIsEmpty", Boolean.class);
     }
 
     @Then("^le client reçoit un status code (\\d+)$")
     public void clientRecoitUnStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response.getStatusCode();
-        assertEquals(currentStatusCode.value(), statusCode);
+        assertEquals(statusCode, currentStatusCode.value());
     }
 
     @And("^le client reçoit faux car la pioche est pleine$")
     public void clientRecoitFauxCarLaPiocheEstPleine() {
-        assertEquals(response.getBody(), false);
+        assertFalse(response.getBody());
     }
 
 
