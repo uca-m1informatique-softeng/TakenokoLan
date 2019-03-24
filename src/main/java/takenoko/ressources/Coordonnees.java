@@ -57,7 +57,7 @@ public class Coordonnees {
         return result;
     }
 
-    public void deplacementPossible(ArrayList<Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible) {
+    public void deplacementPossible(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible) {
         Coordonnees coordonnees = new Coordonnees(x, y, z);
         partieGauche(zoneJoue, deplacementsPossible, coordonnees);
         partieDroite(zoneJoue, deplacementsPossible, coordonnees);
@@ -72,68 +72,57 @@ public class Coordonnees {
 //coordonneTMP est la coordonnee qui varie a chaque fois
 
     //en horizontal gauche
-    private void partieGauche(ArrayList<Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
+    private void partieGauche(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
         Coordonnees gauche = new Coordonnees(coordonneTMP.getX() - 1, coordonneTMP.getY() + 1, coordonneTMP.getZ());
-        for (int i = 0; i < zoneJoue.size(); i++) {
-            if (zoneJoue.get(i).getCoord().equals(gauche)) {
-                partieGauche(zoneJoue, deplacementsPossible, gauche);
-                deplacementsPossible.add(gauche);
-            }
+        if (zoneJoue.containsKey(gauche)) {
+            partieGauche(zoneJoue, deplacementsPossible, gauche);
+            deplacementsPossible.add(gauche);
         }
+
     }
 
     // en horizontal droite
-    private void partieDroite(ArrayList<Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
+    private void partieDroite(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
         Coordonnees droite = new Coordonnees(coordonneTMP.getX() + 1, coordonneTMP.getY() - 1, coordonneTMP.getZ());
-        for (int i = 0; i < zoneJoue.size(); i++) {
-            if (zoneJoue.get(i).getCoord().equals(droite)) {
-                partieDroite(zoneJoue, deplacementsPossible, droite);
-                deplacementsPossible.add(droite);
-            }
+        if (zoneJoue.containsKey(droite)) {
+            partieDroite(zoneJoue, deplacementsPossible, droite);
+            deplacementsPossible.add(droite);
         }
     }
 
     //en diagonale haut gauche
-    private void partieHautGauche(ArrayList<Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
+    private void partieHautGauche(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
         Coordonnees hautGauche = new Coordonnees(coordonneTMP.getX(), coordonneTMP.getY() + 1, coordonneTMP.getZ() - 1);
-        for (int i = 0; i < zoneJoue.size(); i++) {
-            if (zoneJoue.get(i).getCoord().equals(hautGauche)) {
-                partieHautGauche(zoneJoue, deplacementsPossible, hautGauche);
-                deplacementsPossible.add(hautGauche);
-            }
+        if (zoneJoue.containsKey(hautGauche)) {
+            partieHautGauche(zoneJoue, deplacementsPossible, hautGauche);
+            deplacementsPossible.add(hautGauche);
         }
     }
 
     //en diagonale bas droite
-    private void partieBasDroite(ArrayList<Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
+    private void partieBasDroite(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
         Coordonnees basDroite = new Coordonnees(coordonneTMP.getX(), coordonneTMP.getY() - 1, coordonneTMP.getZ() + 1);
-        for (int i = 0; i < zoneJoue.size(); i++) {
-            if (zoneJoue.get(i).getCoord().equals(basDroite)) {
-                partieBasDroite(zoneJoue, deplacementsPossible, basDroite);
-                deplacementsPossible.add(basDroite);
-            }
+        if (zoneJoue.containsKey(basDroite)) {
+            partieBasDroite(zoneJoue, deplacementsPossible, basDroite);
+            deplacementsPossible.add(basDroite);
         }
     }
 
     //en diagonale haut droite
-    private void partieHautDroite(ArrayList<Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
+    private void partieHautDroite(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
         Coordonnees hautDroite = new Coordonnees(coordonneTMP.getX() + 1, coordonneTMP.getY(), coordonneTMP.getZ() - 1);
-        for (int i = 0; i < zoneJoue.size(); i++) {
-            if (zoneJoue.get(i).getCoord().equals(hautDroite)) {
-                partieHautDroite(zoneJoue, deplacementsPossible, hautDroite);
-                deplacementsPossible.add(hautDroite);
-            }
+        if (zoneJoue.containsKey(hautDroite)) {
+            partieHautDroite(zoneJoue, deplacementsPossible, hautDroite);
+            deplacementsPossible.add(hautDroite);
         }
     }
 
     //en diagonale bas gauche
-    private void partieBasGauche(ArrayList<Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
+    private void partieBasGauche(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Coordonnees> deplacementsPossible, Coordonnees coordonneTMP) {
         Coordonnees basGauche = new Coordonnees(coordonneTMP.getX() - 1, coordonneTMP.getY(), coordonneTMP.getZ() + 1);
-        for (int i = 0; i < zoneJoue.size(); i++) {
-            if (zoneJoue.get(i).getCoord().equals(basGauche)) {
-                partieBasGauche(zoneJoue, deplacementsPossible, basGauche);
-                deplacementsPossible.add(basGauche);
-            }
+        if (zoneJoue.containsKey(basGauche)) {
+            partieBasGauche(zoneJoue, deplacementsPossible, basGauche);
+            deplacementsPossible.add(basGauche);
         }
     }
 }

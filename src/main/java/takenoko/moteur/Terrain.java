@@ -137,7 +137,7 @@ public class Terrain {
         return parcellesJouees;
     }
 
-    public Parcelle coordToParcelle(Coordonnees coordonnees){
+    public Parcelle coordToParcelle(Coordonnees coordonnees) {
         Parcelle p = new Parcelle();
         for (Map.Entry<Coordonnees, Parcelle> entry : zoneJouee.entrySet()) {
             if (entry.getKey().equals(coordonnees))

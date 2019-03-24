@@ -67,7 +67,8 @@ public class IAPandaTest {
         when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(), 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(feuilleJoueur.getActionChoisie(), 0, 0, 1, 1);
         when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
-
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
 
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
@@ -131,6 +132,8 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).deplacerPanda(new Coordonnees(-1, 1, 0));
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
 
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer une parcelle
@@ -181,7 +184,6 @@ public class IAPandaTest {
         when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(), 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(2, 2, 0, 0, 3, 3);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
-
         doAnswer(
                 new Answer() {
                     @Override
@@ -190,6 +192,9 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).deplacerJardinier(new Coordonnees(-1, 1, 0));
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
         //IA Panda a bien jouer une parcelle
@@ -267,6 +272,8 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).deplacerJardinier(p3.getCoord());
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
 
         //essaye de rejoindre p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
@@ -302,6 +309,8 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).deplacerJardinier(p2.getCoord());
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
 
         //est sur p2
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
@@ -334,6 +343,9 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).deplacerJardinier(new Coordonnees(0, 0, 0));
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
+
         //ne pouvant pas aller sur p2 il essaye de deplacer au plus proche du centre soit ici 0,0,0
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
@@ -376,6 +388,9 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).piocherUnObjectif(2);
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
         //IA Panda a bien jouer le panda
         Assert.assertEquals(p2.getCoord(), panda.getCoordonnees());
@@ -455,6 +470,9 @@ public class IAPandaTest {
                 }).when(iService).deplacerJardinier(p2.getCoord());
 
         when(iService.pandaGetCoordonnees()).thenReturn(panda.getCoordonnees());
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
@@ -485,6 +503,9 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).deplacerJardinier(p3.getCoord());
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
@@ -523,6 +544,9 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).verifObjectifAccompli();
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
+
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 
         //reussi un objectif une couleur de chaque
@@ -623,6 +647,9 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).verifObjectifAccompli();
+        when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
+
         //IA Panda va faire l'objectif JAUNE car il peut le finir sur ce tour
         IAPanda.joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
 

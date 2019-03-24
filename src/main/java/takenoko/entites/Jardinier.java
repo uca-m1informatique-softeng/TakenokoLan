@@ -39,7 +39,7 @@ public class Jardinier extends Entite {
 
     public ArrayList<Coordonnees> getDeplacementsPossible(LinkedHashMap<Coordonnees, Parcelle> zoneJoue) {
         ArrayList<Coordonnees> deplacementsPossible = new ArrayList<>();
-        coordonnees.deplacementPossible(getZoneJoueeParcelles(zoneJoue), deplacementsPossible);
+        coordonnees.deplacementPossible(zoneJoue, deplacementsPossible);
         deplacementsPossible.remove(this.coordonnees);
         return deplacementsPossible;
     }
@@ -64,15 +64,6 @@ public class Jardinier extends Entite {
             }
         }
         terrain.getZoneJouee().get(coordonnees).pousserBambou();
-    }
-
-    public ArrayList<Parcelle> getZoneJoueeParcelles(LinkedHashMap<Coordonnees, Parcelle> zoneJouee) {
-        ArrayList<Parcelle> parcellesJouees = new ArrayList<>();
-        for (Map.Entry<Coordonnees, Parcelle> entry : zoneJouee.entrySet()) {
-            Parcelle parcelle = entry.getValue();
-            parcellesJouees.add(parcelle);
-        }
-        return parcellesJouees;
     }
 }
 

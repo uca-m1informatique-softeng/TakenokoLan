@@ -180,5 +180,10 @@ public class Controller {
     public Coordonnees jardinierGetCoordonnees() {
         return takenoko.getJardinier().getCoordonnees();
     }
+
+    @GetMapping(value = "/GetListeZonesPosables")
+    public ArrayList<Coordonnees> getListeZonesPosables() {
+        return takenoko.getTerrain().getListeZonesPosables();
+    }
 }
 

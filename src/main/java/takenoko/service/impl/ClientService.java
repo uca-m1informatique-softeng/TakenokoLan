@@ -13,7 +13,6 @@ import takenoko.service.IClientService;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 @Service
 public class ClientService implements IClientService {
@@ -246,13 +245,12 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public Parcelle coordToParcelle(Coordonnees coordonnees) {
-        HttpEntity<Coordonnees> request = new HttpEntity<>(coordonnees);
+    public ArrayList<Coordonnees> getListeZonesPosables() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/CoordToParcelle",
-                HttpMethod.POST,
-                request,
-                new ParameterizedTypeReference<Parcelle>(){
+                REST_SERVICE_URI + "/GetListeZonesPosables",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
                 }).getBody();
     }
 }
