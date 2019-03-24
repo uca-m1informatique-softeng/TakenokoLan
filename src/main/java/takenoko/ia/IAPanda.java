@@ -13,7 +13,6 @@ import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,8 +42,8 @@ public class IAPanda implements IA {
         verifObjectif();
 
         while (iService.feuilleJoueurGetNbAction() > 0) {
-            choisirAction(terrain);
-            faireAction(lesPiochesObjectif, terrain);
+            choisirAction();
+            faireAction();
         }
         verifObjectif();
         //LOGGER.info(nomBot + "%s possède " + iService.getFeuilleJoueur().getPointsBot() + " points");
@@ -59,11 +58,11 @@ public class IAPanda implements IA {
         }
     }
 
-    private void choisirAction(Terrain terrain) {
+    private void choisirAction() {
         int newAction;
         do {
-            if (terrain.getZoneJouee().size() > 1) {
-                if (!uneCouleurDeChaque(terrain.getZoneJouee()) && iService.feuilleJoueurGetActionChoisie() != 0 && !iService.piocheParcelleIsEmpty()) {
+            if (iService.getZoneJouee().size() > 1) {
+                if (!uneCouleurDeChaque(iService.getZoneJouee()) && iService.feuilleJoueurGetActionChoisie() != 0 && !iService.piocheParcelleIsEmpty()) {
                     //sinon il pose une parcelle
                     newAction = 0;
                 } else {
@@ -79,28 +78,27 @@ public class IAPanda implements IA {
     }
 
     //renvoi vrai si une parcelle de chaque couleur qui est irriguee et sans enclos
-    private boolean uneCouleurDeChaque(HashMap<Coordonnees, Parcelle> zoneJoue) {
+    private boolean uneCouleurDeChaque(ArrayList<Parcelle> zoneJoue) {
         return couleurParcellePresente(zoneJoue, Parcelle.Couleur.VERTE) && couleurParcellePresente(zoneJoue, Parcelle.Couleur.JAUNE) && couleurParcellePresente(zoneJoue, Parcelle.Couleur.ROSE);
     }
 
     //renvoi vrai si une parcelle est irriguee et sans enclos
-    private boolean couleurParcellePresente(HashMap<Coordonnees, Parcelle> zoneJoue, Parcelle.Couleur couleur) {
-        for (Map.Entry<Coordonnees, Parcelle> entry : zoneJoue.entrySet()) {
-            Parcelle valeur = entry.getValue();
-            if (valeur.getCouleur() == couleur && valeur.isIrriguee() && valeur.getEffet() != Parcelle.Effet.ENCLOS) {
+    private boolean couleurParcellePresente(ArrayList<Parcelle> zoneJoue, Parcelle.Couleur couleur) {
+        for (Parcelle p : zoneJoue) {
+            if (p.getCouleur() == couleur && p.isIrriguee() && p.getEffet() != Parcelle.Effet.ENCLOS) {
                 return true;
             }
         }
         return false;
     }
 
-    private void faireAction(LesPiochesObjectif lesPiochesObjectif, Terrain terrain) {
+    private void faireAction() {
         Parcelle coupJoue;
         if (iService.feuilleJoueurGetActionChoisie() == 0) {
             // Bot pioche 3 parcelles, en choisit une aléatoirement et choisit une position aléatoire parmi la liste d'adjacences
-            coupJoue = choisirParcelle(terrain.getZoneJouee(), iService.piocher());
+            coupJoue = choisirParcelle(iService.getZoneJouee(), iService.piocher());
             //positionsCoupJoue
-            coupJoue.setCoord(choisirPosition(terrain.getListeZonesPosables()));
+            coupJoue.setCoord(choisirPosition(iService.getListeZonesPosables()));
             // Le terrain est mis à jour
             try {
                 iService.poserParcelle(coupJoue);
@@ -122,12 +120,13 @@ public class IAPanda implements IA {
             }
         } else if (iService.feuilleJoueurGetActionChoisie() == 2) {
             //Bot déplace le panda
-            valeurDeplacementPanda(terrain, iService.pandaGetDeplacementsPossible());
-            deplacementPanda(posCartePanda(), terrain, lesPiochesObjectif);
+            valeurDeplacementPanda(iService.pandaGetDeplacementsPossible(), hashZoneJouee(iService.getZoneJouee()));
+            deplacementPanda(posCartePanda());
         } else if (iService.feuilleJoueurGetActionChoisie() == 3) {
+            HashMap<Coordonnees, Parcelle> zoneJouee = hashZoneJouee(iService.getZoneJouee());
             //Bot déplace le jardinier
-            valeurDeplacementJardinier(terrain, iService.jardinierGetDeplacementsPossible());
-            deplacementJardinier(posCartePanda(), terrain, lesPiochesObjectif);
+            valeurDeplacementJardinier(iService.jardinierGetDeplacementsPossible(), zoneJouee);
+            deplacementJardinier(posCartePanda(), zoneJouee);
         }
     }
 
@@ -180,11 +179,11 @@ public class IAPanda implements IA {
         return couleursPossible;
     }
 
-    private void valeurDeplacementPanda(Terrain terrain, ArrayList<Coordonnees> zoneDeDeplacement) {
+    private void valeurDeplacementPanda(ArrayList<Coordonnees> zoneDeDeplacement, HashMap<Coordonnees, Parcelle> zoneJouee) {
         for (MainJoueur m : mainObjectifValeur) {
             ArrayList<Parcelle.Couleur> couleursPossible = choixCouleur(m);
 
-            ArrayList<Coordonnees> coordonneesPossible = deplacementPandaPossible(terrain, zoneDeDeplacement, couleursPossible);
+            ArrayList<Coordonnees> coordonneesPossible = deplacementPandaPossible(zoneDeDeplacement, couleursPossible, zoneJouee);
 
             if (!coordonneesPossible.isEmpty()) {
                 m.incCout();
@@ -200,11 +199,11 @@ public class IAPanda implements IA {
         }
     }
 
-    private void valeurDeplacementJardinier(Terrain terrain, ArrayList<Coordonnees> zoneDeDeplacement) {
+    private void valeurDeplacementJardinier(ArrayList<Coordonnees> zoneDeDeplacement, HashMap<Coordonnees, Parcelle> zoneJouee) {
         for (MainJoueur m : mainObjectifValeur) {
             ArrayList<Parcelle.Couleur> couleursPossible = choixCouleur(m);
 
-            ArrayList<Coordonnees> coordonneesPossible = deplacementJardinierPossibe(terrain, zoneDeDeplacement, couleursPossible);
+            ArrayList<Coordonnees> coordonneesPossible = deplacementJardinierPossibe(zoneDeDeplacement, couleursPossible, zoneJouee);
 
             if (!coordonneesPossible.isEmpty()) {
                 m.incCout();
@@ -220,7 +219,7 @@ public class IAPanda implements IA {
         }
     }
 
-    private Parcelle choisirParcelle(HashMap<Coordonnees, Parcelle> zoneJoue, ArrayList<Parcelle> troisParcelles) {
+    private Parcelle choisirParcelle(ArrayList<Parcelle> zoneJoue, ArrayList<Parcelle> troisParcelles) {
         Parcelle p;
         LOGGER.info(nomBot + " peux choisir entre :");
 
@@ -255,7 +254,7 @@ public class IAPanda implements IA {
         return p;
     }
 
-    private void deplacementPanda(int j, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
+    private void deplacementPanda(int j) {
         //si un deplacement interessant
         if (j != 15 && mainObjectifValeur.get(j).getCout() != 0) {
             try {
@@ -268,46 +267,46 @@ public class IAPanda implements IA {
             verifObjectif();
             if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && iService.feuilleJoueurGetActionChoisie() != 1 && !iService.piochePandaIsEmpty() && iService.feuilleJoueurGetNbAction() == 1) {
                 iService.feuilleJoueurSetActionChoisie(1);
-                faireAction(lesPiochesObjectif, terrain);
+                faireAction();
             } else if (iService.feuilleJoueurGetActionChoisie() != 3 && iService.feuilleJoueurGetNbAction() == 1) {
                 iService.feuilleJoueurSetActionChoisie(3);
-                faireAction(lesPiochesObjectif, terrain);
+                faireAction();
             }
         } else {
             //sinon on essaye le jardinier
             iService.feuilleJoueurSetActionChoisie(3);
-            faireAction(lesPiochesObjectif, terrain);
+            faireAction();
         }
     }
 
-    private void deplacementJardinier(int j, Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
+    private void deplacementJardinier(int j, HashMap<Coordonnees, Parcelle> zoneJouee) {
         //si un deplacement interessant
         if (j != 15 && mainObjectifValeur.get(j).getCout() != 0) {
             try {
                 iService.deplacerJardinier(mainObjectifValeur.get(j).getCoordonneesJardinierPossible().get(0));
                 LOGGER.info(nomBot + " a déplacé le jardinier a la coordonnée : " + iService.jardinierGetCoordonnees());
             } catch (TricheException e) {
-                aucunCoupInterressant(terrain, lesPiochesObjectif);
+                aucunCoupInterressant(iService.jardinierGetDeplacementsPossible(), iService.jardinierGetCoordonnees(), zoneJouee);
             }
         } else {
             //sinon
-            aucunCoupInterressant(terrain, lesPiochesObjectif);
+            aucunCoupInterressant(iService.jardinierGetDeplacementsPossible(), iService.jardinierGetCoordonnees(), zoneJouee);
         }
     }
 
-    private void aucunCoupInterressant(Terrain terrain, LesPiochesObjectif lesPiochesObjectif) {
+    private void aucunCoupInterressant(ArrayList<Coordonnees> jardinierDeplacementsPossible, Coordonnees jardinierCoordonnees, HashMap<Coordonnees, Parcelle> zoneJouee) {
         verifObjectif();
         if (mainObjectif.size() < TAILLE_MAX_MAIN_OBJECTIF && iService.feuilleJoueurGetActionChoisie() != 1 && !iService.piochePandaIsEmpty() && iService.feuilleJoueurGetNbAction() == 1) {
             iService.feuilleJoueurSetActionChoisie(1);
-            faireAction(lesPiochesObjectif, terrain);
+            faireAction();
         } else {
             try {
-                Coordonnees c = deplacementAvancePanda(terrain);
+                Coordonnees c = deplacementAvancePanda(iService.pandaGetDeplacementsPossible(), iService.pandaGetCoordonnees(), zoneJouee);
                 if (c != null) {
                     iService.deplacerPanda(c);
                     LOGGER.info(nomBot + " a déplacé le panda a la coordonnée (avancee): " + iService.pandaGetCoordonnees());
                 } else {
-                    c = deplacementAvanceJardinier(terrain);
+                    c = deplacementAvanceJardinier(jardinierDeplacementsPossible, jardinierCoordonnees, zoneJouee);
                     if (c != null) {
                         try {
                             iService.deplacerJardinier(c);
@@ -320,7 +319,7 @@ public class IAPanda implements IA {
                     }
                 }
             } catch (TricheException e) {
-                Coordonnees c = deplacementAvanceJardinier(terrain);
+                Coordonnees c = deplacementAvanceJardinier(jardinierDeplacementsPossible, jardinierCoordonnees, zoneJouee);
                 if (c != null) {
                     try {
                         iService.deplacerJardinier(c);
@@ -335,9 +334,9 @@ public class IAPanda implements IA {
         }
     }
 
-    private Coordonnees deplacementAvancePanda(Terrain terrain) {
+    private Coordonnees deplacementAvancePanda(ArrayList<Coordonnees> pandaDeplacementsPossible, Coordonnees pandaCoordonnees, HashMap<Coordonnees, Parcelle> zoneJouee) {
         Coordonnees c = null;
-        valeurDeplacementPanda(terrain, listZoneJouee(terrain));
+        valeurDeplacementPanda(listZoneJouee(iService.getZoneJouee()), zoneJouee);
         int posCarte = posCartePanda();
         ArrayList<Coordonnees> coordonnees;
         if (posCarte != 15 && mainObjectifValeur.get(posCarte).getCout() != 0) {
@@ -346,24 +345,24 @@ public class IAPanda implements IA {
             coordonnees = mainObjectifValeur.get(posCarte).getCoordonneesPandaPossible();
             for (Coordonnees co : coordonnees) {
                 //on récupère  les coordonnes qui nous permettent d'aller sur celle voulu
-                co.deplacementPossible(terrain.getZoneJouee(), cooParcelle);
+                co.deplacementPossible(hashZoneJouee(iService.getZoneJouee()), cooParcelle);
             }
-            for (Coordonnees co : iService.pandaGetDeplacementsPossible()) {
+            for (Coordonnees co : pandaDeplacementsPossible) {
                 if (cooParcelle.contains(co)) {
                     //si le panda peut si rendre
                     c = co;
                     break;
                 }
             }
-        } else if (!iService.pandaGetCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.pandaGetDeplacementsPossible(), iService.pandaGetCoordonnees());
+        } else if (!pandaCoordonnees.equals(new Coordonnees(0, 0, 0))) {
+            c = procheDuCentre(pandaDeplacementsPossible, pandaCoordonnees);
         }
         return c;
     }
 
-    private Coordonnees deplacementAvanceJardinier(Terrain terrain) {
+    private Coordonnees deplacementAvanceJardinier(ArrayList<Coordonnees> jardinierDeplacementsPossible, Coordonnees jardinierCoordonnees, HashMap<Coordonnees, Parcelle> zoneJouee) {
         Coordonnees c = null;
-        valeurDeplacementJardinier(terrain, listZoneJouee(terrain));
+        valeurDeplacementJardinier(listZoneJouee(iService.getZoneJouee()), zoneJouee);
         int posCarte = posCartePanda();
         ArrayList<Coordonnees> coordonnees;
         if (posCarte != 15 && mainObjectifValeur.get(posCarte).getCout() != 0) {
@@ -371,17 +370,17 @@ public class IAPanda implements IA {
             coordonnees = mainObjectifValeur.get(posCarte).getCoordonneesJardinierPossible();
             for (Coordonnees co : coordonnees) {
                 //on récupère  les coordonnes qui nous permettent d'aller sur celle voulu
-                co.deplacementPossible(terrain.getZoneJouee(), cooParcelle);
+                co.deplacementPossible(zoneJouee, cooParcelle);
             }
-            for (Coordonnees co : iService.jardinierGetDeplacementsPossible()) {
+            for (Coordonnees co : jardinierDeplacementsPossible) {
                 if (cooParcelle.contains(co)) {
                     //si le jardinier peut si rendre
                     c = co;
                     break;
                 }
             }
-        } else if (!iService.jardinierGetCoordonnees().equals(new Coordonnees(0, 0, 0))) {
-            c = procheDuCentre(iService.jardinierGetDeplacementsPossible(), iService.jardinierGetCoordonnees());
+        } else if (!jardinierCoordonnees.equals(new Coordonnees(0, 0, 0))) {
+            c = procheDuCentre(jardinierDeplacementsPossible, jardinierCoordonnees);
         }
         return c;
     }
@@ -402,11 +401,12 @@ public class IAPanda implements IA {
         return choix;
     }
 
-    private ArrayList<Coordonnees> deplacementPandaPossible(Terrain terrain, ArrayList<Coordonnees> deplacementsPossibles, ArrayList<Parcelle.Couleur> couleurPossible) {
+    private ArrayList<Coordonnees> deplacementPandaPossible(ArrayList<Coordonnees> deplacementsPossibles, ArrayList<Parcelle.Couleur> couleurPossible, HashMap<Coordonnees, Parcelle> zoneJouee) {
         ArrayList<Coordonnees> coordonneesPossible = new ArrayList<>();
         for (Parcelle.Couleur couleur : couleurPossible) {
             for (Coordonnees c : deplacementsPossibles) {
-                if (terrain.getZoneJouee().get(c).getCouleur() == couleur && terrain.getZoneJouee().get(c).getEffet() != Parcelle.Effet.ENCLOS && terrain.getZoneJouee().get(c).getBambou() != 0) {
+                Parcelle p = zoneJouee.get(c);
+                if (p.getCouleur() == couleur && p.getEffet() != Parcelle.Effet.ENCLOS && p.getBambou() != 0) {
                     coordonneesPossible.add(c);
                 }
             }
@@ -414,11 +414,12 @@ public class IAPanda implements IA {
         return coordonneesPossible;
     }
 
-    private ArrayList<Coordonnees> deplacementJardinierPossibe(Terrain terrain, ArrayList<Coordonnees> deplacementsPossibles, ArrayList<Parcelle.Couleur> couleurPossible) {
+    private ArrayList<Coordonnees> deplacementJardinierPossibe(ArrayList<Coordonnees> deplacementsPossibles, ArrayList<Parcelle.Couleur> couleurPossible, HashMap<Coordonnees, Parcelle> zoneJouee) {
         ArrayList<Coordonnees> coordonneesPossible = new ArrayList<>();
         for (Parcelle.Couleur couleur : couleurPossible) {
             for (Coordonnees c : deplacementsPossibles) {
-                if (terrain.getZoneJouee().get(c).getCouleur() == couleur && terrain.getZoneJouee().get(c).getEffet() != Parcelle.Effet.ENCLOS && terrain.getZoneJouee().get(c).getBambou() <= 2 && terrain.getZoneJouee().get(c).isIrriguee()) {
+                Parcelle p = zoneJouee.get(c);
+                if (p.getCouleur() == couleur && p.getEffet() != Parcelle.Effet.ENCLOS && p.getBambou() <= 2 && p.isIrriguee()) {
                     coordonneesPossible.add(c);
                 }
             }
@@ -447,14 +448,20 @@ public class IAPanda implements IA {
         return j;
     }
 
-    //transforme la hashmap en arraylist
-    private ArrayList<Coordonnees> listZoneJouee(Terrain terrain) {
+    private ArrayList<Coordonnees> listZoneJouee(ArrayList<Parcelle> ZoneJouee) {
         ArrayList<Coordonnees> coordonnees = new ArrayList<>();
-        for (Map.Entry<Coordonnees, Parcelle> entry : terrain.getZoneJouee().entrySet()) {
-            Coordonnees c = entry.getKey();
-            coordonnees.add(c);
+        for (int i = 0; i < ZoneJouee.size(); i++) {
+            coordonnees.add(ZoneJouee.get(i).getCoord());
         }
         return coordonnees;
+    }
+
+    private HashMap<Coordonnees, Parcelle> hashZoneJouee(ArrayList<Parcelle> arrayListParcelle) {
+        HashMap<Coordonnees, Parcelle> zoneJouee = new HashMap<>();
+        for (Parcelle p : arrayListParcelle) {
+            zoneJouee.put(p.getCoord(), p);
+        }
+        return zoneJouee;
     }
 
     public ArrayList<CartesObjectifs> getMainObjectif() {

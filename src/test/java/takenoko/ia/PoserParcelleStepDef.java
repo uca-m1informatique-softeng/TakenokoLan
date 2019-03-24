@@ -61,7 +61,8 @@ public class PoserParcelleStepDef {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.feuilleJoueurGetNbAction()).thenReturn(takenoko.getListPlayer().get(0).getFeuilleJoueur().getNbAction(), 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(takenoko.getListPlayer().get(0).getFeuilleJoueur().getActionChoisie(), 0, 0, 1, 1);
-
+        when(iService.getZoneJouee()).thenReturn(takenoko.getTerrain().getZoneJoueeParcelles());
+        when(iService.getListeZonesPosables()).thenReturn(takenoko.getTerrain().getListeZonesPosables());
         try {
             doAnswer(
                     new Answer() {

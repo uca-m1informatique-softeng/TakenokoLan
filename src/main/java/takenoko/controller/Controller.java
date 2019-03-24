@@ -11,7 +11,6 @@ import takenoko.utilitaires.StatistiqueJoueur;
 import takenoko.utilitaires.TricheException;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 @RestController
 public class Controller {
@@ -35,8 +34,13 @@ public class Controller {
     }
 
     @GetMapping(value = "/GetZoneJouee")
-    public LinkedHashMap<Coordonnees,Parcelle> getZoneJouee() {
-        return takenoko.getTerrain().getZoneJouee();
+    public ArrayList<Parcelle> getZoneJouee() {
+        return takenoko.getTerrain().getZoneJoueeParcelles();
+    }
+
+    @PostMapping(value = "/CoordToParcelle")
+    public Parcelle coordToParcelle(@RequestBody Coordonnees coordonnees) {
+        return takenoko.getTerrain().coordToParcelle(coordonnees);
     }
 
     @GetMapping(value = "/Piocher")
@@ -175,6 +179,11 @@ public class Controller {
     @GetMapping(value = "/JardinierGetCoordonnees")
     public Coordonnees jardinierGetCoordonnees() {
         return takenoko.getJardinier().getCoordonnees();
+    }
+
+    @GetMapping(value = "/GetListeZonesPosables")
+    public ArrayList<Coordonnees> getListeZonesPosables() {
+        return takenoko.getTerrain().getListeZonesPosables();
     }
 }
 
