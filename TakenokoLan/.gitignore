@@ -1,0 +1,13 @@
+**/out/
+**/target/
+**/build/
+
+### IntelliJ IDEA ###
+**/.idea/
+.idea/
+*.iml
+.gradle
+/local.properties
+
+# External tool builders
+
