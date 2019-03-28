@@ -1,7 +1,9 @@
 package takenoko.ia;
 
+import joueur.ia.IAPanda;
 import org.junit.Assert;
 import org.junit.Test;
+import serveur.iaForTest.IARandom;
 
 public class IATest {
     @Test

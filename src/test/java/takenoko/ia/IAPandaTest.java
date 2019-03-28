@@ -1,20 +1,25 @@
 package takenoko.ia;
 
+import commun.ressources.CarteObjectifPanda;
+import commun.ressources.CartesObjectifs;
+import commun.ressources.Coordonnees;
+import commun.ressources.Parcelle;
+import joueur.ia.IAPanda;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import takenoko.configuration.Takenoko;
-import takenoko.entites.Entite;
-import takenoko.entites.Jardinier;
-import takenoko.entites.Panda;
-import takenoko.moteur.Terrain;
-import takenoko.pioches.LaPiocheParcelle;
-import takenoko.pioches.LesPiochesObjectif;
-import takenoko.ressources.*;
-import takenoko.service.impl.ClientService;
-import takenoko.utilitaires.TricheException;
+import serveur.configuration.Takenoko;
+import serveur.entites.Entite;
+import serveur.entites.Jardinier;
+import serveur.entites.Panda;
+import serveur.moteur.Terrain;
+import serveur.pioches.LaPiocheParcelle;
+import serveur.pioches.LesPiochesObjectif;
+import serveur.ressources.*;
+import joueur.service.impl.ClientService;
+import serveur.utilitaires.TricheException;
 
 import java.util.ArrayList;
 import java.util.Map;

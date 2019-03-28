@@ -5,12 +5,13 @@ import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import takenoko.entites.Jardinier;
-import takenoko.entites.Panda;
-import takenoko.moteur.Terrain;
-import takenoko.pioches.LaPiocheParcelle;
-import takenoko.pioches.LesPiochesObjectif;
-import takenoko.ressources.Coordonnees;
+import serveur.entites.Jardinier;
+import serveur.entites.Panda;
+import serveur.iaForTest.IARandom;
+import serveur.moteur.Terrain;
+import serveur.pioches.LaPiocheParcelle;
+import serveur.pioches.LesPiochesObjectif;
+import commun.ressources.Coordonnees;
 
 import java.util.Random;
 
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class IARandomTest {
-    IARandom IARandom = new IARandom();
+    serveur.iaForTest.IARandom IARandom = new IARandom();
     Terrain terrain = new Terrain();
     LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
     Jardinier jardinier = new Jardinier(terrain);

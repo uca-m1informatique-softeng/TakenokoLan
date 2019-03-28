@@ -8,14 +8,14 @@ import org.junit.Assert;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import takenoko.configuration.Takenoko;
-import takenoko.moteur.Terrain;
-import takenoko.pioches.LaPiocheParcelle;
-import takenoko.ressources.Coordonnees;
-import takenoko.ressources.Parcelle;
-import takenoko.service.impl.ClientService;
-import takenoko.utilitaires.StatistiqueJoueur;
-import takenoko.utilitaires.TricheException;
+import serveur.configuration.Takenoko;
+import serveur.moteur.Terrain;
+import serveur.pioches.LaPiocheParcelle;
+import commun.ressources.Coordonnees;
+import commun.ressources.Parcelle;
+import joueur.service.impl.ClientService;
+import serveur.utilitaires.StatistiqueJoueur;
+import serveur.utilitaires.TricheException;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class PoserParcelleStepDef {
 
     LaPiocheParcelle laPiocheParcelle;
     Terrain terrain;
-    IAPanda IAPanda;
+    joueur.ia.IAPanda IAPanda;
 
 
     Takenoko takenoko = new Takenoko();
