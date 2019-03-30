@@ -10,7 +10,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>joueur.serveur</artifactId>
+    <artifactId>serveur</artifactId>
     <version>1.0</version>
 
 
