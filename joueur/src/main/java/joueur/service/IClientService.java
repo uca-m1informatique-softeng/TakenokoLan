@@ -63,4 +63,5 @@ public interface IClientService {
 
     ArrayList<Coordonnees> getListeZonesPosables();
 
+    void launch();
 }

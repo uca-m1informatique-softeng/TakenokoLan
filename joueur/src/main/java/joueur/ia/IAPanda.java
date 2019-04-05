@@ -33,6 +33,7 @@ public class IAPanda {
 
     public void connect() {
         numeroParti = iService.connect();
+        iService.launch();
     }
 
 

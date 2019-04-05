@@ -7,6 +7,8 @@ import commun.moteur.Terrain;
 import org.springframework.context.annotation.Configuration;
 import serveur.pioches.LaPiocheParcelle;
 import serveur.pioches.LesPiochesObjectif;
+import serveur.service.IServeurService;
+import serveur.service.impl.ServeurService;
 import serveur.utilitaires.StatistiqueJoueur;
 
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class Takenoko {
     }
 
     private void partie(ArrayList<StatistiqueJoueur> listPlayer) {
+        IServeurService iServeurService=new ServeurService();
 
         // initialisations
         initPartie();
@@ -83,6 +86,7 @@ public class Takenoko {
             //LOGGER.info("Tour numéro " + (nbTour + 1));
             for (StatistiqueJoueur c : listPlayer) {
                 //c.getIa().joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+                iServeurService.JoueClient(c.getRefJoueur());
             }
             for (int j = 0; j < listPlayer.size(); j++) {
                 if (listPlayer.get(j).getFeuilleJoueur().getNbObjectifsValide() >= 9 && j == 0) {
@@ -96,6 +100,7 @@ public class Takenoko {
                     for (StatistiqueJoueur c : listPlayer) {
                         if (listPlayer.indexOf(c) != j) {
                             //c.getIa().joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
+                            iServeurService.JoueClient(c.getRefJoueur());
                         }
                     }
                 }
