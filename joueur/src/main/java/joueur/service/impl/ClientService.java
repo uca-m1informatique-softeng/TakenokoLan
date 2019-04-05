@@ -265,4 +265,10 @@ public class ClientService implements IClientService {
         REST_SERVICE_URI = REST_SERVICE_URI+"/"+tab[0];
         return tab;
     }
+
+    @Override
+    public void launch() {
+        restTemplate.postForObject(REST_SERVICE_URI + "/launch", null,int.class);
+
+    }
 }

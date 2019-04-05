@@ -63,9 +63,9 @@
         </dependency>
         <dependency>
             <groupId>Takenoko</groupId>
-            <artifactId>joueur</artifactId>
-            <version>1.0</version>
-        </dependency>
+        <artifactId>joueur</artifactId>
+        <version>1.0</version>
+    </dependency>
     </dependencies>
 
 </project>

@@ -52,14 +52,11 @@ public class Controller {
         return tab;
     }
 
-    @RequestMapping(path = "/launch")
-    public String launch() {/*
-        IAPanda iaPanda = new IAPanda();
-        player = iaPanda;
-        iaPanda.connect();
-        listParti.get(0).lancerParti(listParti.get(0).getListPlayer());
-        */
-        return "done";
+    @PostMapping(path = "/{id}/launch")
+    public void launch(@PathVariable(value = "id") int id) {
+       if(listParti.get(id).getListPlayer().size()==1){
+           listParti.get(id).lancerParti(listParti.get(id).getListPlayer());
+       }
     }
 
     @GetMapping(value = "/{id}/GetZoneJouee")
