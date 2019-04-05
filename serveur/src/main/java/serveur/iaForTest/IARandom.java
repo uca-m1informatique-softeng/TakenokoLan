@@ -7,10 +7,10 @@ import commun.ressources.FeuilleJoueur;
 import commun.ressources.Parcelle;
 import commun.triche.TricheException;
 import org.springframework.stereotype.Component;
-import serveur.entites.Jardinier;
-import serveur.entites.Panda;
-import serveur.pioches.LaPiocheParcelle;
-import serveur.pioches.LesPiochesObjectif;
+import commun.entites.Jardinier;
+import commun.entites.Panda;
+import commun.pioches.LaPiocheParcelle;
+import commun.pioches.LesPiochesObjectif;
 
 import java.util.ArrayList;
 import java.util.Random;

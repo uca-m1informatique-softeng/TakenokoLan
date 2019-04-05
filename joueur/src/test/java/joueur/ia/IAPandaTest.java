@@ -1,21 +1,19 @@
-package serveur.ia;
+package joueur.ia;
 
+import commun.entites.Entite;
+import commun.entites.Jardinier;
+import commun.entites.Panda;
 import commun.moteur.Terrain;
+import commun.pioches.LaPiocheParcelle;
+import commun.pioches.LesPiochesObjectif;
 import commun.ressources.*;
 import commun.triche.TricheException;
-import joueur.ia.IAPanda;
 import joueur.service.impl.ClientService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import serveur.configuration.Takenoko;
-import serveur.entites.Entite;
-import serveur.entites.Jardinier;
-import serveur.entites.Panda;
-import serveur.pioches.LaPiocheParcelle;
-import serveur.pioches.LesPiochesObjectif;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -84,15 +82,11 @@ public class IAPandaTest {
     //Parcelle & Panda
     @Test
     public void IAPandaTest2() throws TricheException {
-        Takenoko takenoko = new Takenoko();
-        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = takenoko.getTerrain();
-        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
-        Jardinier jardinier = takenoko.getJardinier();
-        Panda panda = takenoko.getPanda();
-        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        Terrain terrain = new Terrain();
+        Panda panda = new Panda(terrain);
+        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
         FeuilleJoueur feuilleJoueur = new FeuilleJoueur("IAPanda");
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
@@ -150,7 +144,6 @@ public class IAPandaTest {
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
         Terrain terrain = new Terrain();
-        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
         Jardinier jardinier = new Jardinier(terrain);
         Panda panda = new Panda(terrain);
         LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
@@ -211,15 +204,13 @@ public class IAPandaTest {
     // Panda & Jardinier + Panda & Objectif
     @Test
     public void IAPandaTest4() throws TricheException {
-        Takenoko takenoko = new Takenoko();
-        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = takenoko.getTerrain();
-        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
-        Jardinier jardinier = takenoko.getJardinier();
-        Panda panda = takenoko.getPanda();
-        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        Terrain terrain = new Terrain();
+        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
+        Jardinier jardinier = new Jardinier(terrain);
+        Panda panda = new Panda(terrain);
+        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
         FeuilleJoueur feuilleJoueur = new FeuilleJoueur("");
 
         ArrayList<CartesObjectifs> cartesObjectifs = new ArrayList<>();
@@ -404,15 +395,13 @@ public class IAPandaTest {
     //reussi un objectif une couleur de chaque quand le terrain est en place
     @Test
     public void IAPandaTest5() throws TricheException {
-        Takenoko takenoko = new Takenoko();
-        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = takenoko.getTerrain();
-        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
-        Jardinier jardinier = takenoko.getJardinier();
-        Panda panda = takenoko.getPanda();
-        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        Terrain terrain = new Terrain();
+        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
+        Jardinier jardinier = new Jardinier(terrain);
+        Panda panda = new Panda(terrain);
+        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
         FeuilleJoueur feuilleJoueur = new FeuilleJoueur("");
 
         ClientService iService = Mockito.mock(ClientService.class);
@@ -586,15 +575,13 @@ public class IAPandaTest {
     //favorise un objectif pouvant etre fini sur cette action
     @Test
     public void IAPandaTest6() throws TricheException {
-        Takenoko takenoko = new Takenoko();
-        takenoko.initPartie();
         IAPanda IAPanda = new IAPanda();
         IAPanda.setNomBot("IA Panda");
-        Terrain terrain = takenoko.getTerrain();
-        LesPiochesObjectif lesPiochesObjectif = takenoko.getLesPiochesObjectif();
-        Jardinier jardinier = takenoko.getJardinier();
-        Panda panda = takenoko.getPanda();
-        LaPiocheParcelle laPiocheParcelle = takenoko.getLaPiocheParcelle();
+        Terrain terrain = new Terrain();
+        LesPiochesObjectif lesPiochesObjectif = new LesPiochesObjectif();
+        Jardinier jardinier = new Jardinier(terrain);
+        Panda panda = new Panda(terrain);
+        LaPiocheParcelle laPiocheParcelle = new LaPiocheParcelle();
         FeuilleJoueur feuilleJoueur = new FeuilleJoueur("");
 
         ClientService iService = Mockito.mock(ClientService.class);

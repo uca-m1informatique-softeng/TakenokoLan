@@ -1,23 +1,18 @@
-package serveur.pioches;
+package commun.pioches;
 
 import commun.moteur.Terrain;
-import commun.ressources.CarteObjectifJardinier;
-import commun.ressources.CartesObjectifs;
-import commun.ressources.Coordonnees;
-import commun.ressources.Parcelle;
+import commun.ressources.*;
 import org.junit.Assert;
 import org.junit.Test;
-import serveur.iaForTest.IARandom;
 
 import java.util.ArrayList;
 
 public class LaPiocheObjectifsJardinierTest {
     private Terrain terrain = new Terrain();
-    private IARandom IARandom = new IARandom();
 
     @Test
     public void LaPiocheObjectifsJardinierTest() {
-        IARandom.setNomBot("Pierre");
+        FeuilleJoueur feuilleJoueur = new FeuilleJoueur("Pierre");
         LaPiocheObjectifsJardinier laPiocheObjectifsJardinier = new LaPiocheObjectifsJardinier();
 
         Assert.assertEquals(15, laPiocheObjectifsJardinier.getPioche().size());
@@ -44,8 +39,8 @@ public class LaPiocheObjectifsJardinierTest {
         CarteObjectifJardinier carteObjectifParcelle41 = new CarteObjectifJardinier(3, Parcelle.Couleur.JAUNE, 3, CartesObjectifs.Motif.LOSANGE);
         listeCartes.add(carteObjectifParcelle);
         listeCartes.add(carteObjectifParcelle2);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
 
         for (int i = 0; i < 3; i++) {
             p1.pousserBambou();
@@ -54,9 +49,9 @@ public class LaPiocheObjectifsJardinierTest {
         Assert.assertEquals(p1.getBambou(), 3);
         //Bambou de taille 3
         Assert.assertEquals(p1.getBambou(), carteObjectifParcelle.getBambou());
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(6, IARandom.getFeuilleJoueur().getPointsBot());
-        Assert.assertEquals(2, IARandom.getFeuilleJoueur().getNbObjectifsValide());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(6, feuilleJoueur.getPointsBot());
+        Assert.assertEquals(2, feuilleJoueur.getNbObjectifsValide());
         Parcelle p6 = new Parcelle(new Coordonnees(-1, 0, 1));
         Parcelle p7 = new Parcelle(new Coordonnees(-1, 2, -1));
         Parcelle p8 = new Parcelle(new Coordonnees(-2, 2, 0));
@@ -83,126 +78,126 @@ public class LaPiocheObjectifsJardinierTest {
         }
         //triangle avec 3 bambou
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
         // cas G-HG
         listeCartes.add(carteObjectifParcelle3);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         // //System.out.println("Test de la détection de motif TRIANGLE G-HG :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas HG-HD
         listeCartes.add(carteObjectifParcelle3);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         ////System.out.println("Test de la détection de motif TRIANGLE HG-HD :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas HD-D
         listeCartes.add(carteObjectifParcelle3);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         //System.out.println("Test de la détection de motif TRIANGLE HD-D :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas D-BD
         listeCartes.add(carteObjectifParcelle3);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         //System.out.println("Test de la détection de motif TRIANGLE D-BD :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas BD-BG
         listeCartes.add(carteObjectifParcelle3);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         //System.out.println("Test de la détection de motif TRIANGLE BD-BG :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas BG-G
         listeCartes.add(carteObjectifParcelle3);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         //System.out.println("Test de la détection de motif TRIANGLE BG-G :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle31);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // LOSANGE MONOCHROME
         p1.setCouleur(Parcelle.Couleur.VERTE);
@@ -215,254 +210,254 @@ public class LaPiocheObjectifsJardinierTest {
 
         // cas HG-HD-HD/HG
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         //System.out.println("Test de la détection de motif LOSANGE monochrome HG-HD-HD/HG :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas HD-D-BD
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         //System.out.println("Test de la détection de motif LOSANGE monochrome HD-D-BD :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas HG-G-BD
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         //System.out.println("Test de la détection de motif LOSANGE monochrome HG-G-BD :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas BG-BD-BD/BG
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         //System.out.println("Test de la détection de motif LOSANGE monochrome BG-BD-BD/BG :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas HD-D-D/HD
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.setMainObjectif(listeCartes);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p2.getCoord(), p2);
         //System.out.println("Test de la détection de motif LOSANGE monochrome HD-D-D/HD :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas BG-BD-D
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.setMainObjectif(listeCartes);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p2.getCoord(), p2);
         //System.out.println("Test de la détection de motif LOSANGE monochrome BG-BD-D :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas G-HD-HD
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p2.getCoord(), p2);
         //System.out.println("Test de la détection de motif LOSANGE monochrome G-HD-HD :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas G-BG-BG/G
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p2.getCoord(), p2);
         terrain.getZoneJouee().put(p7.getCoord(), p7);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         //System.out.println("Test de la détection de motif LOSANGE monochrome G-BG-BG/G :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas D-BD-BD/D
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p6.getCoord(), p6);
         //System.out.println("Test de la détection de motif LOSANGE monochrome D-BD-BD/D :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas G-BG-BD
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p6.getCoord(), p6);
         //System.out.println("Test de la détection de motif LOSANGE monochrome G-BG-BD :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas HG-HD-D
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p6.getCoord(), p6);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         //System.out.println("Test de la détection de motif LOSANGE monochrome HG-HD-D :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
 
         // cas G-HG-HG/G
         listeCartes.add(carteObjectifParcelle4);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
         terrain.getZoneJouee().put(p6.getCoord(), p6);
         terrain.getZoneJouee().put(p9.getCoord(), p9);
         terrain.getZoneJouee().put(p8.getCoord(), p8);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
         //System.out.println("Test de la détection de motif LOSANGE monochrome G-HG-HG/G :");
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
         //cas ou ya pas
         listeCartes.add(carteObjectifParcelle41);
-        IARandom.getFeuilleJoueur().setMainObjectif(listeCartes);
-        IARandom.setMainObjectif(listeCartes);
-        terrain.verifObjectifAccompli(IARandom.getFeuilleJoueur());
-        Assert.assertEquals(3, IARandom.getFeuilleJoueur().getPointsBot());
+        feuilleJoueur.setMainObjectif(listeCartes);
+        feuilleJoueur.setMainObjectif(listeCartes);
+        terrain.verifObjectifAccompli(feuilleJoueur);
+        Assert.assertEquals(3, feuilleJoueur.getPointsBot());
 
         terrain.getZoneJouee().clear();
-        IARandom.getFeuilleJoueur().setPointsBot(0);
+        feuilleJoueur.setPointsBot(0);
     }
 }

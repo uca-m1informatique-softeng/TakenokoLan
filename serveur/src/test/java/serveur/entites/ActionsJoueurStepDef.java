@@ -1,5 +1,8 @@
 package serveur.entites;
 
+
+import commun.entites.Jardinier;
+import commun.entites.Panda;
 import commun.moteur.Terrain;
 import commun.ressources.Coordonnees;
 import commun.ressources.Parcelle;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertNotEquals;
 
-public class ActionsJoueurStepDef {
+public class ActionsJoueurStepDef  {
 
     Terrain terrain = new Terrain();
     private Jardinier jardinier = new Jardinier(terrain);
@@ -24,9 +27,9 @@ public class ActionsJoueurStepDef {
     private ArrayList<Coordonnees> deplacementPossible = new ArrayList<>();
     Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
     Parcelle p = new Parcelle(new Coordonnees(1, 0, 1));
-
-
     private TestRestTemplate template = new TestRestTemplate();
+
+
     private ResponseEntity<Parcelle> response; // output
     private ResponseEntity<Coordonnees> response1; // output
     private ResponseEntity<Coordonnees> response2; // output

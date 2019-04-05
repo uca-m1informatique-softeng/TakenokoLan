@@ -1,12 +1,12 @@
 package serveur.configuration;
 
 
-import serveur.entites.Jardinier;
-import serveur.entites.Panda;
+import commun.entites.Jardinier;
+import commun.entites.Panda;
 import commun.moteur.Terrain;
 import org.springframework.context.annotation.Configuration;
-import serveur.pioches.LaPiocheParcelle;
-import serveur.pioches.LesPiochesObjectif;
+import commun.pioches.LaPiocheParcelle;
+import commun.pioches.LesPiochesObjectif;
 import serveur.service.IServeurService;
 import serveur.service.impl.ServeurService;
 import serveur.utilitaires.StatistiqueJoueur;

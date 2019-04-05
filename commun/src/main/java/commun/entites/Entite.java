@@ -1,4 +1,4 @@
-package serveur.entites;
+package commun.entites;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import commun.moteur.Terrain;

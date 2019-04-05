@@ -7,11 +7,11 @@ import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import serveur.entites.Jardinier;
-import serveur.entites.Panda;
+import commun.entites.Jardinier;
+import commun.entites.Panda;
 import serveur.iaForTest.IARandom;
-import serveur.pioches.LaPiocheParcelle;
-import serveur.pioches.LesPiochesObjectif;
+import commun.pioches.LaPiocheParcelle;
+import commun.pioches.LesPiochesObjectif;
 
 import java.util.Random;
 

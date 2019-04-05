@@ -1,4 +1,4 @@
-package serveur.entites;
+package commun.entites;
 
 import commun.moteur.Terrain;
 import commun.ressources.Coordonnees;

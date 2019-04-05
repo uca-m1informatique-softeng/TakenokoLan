@@ -1,5 +1,6 @@
 package serveur.entites;
 
+import commun.ressources.Coordonnees;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -9,7 +10,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import serveur.SpringRootTest;
-import commun.ressources.Coordonnees;
 
 import java.util.ArrayList;
 

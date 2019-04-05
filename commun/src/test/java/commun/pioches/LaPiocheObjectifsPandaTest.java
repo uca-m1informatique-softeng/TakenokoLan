@@ -1,5 +1,6 @@
-package serveur.pioches;
+package commun.pioches;
 
+import commun.pioches.LaPiocheObjectifsPanda;
 import org.junit.Assert;
 import org.junit.Test;
 import commun.ressources.Parcelle;

@@ -5,7 +5,7 @@ import commun.ressources.*;
 import commun.triche.TricheException;
 import org.junit.Assert;
 import org.junit.Test;
-import serveur.entites.Panda;
+import commun.entites.Panda;
 
 import java.util.ArrayList;
 

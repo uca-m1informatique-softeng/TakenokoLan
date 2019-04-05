@@ -12,7 +12,7 @@ import commun.ressources.Coordonnees;
 
 import static org.junit.Assert.assertEquals;
 
-public class PandaGetCoordonneesStepDef {
+public class PandaGetCoordonneesStepDef  {
 
     private TestRestTemplate template = new TestRestTemplate();
     private ResponseEntity<Coordonnees> response; // output

@@ -1,4 +1,4 @@
-package serveur.pioches;
+package commun.pioches;
 
 import commun.ressources.CarteObjectifJardinier;
 import commun.ressources.CartesObjectifs;

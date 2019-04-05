@@ -1,4 +1,4 @@
-package serveur.pioches;
+package commun.pioches;
 
 import commun.ressources.FeuilleJoueur;
 import commun.triche.TricheException;

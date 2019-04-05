@@ -1,5 +1,6 @@
 package serveur.entites;
 
+import commun.entites.Jardinier;
 import commun.moteur.Terrain;
 import commun.ressources.Coordonnees;
 import commun.ressources.FeuilleJoueur;
