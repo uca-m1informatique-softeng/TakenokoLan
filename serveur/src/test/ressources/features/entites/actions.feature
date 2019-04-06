@@ -6,8 +6,6 @@ Feature: effectuer les actions
     And le panda
     And un terrain avec des parcelles
 
-
-
   Scenario: le client appelle/PoserParcelle
     When le client appelle/PoserParcelle
     Then si c'est possible une parcelle est posée sur le terrain
@@ -19,5 +17,10 @@ Feature: effectuer les actions
   Scenario: le client appelle /DeplacerPanda
       When le client appelle /DeplacerPanda
       Then si c'est possible le panda est déplacé sur le terrain
+
+
+  Scenario: le client pioche un objectif
+    When le client appelle /PiocheUnObjectif
+    Then  return au moins une carte
 
 

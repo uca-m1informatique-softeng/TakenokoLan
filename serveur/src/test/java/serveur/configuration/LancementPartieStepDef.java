@@ -35,4 +35,5 @@ public class LancementPartieStepDef {
     public void afficherHello() {/*
         assertEquals("hello", takenoko.nbPartie(1, 1, 0));*/
     }
+    
 }

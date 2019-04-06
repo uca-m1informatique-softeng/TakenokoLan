@@ -30,9 +30,9 @@ public class JardinierGetCoordonneesStepDef {
 
     @Then("^client reçoit le status code (\\d+)$")
     public void clientRecoitStatusCode(int statusCode) {
-        HttpStatus currentStatusCode = response.getStatusCode();
+       HttpStatus currentStatusCode = response.getStatusCode();
 
-        assertEquals(statusCode, currentStatusCode.value());
+       assertEquals(statusCode, currentStatusCode.value());
     }
 
     @And("^le client reçoit les coordonnees du jardinier")

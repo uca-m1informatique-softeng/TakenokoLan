@@ -4,6 +4,7 @@ package serveur.entites;
 import commun.entites.Jardinier;
 import commun.entites.Panda;
 import commun.moteur.Terrain;
+import commun.ressources.CartesObjectifs;
 import commun.ressources.Coordonnees;
 import commun.ressources.Parcelle;
 import cucumber.api.java.en.And;
@@ -13,18 +14,18 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class ActionsJoueurStepDef  {
 
     Terrain terrain = new Terrain();
     private Jardinier jardinier = new Jardinier(terrain);
     private Panda panda = new Panda(terrain);
-    private ArrayList<Coordonnees> deplacementPossible = new ArrayList<>();
     Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
     Parcelle p = new Parcelle(new Coordonnees(1, 0, 1));
     private TestRestTemplate template = new TestRestTemplate();
@@ -33,6 +34,8 @@ public class ActionsJoueurStepDef  {
     private ResponseEntity<Parcelle> response; // output
     private ResponseEntity<Coordonnees> response1; // output
     private ResponseEntity<Coordonnees> response2; // output
+    private ResponseEntity<CartesObjectifs> response3; // output
+
 
     @Given("^la partie")
     public void init() {
@@ -63,7 +66,7 @@ public class ActionsJoueurStepDef  {
     @When("^le client appelle/PoserParcelle")
     public void poserParcelle() {
         initTerrain();
-        response = template.exchange("http://localhost:8080/PoserParcelle", HttpMethod.POST, null,
+        response = template.exchange("http://localhost:8080/0/PoserParcelle", HttpMethod.POST, null,
                 Parcelle.class);
 
     }
@@ -83,7 +86,7 @@ public class ActionsJoueurStepDef  {
         initTerrain();
         initLeJardinier();
         parcellePosee();
-        response1 = template.exchange("http://localhost:8080/DeplacerJardinier", HttpMethod.POST, null,
+        response1 = template.exchange("http://localhost:8080/0/DeplacerJardinier", HttpMethod.POST, null,
                 Coordonnees.class);
     }
 
@@ -100,13 +103,28 @@ public class ActionsJoueurStepDef  {
         initTerrain();
         initLePanda();
         parcellePosee();
-        response2 = template.exchange("http://localhost:8080/DeplacerPanda", HttpMethod.POST, null,
+        response2 = template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, null,
                 Coordonnees.class);
     }
 
     @Then("^si c'est possible le panda est déplacé sur le terrain")
     public void deplacementPandaEffectue() {
+        deplacementPanda();
         assertNotEquals(response.getBody(),new Coordonnees(0,0,0));
+    }
+
+
+
+    @When("^le client appelle /PiocheUnObjectif")
+    public void piocheObjectif() {
+        response3 = template.exchange("http://localhost:8080/0/PiocherUnObjectif", HttpMethod.POST, null,
+                CartesObjectifs.class);
+    }
+
+    @Then("^return au moins une carte")
+    public void returnCard() {
+
+        assertNotEquals(null,response3.getBody());
     }
 
 }
