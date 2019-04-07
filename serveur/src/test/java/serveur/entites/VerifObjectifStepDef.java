@@ -23,6 +23,13 @@ import static org.junit.Assert.assertNotEquals;
 public class VerifObjectifStepDef {
     private TestRestTemplate template = new TestRestTemplate();
     private ResponseEntity<CartesObjectifs> response; // output
+    private ResponseEntity<CartesObjectifs> response1; // output
+
+    public FeuilleJoueur feuilleJoueur = new FeuilleJoueur("");
+
+    public FeuilleJoueur getFeuilleJoueur() {
+        return feuilleJoueur;
+    }
 
     @Given("^une nouvelle partie$")
     public void initPartie() {
@@ -42,4 +49,19 @@ public class VerifObjectifStepDef {
 
         assertNotEquals(null,response.getBody());
     }
+
+    @When("^le client appelle /FeuilleJoueurGetMainObjectif")
+    public void verifMain() {
+verifObjectif();
+        response1 = template.exchange("http://localhost:8080/0/FeuilleJoueurGetMainObjectif", HttpMethod.GET, null,
+                CartesObjectifs.class);
+    }
+
+    @Then("^le nombre de carte objectif dans la main est different")
+    public void nbCartes() {
+
+        assertNotEquals(getFeuilleJoueur().getMainObjectif(),response1.getBody());
+
+    }
+
 }
