@@ -13,6 +13,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,18 +24,20 @@ import static org.junit.Assert.*;
 
 public class ActionsJoueurStepDef  {
 
-    Terrain terrain = new Terrain();
+    private Terrain terrain = new Terrain();
     private Jardinier jardinier = new Jardinier(terrain);
     private Panda panda = new Panda(terrain);
-    Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
-    Parcelle p = new Parcelle(new Coordonnees(1, 0, 1));
+    private Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
+    private Parcelle p = new Parcelle(new Coordonnees(1, 0, 1));
     private TestRestTemplate template = new TestRestTemplate();
 
 
     private ResponseEntity<Parcelle> response; // output
-    private ResponseEntity<Coordonnees> response1; // output
-    private ResponseEntity<Coordonnees> response2; // output
+    private ResponseEntity<Parcelle> response1; // output
+    private ResponseEntity<Parcelle> response2; // output
     private ResponseEntity<CartesObjectifs> response3; // output
+    private ResponseEntity<ArrayList<Parcelle>> response4; // output
+
 
 
     @Given("^la partie")
@@ -73,27 +76,27 @@ public class ActionsJoueurStepDef  {
 
     @Then("^si c'est possible une parcelle est posée sur le terrain")
     public void parcellePosee() {
-        initTerrain();
+
         poserParcelle();
-        Assert.assertEquals(3,terrain.getZoneJouee().size());
-        Assert.assertNotEquals(new Coordonnees(0,0,0),response.getBody());
+        Assert.assertNotEquals(new Coordonnees(0,0,0),response.getBody().getCoord());
+        Assert.assertNotEquals(new Coordonnees(1, 0, 1),response.getBody().getCoord());
+        Assert.assertNotEquals(new Coordonnees(1, 0, -1),response.getBody().getCoord());
 
     }
 
-
-    @When("^le client appelle /DeplacerJardinier")
+     @When("^le client appelle /DeplacerJardinier")
     public void deplacementJardinier() {
         initTerrain();
         initLeJardinier();
-        parcellePosee();
         response1 = template.exchange("http://localhost:8080/0/DeplacerJardinier", HttpMethod.POST, null,
-                Coordonnees.class);
+                Parcelle.class);
     }
 
     @Then("^si c'est possible le jardinier est déplacé sur le terrain")
     public void deplacementJardinierEffectue() {
+
         deplacementJardinier();
-        Assert.assertNotEquals(new Coordonnees(0,0,0),response.getBody());
+        Assert.assertNotEquals(response1.getBody().getCoord(),new Coordonnees(0,0,0));
     }
 
 
@@ -102,15 +105,14 @@ public class ActionsJoueurStepDef  {
     public void deplacementPanda() {
         initTerrain();
         initLePanda();
-        parcellePosee();
         response2 = template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, null,
-                Coordonnees.class);
+                Parcelle.class);
     }
 
     @Then("^si c'est possible le panda est déplacé sur le terrain")
     public void deplacementPandaEffectue() {
         deplacementPanda();
-        assertNotEquals(response.getBody(),new Coordonnees(0,0,0));
+        assertNotEquals(response2.getBody().getCoord(),new Coordonnees(0,0,0));
     }
 
 
