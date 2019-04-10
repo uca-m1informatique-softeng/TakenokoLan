@@ -8,6 +8,7 @@ import commun.triche.TricheException;
 import joueur.service.IClientService;
 import joueur.service.impl.ClientService;
 import joueur.utilitaires.MainJoueur;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,15 +25,20 @@ public class IAPanda {
     private String nomBot;
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
     private IClientService iService;
-    int[] numeroParti;
+    int numeroParti;
 
     public IAPanda() {
+        nomBot=RandomStringUtils.randomAlphabetic(10);
         iService = new ClientService();
         LOGGER.setLevel(Level.OFF);
     }
 
-    public void connect() {
-        numeroParti = iService.connect();
+    public int connect() {
+        numeroParti = iService.connect(nomBot);
+        return numeroParti;
+    }
+
+    public void launch(){
         iService.launch();
     }
 

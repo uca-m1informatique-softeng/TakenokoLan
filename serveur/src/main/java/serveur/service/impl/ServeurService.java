@@ -1,6 +1,5 @@
 package serveur.service.impl;
 
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -12,8 +11,7 @@ public class ServeurService implements IServeurService {
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public void JoueClient(int idPlauer) {
-        HttpEntity<Integer> request = new HttpEntity<>(idPlauer);
-        restTemplate.exchange(REST_SERVICE_URI + "/Joue", HttpMethod.POST, request, String.class);
+    public void JoueClient(int idPlayer) {
+        restTemplate.exchange(REST_SERVICE_URI + "/" + idPlayer + "/Joue", HttpMethod.POST, null, String.class);
     }
 }

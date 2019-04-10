@@ -1,16 +1,16 @@
 package joueur.service.impl;
 
+import commun.ressources.CartesObjectifs;
+import commun.ressources.Coordonnees;
 import commun.ressources.FeuilleJoueur;
+import commun.ressources.Parcelle;
 import commun.triche.TricheException;
+import joueur.service.IClientService;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import commun.ressources.CartesObjectifs;
-import commun.ressources.Coordonnees;
-import commun.ressources.Parcelle;
-import joueur.service.IClientService;
 
 import java.util.ArrayList;
 
@@ -255,20 +255,19 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public int[] connect() {
+    public int connect(String name) {
         int[] tab =
          restTemplate.exchange(
-                REST_SERVICE_URI + "/Connect",
+                 "http://localhost:8080" +"/"+name+ "/Connect",
                 HttpMethod.GET,
                 null,
                 int[].class).getBody();
-        REST_SERVICE_URI = REST_SERVICE_URI+"/"+tab[0];
-        return tab;
+        REST_SERVICE_URI = "http://localhost:8080"+"/"+tab[0];
+        return tab[1];
     }
 
     @Override
     public void launch() {
-        restTemplate.postForObject(REST_SERVICE_URI + "/launch", null,int.class);
-
+        restTemplate.postForObject(REST_SERVICE_URI + "/launch", null, int.class);
     }
 }

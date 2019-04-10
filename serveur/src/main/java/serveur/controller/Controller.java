@@ -2,49 +2,61 @@ package serveur.controller;
 
 import commun.ressources.CartesObjectifs;
 import commun.ressources.Coordonnees;
-import commun.ressources.Parcelle;
-import serveur.configuration.Takenoko;
-import org.springframework.web.bind.annotation.*;
 import commun.ressources.FeuilleJoueur;
-import serveur.utilitaires.StatistiqueJoueur;
+import commun.ressources.Parcelle;
 import commun.triche.TricheException;
+import org.springframework.web.bind.annotation.*;
+import serveur.configuration.Takenoko;
+import serveur.utilitaires.StatistiqueJoueur;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Random;
 
 @RestController
 public class Controller {
-    private ArrayList<Takenoko> listParti = new ArrayList<>();
+    private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
 
     @GetMapping(value = "/init")
     public String init() {
         listParti.clear();
-        listParti.add(new Takenoko());
+        listParti.put(0, new Takenoko());
         listParti.get(0).initPartie();
         return "init done";
     }
 
-    @GetMapping(value = "/Connect")
-    public int[] connect() {
+    @GetMapping(value = "/{namePlayer}/Connect")
+    public int[] connect(@PathVariable(value = "namePlayer") String namePlayer) {
         int[] tab = new int[2];
         if (listParti.isEmpty()) {
-            listParti.add(new Takenoko());
-            listParti.get(0).getListPlayer().add(new StatistiqueJoueur(1, 0, 0, 0, "IAPANDA"));
-            tab[0] = 0;
-            tab[1] = 0;
+            int numGame = new Random().nextInt(5000);
+            int numPlayer = new Random().nextInt(5000);
+            listParti.put(numGame, new Takenoko());
+            listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+            System.out.println(numGame+" | " +numPlayer+" | "+namePlayer);
+            tab[0] = numGame;
+            tab[1] = numPlayer;
             return tab;
         } else {
-            for (int i = 0; i < listParti.size(); i++) {
-                // 1 joueur par parti pour le moment
-                if (listParti.get(i).getListPlayer().size() <= 1) {
-                    listParti.add(new Takenoko());
-                    listParti.get(i + 1).getListPlayer().add(new StatistiqueJoueur(1, 0, 0, 0, "IAPANDA"));
-                    tab[0] = i + 1;
-                    tab[1] = 0;
+            for (Map.Entry<Integer, Takenoko> entry : listParti.entrySet()) {
+                Takenoko game = entry.getValue();
+                Integer numGame = entry.getKey();
+                if (game.getListPlayer().size() <= 1) {
+                    // 1 joueur par parti pour le moment
+                    int num = new Random().nextInt(5000) + 1;
+                    int numPlayer = new Random().nextInt(5000);
+                    listParti.put(num, new Takenoko());
+                    listParti.get(num).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+                    System.out.println(numGame+" | " +numPlayer+" | "+namePlayer);
+                    tab[0] = num;
+                    tab[1] = numPlayer;
                     return tab;
                 } else {
-                    listParti.get(i).getListPlayer().add(new StatistiqueJoueur(1, 0, 0, 0, "IAPANDA"));
-                    tab[0] = i;
-                    tab[1] = 0;
+                    int numPlayer = new Random().nextInt(5000);
+                    game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+                    tab[0] = numGame;
+                    tab[1] = numPlayer;
                     return tab;
                 }
             }
@@ -54,9 +66,9 @@ public class Controller {
 
     @PostMapping(path = "/{id}/launch")
     public void launch(@PathVariable(value = "id") int id) {
-       if(listParti.get(id).getListPlayer().size()==1){
-           listParti.get(id).lancerParti(listParti.get(id).getListPlayer());
-       }
+        if (listParti.get(id).getListPlayer().size() == 1) {
+            listParti.get(id).lancerParti(listParti.get(id).getListPlayer());
+        }
     }
 
     @GetMapping(value = "/{id}/GetZoneJouee")
