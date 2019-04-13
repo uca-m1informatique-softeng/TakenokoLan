@@ -37,6 +37,8 @@ public class ActionsJoueurStepDef  {
     private ResponseEntity<Parcelle> response2; // output
     private ResponseEntity<CartesObjectifs> response3; // output
     private ResponseEntity<ArrayList<Parcelle>> response4; // output
+    private ResponseEntity<ArrayList<Coordonnees>> response5; // output
+
 
 
 
@@ -66,6 +68,21 @@ public class ActionsJoueurStepDef  {
     }
 
 
+    @When("^le client appelle /GetListeZonesPosables")
+    public void zonePosable() {
+        response5 = template.exchange("http://localhost:8080/0/GetListeZonesPosables", HttpMethod.GET, null,
+                new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
+                });
+
+
+
+    }
+    @Then("^le client recoit statut code (\\d+)$")
+    public void leClientRecoitStatusCode(int statusCode) {
+        HttpStatus currentStatusCode = response5.getStatusCode();
+        assertEquals(statusCode, currentStatusCode.value());
+    }
+
     @When("^le client appelle/PoserParcelle")
     public void poserParcelle() {
         initTerrain();
@@ -84,7 +101,24 @@ public class ActionsJoueurStepDef  {
 
     }
 
-     @When("^le client appelle /DeplacerJardinier")
+    @When("^client appelle /GetZoneJouee")
+    public void zoneJouee() {
+        poserParcelle();
+        response4 = template.exchange("http://localhost:8080/0/GetZoneJouee", HttpMethod.GET, null,
+                new ParameterizedTypeReference<ArrayList<Parcelle>>() {
+                });
+
+
+
+    }
+    @Then("^client recoit statut code (\\d+)$")
+    public void clientRecoitStatusCode(int statusCode) {
+        HttpStatus currentStatusCode = response4.getStatusCode();
+        assertEquals(statusCode, currentStatusCode.value());
+    }
+
+
+    @When("^le client appelle /DeplacerJardinier")
     public void deplacementJardinier() {
         initTerrain();
         initLeJardinier();
