@@ -2,17 +2,16 @@ Feature: effectuer les actions
 
   Background:
     Given la partie
-    And le jardinier
-    And le panda
-    And un terrain avec des parcelles
+    And des parcelles
 
   Scenario: le client joue sur le terrain
     When le client appelle /GetListeZonesPosables
     Then le client recoit statut code 200
     When le client appelle/PoserParcelle
-    Then si c'est possible une parcelle est posée sur le terrain
+    Then client recoit statut code 200 and done
     When client appelle /GetZoneJouee
     Then client recoit statut code 200
+    Then une parcelle est posée sur le terrain
 
   Scenario: le client appelle /DeplacerJardinier
     When le client appelle /DeplacerJardinier

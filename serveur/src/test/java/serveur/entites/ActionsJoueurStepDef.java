@@ -14,6 +14,7 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,47 +25,21 @@ import static org.junit.Assert.*;
 
 public class ActionsJoueurStepDef  {
 
-    private Terrain terrain = new Terrain();
-    private Jardinier jardinier = new Jardinier(terrain);
-    private Panda panda = new Panda(terrain);
-    private Parcelle p1 = new Parcelle(new Coordonnees(1, 0, -1));
-    private Parcelle p = new Parcelle(new Coordonnees(1, 0, 1));
+    private Parcelle p = new Parcelle(new Coordonnees(1, 0, -1));
     private TestRestTemplate template = new TestRestTemplate();
 
-
-    private ResponseEntity<Parcelle> response; // output
-    private ResponseEntity<Parcelle> response1; // output
-    private ResponseEntity<Parcelle> response2; // output
-    private ResponseEntity<CartesObjectifs> response3; // output
+    private ResponseEntity<String> response; // output
     private ResponseEntity<ArrayList<Parcelle>> response4; // output
     private ResponseEntity<ArrayList<Coordonnees>> response5; // output
-
-
-
 
     @Given("^la partie")
     public void init() {
         template.getForEntity("http://localhost:8080/init", String.class);
     }
 
-    @And("^le jardinier")
-    public void initLeJardinier() {
-        Jardinier jardinier = new Jardinier(terrain);
-    }
-
-    @And("^le panda")
-    public void initLePanda() {
-        Panda panda = new Panda(terrain);
-    }
-
-    @And("^un terrain avec des parcelles")
-    public void initTerrain(){
-        p1.setCouleur(Parcelle.Couleur.VERTE);
+    @And("^des parcelles")
+    public void initParcelle(){
         p.setCouleur(Parcelle.Couleur.VERTE);
-        terrain.getZoneJouee().put(p.getCoord(), p);
-        p.setIrriguee(true);
-        terrain.getZoneJouee().put(p1.getCoord(), p1);
-        p1.setIrriguee(true);
     }
 
 
@@ -73,10 +48,8 @@ public class ActionsJoueurStepDef  {
         response5 = template.exchange("http://localhost:8080/0/GetListeZonesPosables", HttpMethod.GET, null,
                 new ParameterizedTypeReference<ArrayList<Coordonnees>>() {
                 });
-
-
-
     }
+
     @Then("^le client recoit statut code (\\d+)$")
     public void leClientRecoitStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response5.getStatusCode();
@@ -85,82 +58,95 @@ public class ActionsJoueurStepDef  {
 
     @When("^le client appelle/PoserParcelle")
     public void poserParcelle() {
-        initTerrain();
-        response = template.exchange("http://localhost:8080/0/PoserParcelle", HttpMethod.POST, null,
-                Parcelle.class);
+        initParcelle();
+        HttpEntity<Parcelle> request = new HttpEntity<>(p);
+        response = template.exchange("http://localhost:8080/0/PoserParcelle", HttpMethod.POST, request,
+                String.class);
 
     }
 
-    @Then("^si c'est possible une parcelle est posée sur le terrain")
-    public void parcellePosee() {
-
-        poserParcelle();
-        Assert.assertNotEquals(new Coordonnees(0,0,0),response.getBody().getCoord());
-        Assert.assertNotEquals(new Coordonnees(1, 0, 1),response.getBody().getCoord());
-        Assert.assertNotEquals(new Coordonnees(1, 0, -1),response.getBody().getCoord());
-
+    @Then("^client recoit statut code (\\d+) and done$")
+    public void clientRecoitStatusCodeAndDone(int statusCode) {
+        HttpStatus currentStatusCode = response.getStatusCode();
+        assertEquals(statusCode, currentStatusCode.value());
+        assertEquals("done",response.getBody());
     }
 
     @When("^client appelle /GetZoneJouee")
     public void zoneJouee() {
-        poserParcelle();
         response4 = template.exchange("http://localhost:8080/0/GetZoneJouee", HttpMethod.GET, null,
                 new ParameterizedTypeReference<ArrayList<Parcelle>>() {
                 });
-
-
-
     }
+
     @Then("^client recoit statut code (\\d+)$")
     public void clientRecoitStatusCode(int statusCode) {
         HttpStatus currentStatusCode = response4.getStatusCode();
         assertEquals(statusCode, currentStatusCode.value());
     }
 
+    @Then("^une parcelle est posée sur le terrain")
+    public void parcellePosee() {
+        // 2 avec la source
+        Assert.assertEquals(2,response4.getBody().size());
+    }
 
     @When("^le client appelle /DeplacerJardinier")
     public void deplacementJardinier() {
-        initTerrain();
-        initLeJardinier();
-        response1 = template.exchange("http://localhost:8080/0/DeplacerJardinier", HttpMethod.POST, null,
-                Parcelle.class);
+        poserParcelle(); // a cause du Background on doit reposer la parcelle
+        HttpEntity<Coordonnees> request = new HttpEntity<>(p.getCoord());
+        response = template.exchange("http://localhost:8080/0/DeplacerJardinier", HttpMethod.POST, request,
+                String.class);
     }
 
     @Then("^si c'est possible le jardinier est déplacé sur le terrain")
     public void deplacementJardinierEffectue() {
-
-        deplacementJardinier();
-        Assert.assertNotEquals(response1.getBody().getCoord(),new Coordonnees(0,0,0));
+        ResponseEntity<Coordonnees> temp= template.exchange(
+                "http://localhost:8080/0/JardinierGetCoordonnees",
+                HttpMethod.GET,
+                null,
+                Coordonnees.class);
+        Assert.assertEquals(p.getCoord(),temp.getBody());
+        assertEquals("done",response.getBody());
     }
 
 
 
     @When("^le client appelle /DeplacerPanda")
     public void deplacementPanda() {
-        initTerrain();
-        initLePanda();
-        response2 = template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, null,
-                Parcelle.class);
+        poserParcelle();// a cause du Background on doit reposer la parcelle
+        HttpEntity<Coordonnees> request = new HttpEntity<>(p.getCoord());
+        response = template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, request,
+                String.class);
     }
 
     @Then("^si c'est possible le panda est déplacé sur le terrain")
     public void deplacementPandaEffectue() {
-        deplacementPanda();
-        assertNotEquals(response2.getBody().getCoord(),new Coordonnees(0,0,0));
+        ResponseEntity<Coordonnees> temp= template.exchange(
+                "http://localhost:8080/0/PandaGetCoordonnees",
+                HttpMethod.GET,
+                null,
+                Coordonnees.class);
+        Assert.assertEquals(p.getCoord(),temp.getBody());
+        assertEquals("done",response.getBody());
     }
 
 
 
     @When("^le client appelle /PiocheUnObjectif")
     public void piocheObjectif() {
-        response3 = template.exchange("http://localhost:8080/0/PiocherUnObjectif", HttpMethod.POST, null,
-                CartesObjectifs.class);
+        HttpEntity<Integer> request = new HttpEntity<>(2);//2 pour objectif panda
+        response = template.exchange("http://localhost:8080/0/PiocherUnObjectif", HttpMethod.POST, request,
+                String.class);
+        assertEquals("done",response.getBody());
     }
 
     @Then("^return au moins une carte")
     public void returnCard() {
-
-        assertNotEquals(null,response3.getBody());
+        ResponseEntity<ArrayList<CartesObjectifs>> temp = template.exchange("http://localhost:8080/0/FeuilleJoueurGetMainObjectif", HttpMethod.GET, null,
+                new ParameterizedTypeReference<ArrayList<CartesObjectifs>>() {
+                });
+        assertEquals(1,temp.getBody().size());
     }
 
 }

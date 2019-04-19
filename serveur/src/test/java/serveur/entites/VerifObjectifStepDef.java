@@ -9,6 +9,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import static org.junit.Assert.assertNotEquals;
 public class VerifObjectifStepDef {
     private TestRestTemplate template = new TestRestTemplate();
     private ResponseEntity<CartesObjectifs> response; // output
-    private ResponseEntity<CartesObjectifs> response1; // output
+    private ResponseEntity<ArrayList<CartesObjectifs>> response1; // output
 
     public FeuilleJoueur feuilleJoueur = new FeuilleJoueur("");
 
@@ -46,22 +47,20 @@ public class VerifObjectifStepDef {
 
     @Then("^le nombre de points du joueur est non null")
     public void nbPoint() {
-
         assertNotEquals(null,response.getBody());
     }
 
     @When("^le client appelle /FeuilleJoueurGetMainObjectif")
     public void verifMain() {
-verifObjectif();
         response1 = template.exchange("http://localhost:8080/0/FeuilleJoueurGetMainObjectif", HttpMethod.GET, null,
-                CartesObjectifs.class);
+                new ParameterizedTypeReference<ArrayList<CartesObjectifs>>() {
+                });
     }
 
     @Then("^le nombre de carte objectif dans la main est different")
     public void nbCartes() {
-
-        assertNotEquals(getFeuilleJoueur().getMainObjectif(),response1.getBody());
-
+        // 0 objectif dans sa main car il a pas piocher
+        assertEquals(0,response1.getBody().size());
     }
 
 }

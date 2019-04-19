@@ -2,7 +2,6 @@ package serveur.controller;
 
 import commun.ressources.CartesObjectifs;
 import commun.ressources.Coordonnees;
-import commun.ressources.FeuilleJoueur;
 import commun.ressources.Parcelle;
 import commun.triche.TricheException;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +22,7 @@ public class Controller {
         listParti.clear();
         listParti.put(0, new Takenoko());
         listParti.get(0).initPartie();
+        listParti.get(0).getListPlayer().add(new StatistiqueJoueur(0,0,0,0,"joueurTest"));
         return "init done";
     }
 

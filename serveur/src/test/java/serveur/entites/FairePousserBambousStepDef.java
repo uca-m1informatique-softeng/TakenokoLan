@@ -24,7 +24,6 @@ public class FairePousserBambousStepDef {
 
     @Given("^un terrain avec des parcelles irriguées")
     public void initTerrain() {
-
         p1.setCouleur(Parcelle.Couleur.VERTE);
         p.setCouleur(Parcelle.Couleur.VERTE);
     }
