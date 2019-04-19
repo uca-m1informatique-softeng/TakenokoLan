@@ -79,17 +79,6 @@ public class ClientService implements IClientService {
     }
 
     @Override
-
-    public FeuilleJoueur getFeuilleJoueur() {
-        return restTemplate.exchange(
-                REST_SERVICE_URI + "/GetFeuilleJoueur",
-                HttpMethod.GET,
-                null,
-                FeuilleJoueur.class).getBody();
-    }
-
-
-    @Override
     public void feuilleJoueurInitNbAction() {
         restTemplate.postForObject(REST_SERVICE_URI + "/FeuilleJoueurInitNbAction", null, FeuilleJoueur.class);
     }

@@ -52,7 +52,6 @@ public class IAPanda {
             faireAction();
         }
         verifObjectif();
-        //LOGGER.info(nomBot + "%s possède " + iService.getFeuilleJoueur().getPointsBot() + " points");
     }
 
     private void verifObjectif() {

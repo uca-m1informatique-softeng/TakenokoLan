@@ -21,9 +21,6 @@ public interface IClientService {
 
     ArrayList<Coordonnees> jardinierGetDeplacementsPossible();
 
-
-    FeuilleJoueur getFeuilleJoueur();
-
     void feuilleJoueurInitNbAction();
 
     int feuilleJoueurGetNbAction();

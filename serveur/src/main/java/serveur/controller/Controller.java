@@ -107,12 +107,6 @@ public class Controller {
         return listParti.get(id).getJardinier().getDeplacementsPossible(listParti.get(id).getTerrain().getZoneJouee());
     }
 
-
-    @GetMapping(value = "/{id}/GetFeuilleJoueur")
-    public FeuilleJoueur getFeuilleJoueur(@PathVariable(value = "id") int id) {
-        return listParti.get(id).getListPlayer().get(0).getFeuilleJoueur();
-    }
-
     @PostMapping(value = "/{id}/FeuilleJoueurInitNbAction")
     public void feuilleJoueurInitNbAction(@PathVariable(value = "id") int id) {
         listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().initNbAction();

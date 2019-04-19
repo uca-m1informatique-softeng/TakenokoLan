@@ -65,7 +65,6 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(), 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(feuilleJoueur.getActionChoisie(), 0, 0, 1, 1);
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.getZoneJouee()).thenReturn(terrain.getZoneJoueeParcelles());
         when(iService.getListeZonesPosables()).thenReturn(terrain.getListeZonesPosables());
 
@@ -117,7 +116,6 @@ public class IAPandaTest {
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(), 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 0, 0, 0, 0, 2, 2);
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
         doAnswer(
                 new Answer() {
@@ -172,7 +170,6 @@ public class IAPandaTest {
                         return null;
                     }
                 }).when(iService).poserParcelle(p3);
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(), 1, 0);
@@ -244,7 +241,6 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(feuilleJoueur.getNbAction(), 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 2, 2, 2, 3, 3, 3, 3);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
@@ -281,7 +277,6 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 2, 2, 2, 3, 3, 3, 3);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
@@ -315,7 +310,6 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 2, 2, 2, 3, 3, 3, 3);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
@@ -352,7 +346,6 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 2, 2, 2, 1, 1);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
@@ -435,7 +428,6 @@ public class IAPandaTest {
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
 
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 2, 2, 2, 3, 3, 3, 3);
@@ -469,7 +461,6 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 3, 3, 3, 3, 3, 2, 2, 2);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
@@ -502,7 +493,6 @@ public class IAPandaTest {
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
         when(iService.jardinierGetDeplacementsPossible()).thenReturn(jardinier.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 3, 3, 3, 3, 3, 2, 2, 2);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
@@ -614,7 +604,6 @@ public class IAPandaTest {
         when(iService.piocher()).thenReturn(laPiocheParcelle.piocherParcelle());
         when(iService.piocheParcelleIsEmpty()).thenReturn(laPiocheParcelle.getPioche().isEmpty());
         when(iService.pandaGetDeplacementsPossible()).thenReturn(panda.getDeplacementsPossible(terrain.getZoneJouee()));
-        when(iService.getFeuilleJoueur()).thenReturn(feuilleJoueur);
         when(iService.feuilleJoueurGetMainObjectif()).thenReturn(feuilleJoueur.getMainObjectif());
         when(iService.feuilleJoueurGetNbAction()).thenReturn(2, 1, 0);
         when(iService.feuilleJoueurGetActionChoisie()).thenReturn(0, 2, 2, 2, 3, 3, 3, 3);
