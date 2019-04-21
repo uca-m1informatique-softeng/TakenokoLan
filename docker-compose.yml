@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  serveur:
+    image: serveur
+    restart: always
+    build: serveur/Dockerfile
+    ports:
+    - "8080:8080"
+
+
+  joueur:
+    image: joueur
+    restart: always
+    build: joueur/Dockerfile
+    ports:
+    - "8081:8081"
+
+
