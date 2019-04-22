@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 @Service
 public class ClientService implements IClientService {
-    private static String REST_SERVICE_URI = "http://localhost:8080";
+    private static String REST_SERVICE_URI = "http://192.168.99.100:8080";
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
@@ -247,11 +247,11 @@ public class ClientService implements IClientService {
     public int connect(String name) {
         int[] tab =
          restTemplate.exchange(
-                 "http://localhost:8080" +"/"+name+ "/Connect",
+                 "http://192.168.99.100:8080" +"/"+name+ "/Connect",
                 HttpMethod.GET,
                 null,
                 int[].class).getBody();
-        REST_SERVICE_URI = "http://localhost:8080"+"/"+tab[0];
+        REST_SERVICE_URI = "http://192.168.99.100:8080"+"/"+tab[0];
         return tab[1];
     }
 
