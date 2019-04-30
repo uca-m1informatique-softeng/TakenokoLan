@@ -16,11 +16,7 @@ before_install:
 - sudo mv docker-compose /usr/local/bin
 
 script:
-- cd serveur
-- docker build -f Dockerfile -t serveur .
-- cd ..
-- cd joueur
-- docker build -f Dockerfile -t joueur .
-- cd ..
+- cd  serveur && docker build -f Dockerfile -t serveur .
+- cd ../joueur && docker build -f Dockerfile -t joueur .
 - docker-compose up -d
 - docker-compose ps
