@@ -4,8 +4,6 @@ services:
   serveur:
     image: serveur
     restart: always
-    build:
-      dockerfile: serveur/Dockerfile
     ports:
     - "8080:8080"
 
@@ -13,8 +11,6 @@ services:
   joueur:
     image: joueur
     restart: always
-    build:
-      dockerfile: joueur/Dockerfile
     ports:
     - "8081:8081"
 
