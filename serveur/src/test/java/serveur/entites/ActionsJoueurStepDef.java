@@ -57,7 +57,7 @@ public class ActionsJoueurStepDef {
     public void poserParcelle() {
         initParcelle();
         HttpEntity<Parcelle> request = new HttpEntity<>(p);
-        response = template.exchange("http://localhost:8080/0/PoserParcelle", HttpMethod.POST, request,
+        response = template.exchange("http://localhost:8080/0/0/PoserParcelle", HttpMethod.POST, request,
                 String.class);
 
     }
@@ -92,7 +92,7 @@ public class ActionsJoueurStepDef {
     public void deplacementJardinier() {
         poserParcelle(); // a cause du Background on doit reposer la parcelle
         HttpEntity<Coordonnees> request = new HttpEntity<>(p.getCoord());
-        response = template.exchange("http://localhost:8080/0/DeplacerJardinier", HttpMethod.POST, request,
+        response = template.exchange("http://localhost:8080/0/0/DeplacerJardinier", HttpMethod.POST, request,
                 String.class);
     }
 
@@ -112,7 +112,7 @@ public class ActionsJoueurStepDef {
     public void deplacementPanda() {
         poserParcelle();// a cause du Background on doit reposer la parcelle
         HttpEntity<Coordonnees> request = new HttpEntity<>(p.getCoord());
-        response = template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, request,
+        response = template.exchange("http://localhost:8080/0/0/DeplacerPanda", HttpMethod.POST, request,
                 String.class);
     }
 
@@ -131,14 +131,14 @@ public class ActionsJoueurStepDef {
     @When("^le client appelle /PiocheUnObjectif")
     public void piocheObjectif() {
         HttpEntity<Integer> request = new HttpEntity<>(2);//2 pour objectif panda
-        response = template.exchange("http://localhost:8080/0/PiocherUnObjectif", HttpMethod.POST, request,
+        response = template.exchange("http://localhost:8080/0/0/PiocherUnObjectif", HttpMethod.POST, request,
                 String.class);
         assertEquals("done", response.getBody());
     }
 
     @Then("^return au moins une carte")
     public void returnCard() {
-        ResponseEntity<ArrayList<CartesObjectifs>> temp = template.exchange("http://localhost:8080/0/FeuilleJoueurGetMainObjectif", HttpMethod.GET, null,
+        ResponseEntity<ArrayList<CartesObjectifs>> temp = template.exchange("http://localhost:8080/0/0/FeuilleJoueurGetMainObjectif", HttpMethod.GET, null,
                 new ParameterizedTypeReference<ArrayList<CartesObjectifs>>() {
                 });
         assertEquals(1, temp.getBody().size());

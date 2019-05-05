@@ -11,7 +11,7 @@ public class ServeurService implements IServeurService {
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override
-    public void JoueClient(int idPlayer) {
-        restTemplate.exchange(REST_SERVICE_URI + "/" + idPlayer + "/Joue", HttpMethod.POST, null, String.class);
+    public void JoueClient(int id, int idPlayer) {
+        restTemplate.exchange(REST_SERVICE_URI + "/" + id + "/" + idPlayer + "/Joue", HttpMethod.POST, null, String.class);
     }
 }

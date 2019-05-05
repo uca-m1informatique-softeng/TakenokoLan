@@ -4,9 +4,9 @@ package serveur.configuration;
 import commun.entites.Jardinier;
 import commun.entites.Panda;
 import commun.moteur.Terrain;
-import org.springframework.context.annotation.Configuration;
 import commun.pioches.LaPiocheParcelle;
 import commun.pioches.LesPiochesObjectif;
+import org.springframework.context.annotation.Configuration;
 import serveur.service.IServeurService;
 import serveur.service.impl.ServeurService;
 import serveur.utilitaires.StatistiqueJoueur;
@@ -26,47 +26,49 @@ public class Takenoko {
     private Jardinier jardinier;
     private LaPiocheParcelle laPiocheParcelle;
     private LesPiochesObjectif lesPiochesObjectif;
-/*
-    public String nbPartie(int nbPartie, int nbBotBob, int nbBotJoe) {
-        LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
-        //init bot Bob
-        for (int j = 0; j < nbBotBob; j++) {
-            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0, "IA random" + (j + 1)));
-        }
-        //init bot Joe
-        for (int j = nbBotBob; j < (nbBotJoe + nbBotBob); j++) {
-            listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0, "IA panda" + (j + 1)));
-        }
-        //Boucle sur le nombre de partie
-        for (int i = 0; i < nbPartie; i++) {
-            //on reset les bots a chaque partie
-            for (int j = 0; j < nbBotBob; j++) {
-                listPlayer.get(j).setIa(IA.newIA(IA.Type.RANDOM));
-                listPlayer.get(j).getIa().setNomBot("IA random" + (j + 1));
-            }
-            for (int j = nbBotBob; j < (nbBotJoe + nbBotBob); j++) {
-                listPlayer.get(j).setIa(IA.newIA(IA.Type.PANDA));
-                listPlayer.get(j).getIa().setNomBot("IA panda" + (j + 1));
-            }
-            //Collections.shuffle(listPlayer);
-            //lance une partie
-            partie(listPlayer);
-        }
-        //affichage final de toutes les statistiques
-        afficherVainqueur(listPlayer, nbPartie);
 
-        return "hello";
-    }
-*/
-    public void lancerParti(ArrayList<StatistiqueJoueur> listPlayer,int idGame) {
+    /*
+        public String nbPartie(int nbPartie, int nbBotBob, int nbBotJoe) {
+            LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
+            //init bot Bob
+            for (int j = 0; j < nbBotBob; j++) {
+                listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0, "IA random" + (j + 1)));
+            }
+            //init bot Joe
+            for (int j = nbBotBob; j < (nbBotJoe + nbBotBob); j++) {
+                listPlayer.add(new StatistiqueJoueur(null, 0, 0, 0, "IA panda" + (j + 1)));
+            }
+            //Boucle sur le nombre de partie
+            for (int i = 0; i < nbPartie; i++) {
+                //on reset les bots a chaque partie
+                for (int j = 0; j < nbBotBob; j++) {
+                    listPlayer.get(j).setIa(IA.newIA(IA.Type.RANDOM));
+                    listPlayer.get(j).getIa().setNomBot("IA random" + (j + 1));
+                }
+                for (int j = nbBotBob; j < (nbBotJoe + nbBotBob); j++) {
+                    listPlayer.get(j).setIa(IA.newIA(IA.Type.PANDA));
+                    listPlayer.get(j).getIa().setNomBot("IA panda" + (j + 1));
+                }
+                //Collections.shuffle(listPlayer);
+                //lance une partie
+                partie(listPlayer);
+            }
+            //affichage final de toutes les statistiques
+            afficherVainqueur(listPlayer, nbPartie);
+
+            return "hello";
+        }
+    */
+    public void lancerParti(ArrayList<StatistiqueJoueur> listPlayer, int idGame) {
         this.listPlayer = listPlayer;
-        LOGGER.info("Partie id : "+idGame+" lancer avec " + listPlayer.size() + " joueur(s)");
-        partie(listPlayer);
+        LOGGER.info("Partie id : " + idGame + " lancer avec " + listPlayer.size() + " joueur(s)");
+        partie(listPlayer, idGame);
+        LOGGER.info("---> Fin partie id : " + idGame+" <---");
         afficherVainqueur(listPlayer, 1);
     }
 
-    private void partie(ArrayList<StatistiqueJoueur> listPlayer) {
-        IServeurService iServeurService=new ServeurService();
+    private void partie(ArrayList<StatistiqueJoueur> listPlayer, int idGame) {
+        IServeurService iServeurService = new ServeurService();
 
         // initialisations
         initPartie();
@@ -86,7 +88,7 @@ public class Takenoko {
             //LOGGER.info("Tour numéro " + (nbTour + 1));
             for (StatistiqueJoueur c : listPlayer) {
                 //c.getIa().joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
-                iServeurService.JoueClient(c.getRefJoueur());
+                iServeurService.JoueClient(idGame, c.getRefJoueur());
             }
             for (int j = 0; j < listPlayer.size(); j++) {
                 if (listPlayer.get(j).getFeuilleJoueur().getNbObjectifsValide() >= 9 && j == 0) {
@@ -100,7 +102,7 @@ public class Takenoko {
                     for (StatistiqueJoueur c : listPlayer) {
                         if (listPlayer.indexOf(c) != j) {
                             //c.getIa().joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
-                            iServeurService.JoueClient(c.getRefJoueur());
+                            iServeurService.JoueClient(idGame, c.getRefJoueur());
                         }
                     }
                 }
@@ -141,7 +143,7 @@ public class Takenoko {
             if (j.getNbVictoire() != 0) {
                 nbTour = j.getNbToursTotal() / j.getNbVictoire();
             }
-            LOGGER.info("---->" + j.getRefJoueur() + " gagne " + pourcentageGagner + "% | perd " + pourcentagePardu + "% | null " + pourcentageNull + "% avec un ratio de " + (j.getNbPointsTotal() / nbPartie) + " points par partie");
+            LOGGER.info("->" + j.getRefJoueur() + " gagne " + pourcentageGagner + "% | perd " + pourcentagePardu + "% | null " + pourcentageNull + "% avec un ratio de " + (j.getNbPointsTotal() / nbPartie) + " points par partie");
             LOGGER.info("en " + nbTour + " tour par victoire");
             LOGGER.info("nb tour MIN pour une victoire " + j.getNbToursMIN());
             LOGGER.info("nb tour MAX pour une victoire " + j.getNbToursMAX());
@@ -179,13 +181,14 @@ public class Takenoko {
         laPiocheParcelle = new LaPiocheParcelle();
         lesPiochesObjectif = new LesPiochesObjectif();
     }
-/*
-    public Takenoko takenoko() {
-        LOGGER.setLevel(Level.ALL);
-        nbPartie(1, 0, 1);
-        return new Takenoko();
-    }
-*/
+
+    /*
+        public Takenoko takenoko() {
+            LOGGER.setLevel(Level.ALL);
+            nbPartie(1, 0, 1);
+            return new Takenoko();
+        }
+    */
     public LaPiocheParcelle getLaPiocheParcelle() {
         return laPiocheParcelle;
     }

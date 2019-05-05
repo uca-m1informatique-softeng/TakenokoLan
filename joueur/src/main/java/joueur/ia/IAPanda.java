@@ -33,9 +33,8 @@ public class IAPanda {
         LOGGER.setLevel(Level.OFF);
     }
 
-    public int connect() {
-        numeroParti = iService.connect(nomBot);
-        return numeroParti;
+    public int[] connect() {
+        return iService.connect(nomBot);
     }
 
     public void launch(){

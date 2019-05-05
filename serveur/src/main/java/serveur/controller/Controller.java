@@ -31,7 +31,7 @@ public class Controller {
         int[] tab = new int[2];
         if (listParti.isEmpty()) {
             int numGame = new Random().nextInt(5000);
-            int numPlayer = new Random().nextInt(5000);
+            int numPlayer = 0;
             listParti.put(numGame, new Takenoko());
             listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
             System.out.println("new Game");
@@ -46,7 +46,7 @@ public class Controller {
                 Takenoko game = entry.getValue();
                 Integer numGame = entry.getKey();
                 if (game.getListPlayer().size() < 2) {
-                    int numPlayer = new Random().nextInt(5000);
+                    int numPlayer = game.getListPlayer().size();
                     game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
                     System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
                     tab[0] = numGame;
@@ -58,7 +58,7 @@ public class Controller {
             }
             if(noGame) {
                 int num = new Random().nextInt(5000) + 1;
-                int numPlayer = new Random().nextInt(5000);
+                int numPlayer = 0;
                 listParti.put(num, new Takenoko());
                 listParti.get(num).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
                 System.out.println("new Game");
@@ -115,94 +115,94 @@ public class Controller {
         return listParti.get(id).getJardinier().getDeplacementsPossible(listParti.get(id).getTerrain().getZoneJouee());
     }
 
-    @PostMapping(value = "/{id}/FeuilleJoueurInitNbAction")
-    public void feuilleJoueurInitNbAction(@PathVariable(value = "id") int id) {
-        listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().initNbAction();
+    @PostMapping(value = "/{id}/{idJ}/FeuilleJoueurInitNbAction")
+    public void feuilleJoueurInitNbAction(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().initNbAction();
     }
 
-    @GetMapping(value = "/{id}/FeuilleJoueurGetNbAction")
-    public int feuilleJoueurGetNbAction(@PathVariable(value = "id") int id) {
-        return listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().getNbAction();
+    @GetMapping(value = "/{id}/{idJ}/FeuilleJoueurGetNbAction")
+    public int feuilleJoueurGetNbAction(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        return listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().getNbAction();
     }
 
-    @GetMapping(value = "/{id}/FeuilleJoueurGetActionChoisie")
-    public int feuilleJoueurGetActionChoisie(@PathVariable(value = "id") int id) {
-        return listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().getActionChoisie();
+    @GetMapping(value = "/{id}/{idJ}/FeuilleJoueurGetActionChoisie")
+    public int feuilleJoueurGetActionChoisie(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        return listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().getActionChoisie();
     }
 
-    @PostMapping(value = "/{id}/FeuilleJoueurSetActionChoisie")
-    public void FeuilleJoueurSetActionChoisie(@RequestBody int actioneChoisie, @PathVariable(value = "id") int id) {
-        listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().setActionChoisie(actioneChoisie);
+    @PostMapping(value = "/{id}/{idJ}/FeuilleJoueurSetActionChoisie")
+    public void FeuilleJoueurSetActionChoisie(@RequestBody int actioneChoisie, @PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().setActionChoisie(actioneChoisie);
     }
 
-    @GetMapping(value = "/{id}/FeuilleJoueurGetNbBambouRose")
-    public int feuilleJoueurGetNbBambouRose(@PathVariable(value = "id") int id) {
-        return listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().getNbBambouRose();
+    @GetMapping(value = "/{id}/{idJ}/FeuilleJoueurGetNbBambouRose")
+    public int feuilleJoueurGetNbBambouRose(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        return listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().getNbBambouRose();
     }
 
-    @GetMapping(value = "/{id}/FeuilleJoueurGetNbBambouVert")
-    public int feuilleJoueurGetNbBambouVert(@PathVariable(value = "id") int id) {
-        return listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().getNbBambouVert();
+    @GetMapping(value = "/{id}/{idJ}/FeuilleJoueurGetNbBambouVert")
+    public int feuilleJoueurGetNbBambouVert(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        return listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().getNbBambouVert();
     }
 
-    @GetMapping(value = "/{id}/FeuilleJoueurGetNbBambouJaune")
-    public int feuilleJoueurGetNbBambouJaune(@PathVariable(value = "id") int id) {
-        return listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().getNbBambouJaune();
+    @GetMapping(value = "/{id}/{idJ}/FeuilleJoueurGetNbBambouJaune")
+    public int feuilleJoueurGetNbBambouJaune(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        return listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().getNbBambouJaune();
     }
 
-    @PostMapping(value = "/{id}/FeuilleJoueurDecNbACtion")
-    public void FeuilleJoueurSetActionChoisie(@PathVariable(value = "id") int id) {
-        listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().decNbACtion();
+    @PostMapping(value = "/{id}/{idJ}/FeuilleJoueurDecNbACtion")
+    public void feuilleJoueurDecNbACtion(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().decNbACtion();
     }
 
-    @PostMapping(value = "/{id}/DeplacerPanda")
-    public String deplacerPanda(@RequestBody Coordonnees coordonnees, @PathVariable(value = "id") int id) {
+    @PostMapping(value = "/{id}/{idJ}/DeplacerPanda")
+    public String deplacerPanda(@RequestBody Coordonnees coordonnees, @PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
         try {
-            listParti.get(id).getPanda().deplacerEntite(coordonnees, listParti.get(id).getListPlayer().get(0).getFeuilleJoueur());
+            listParti.get(id).getPanda().deplacerEntite(coordonnees, listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur());
             return "done";
         } catch (TricheException e) {
             return "can't";
         }
     }
 
-    @PostMapping(value = "/{id}/DeplacerJardinier")
-    public String deplacerJardinier(@RequestBody Coordonnees coordonnees, @PathVariable(value = "id") int id) {
+    @PostMapping(value = "/{id}/{idJ}/DeplacerJardinier")
+    public String deplacerJardinier(@RequestBody Coordonnees coordonnees, @PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
         try {
-            listParti.get(id).getJardinier().deplacerEntite(coordonnees, listParti.get(id).getListPlayer().get(0).getFeuilleJoueur());
+            listParti.get(id).getJardinier().deplacerEntite(coordonnees, listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur());
             return "done";
         } catch (TricheException e) {
             return "can't";
         }
     }
 
-    @PostMapping(value = "/{id}/PoserParcelle")
-    public String poserParcelle(@RequestBody Parcelle parcelle, @PathVariable(value = "id") int id) {
+    @PostMapping(value = "/{id}/{idJ}/PoserParcelle")
+    public String poserParcelle(@RequestBody Parcelle parcelle, @PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
         try {
-            listParti.get(id).getTerrain().changements(parcelle, listParti.get(id).getListPlayer().get(0).getFeuilleJoueur());
+            listParti.get(id).getTerrain().changements(parcelle, listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur());
             return "done";
         } catch (TricheException e) {
             return "can't";
         }
     }
 
-    @PostMapping(value = "/{id}/PiocherUnObjectif")
-    public String piocherUnObjectif(@RequestBody int i, @PathVariable(value = "id") int id) {
+    @PostMapping(value = "/{id}/{idJ}/PiocherUnObjectif")
+    public String piocherUnObjectif(@RequestBody int i, @PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
         try {
-            listParti.get(id).getLesPiochesObjectif().piocherUnObjectif(listParti.get(id).getListPlayer().get(0).getFeuilleJoueur(), i);
+            listParti.get(id).getLesPiochesObjectif().piocherUnObjectif(listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur(), i);
             return "done";
         } catch (TricheException e) {
             return "can't";
         }
     }
 
-    @GetMapping(value = "/{id}/FeuilleJoueurGetMainObjectif")
-    public ArrayList<CartesObjectifs> feuilleJoueurGetMainObjectif(@PathVariable(value = "id") int id) {
-        return listParti.get(id).getListPlayer().get(0).getFeuilleJoueur().getMainObjectif();
+    @GetMapping(value = "/{id}/{idJ}/FeuilleJoueurGetMainObjectif")
+    public ArrayList<CartesObjectifs> feuilleJoueurGetMainObjectif(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        return listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur().getMainObjectif();
     }
 
-    @PostMapping(value = "/{id}/VerifObjectifAccompli")
-    public void verifObjectifAccompli(@PathVariable(value = "id") int id) {
-        listParti.get(id).getTerrain().verifObjectifAccompli(listParti.get(id).getListPlayer().get(0).getFeuilleJoueur());
+    @PostMapping(value = "/{id}/{idJ}/VerifObjectifAccompli")
+    public void verifObjectifAccompli(@PathVariable(value = "id") int id,@PathVariable(value = "idJ") int idJoueur) {
+        listParti.get(id).getTerrain().verifObjectifAccompli(listParti.get(id).getListPlayer().get(idJoueur).getFeuilleJoueur());
     }
 
 

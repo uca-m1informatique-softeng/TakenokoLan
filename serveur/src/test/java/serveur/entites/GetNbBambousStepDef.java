@@ -36,21 +36,21 @@ public class GetNbBambousStepDef {
         p1.setCouleur(Parcelle.Couleur.JAUNE);
 
         requestParcelle = new HttpEntity<>(p1);
-        template.exchange("http://localhost:8080/0/PoserParcelle", HttpMethod.POST, requestParcelle,
+        template.exchange("http://localhost:8080/0/0/PoserParcelle", HttpMethod.POST, requestParcelle,
                 String.class);
     }
 
     @And("^un panda qui mange le bambou jaune$")
     public void pandaMangeBambouJaune(){
         requestCoordonnees = new HttpEntity<>(p1.getCoord());
-        template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, requestCoordonnees,
+        template.exchange("http://localhost:8080/0/0/DeplacerPanda", HttpMethod.POST, requestCoordonnees,
                 String.class);
     }
 
     @When("^joueur appelle getBambouJaune$")
     public void joueurAppelleGetBambouJaune(){
         response=template.exchange(
-                "http://localhost:8080/0/FeuilleJoueurGetNbBambouJaune",
+                "http://localhost:8080/0/0/FeuilleJoueurGetNbBambouJaune",
                 HttpMethod.GET,
                 null,
                 int.class);
@@ -73,21 +73,21 @@ public class GetNbBambousStepDef {
     public void parcelleVert(){
         p2.setCouleur(Parcelle.Couleur.VERTE);
         requestParcelle = new HttpEntity<>(p2);
-        template.exchange("http://localhost:8080/0/PoserParcelle", HttpMethod.POST, requestParcelle,
+        template.exchange("http://localhost:8080/0/0/PoserParcelle", HttpMethod.POST, requestParcelle,
                 String.class);
     }
 
     @And("^un panda qui mange le bambou vert$")
     public void pandaMangeBambouVert(){
         requestCoordonnees = new HttpEntity<>(p2.getCoord());
-        template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, requestCoordonnees,
+        template.exchange("http://localhost:8080/0/0/DeplacerPanda", HttpMethod.POST, requestCoordonnees,
                 String.class);
     }
 
     @When("^joueur appelle getBambouVert$")
     public void joueurAppelleGetBambouVert(){
         response=template.exchange(
-                "http://localhost:8080/0/FeuilleJoueurGetNbBambouVert",
+                "http://localhost:8080/0/0/FeuilleJoueurGetNbBambouVert",
                 HttpMethod.GET,
                 null,
                 int.class);
@@ -110,21 +110,21 @@ public class GetNbBambousStepDef {
     public void parcelleRose(){
         p3.setCouleur(Parcelle.Couleur.ROSE);
         requestParcelle = new HttpEntity<>(p3);
-        template.exchange("http://localhost:8080/0/PoserParcelle", HttpMethod.POST, requestParcelle,
+        template.exchange("http://localhost:8080/0/0/PoserParcelle", HttpMethod.POST, requestParcelle,
                 String.class);
     }
 
     @And("^un panda qui mange le bambou rose$")
     public void pandaMangeBambouRose(){
         requestCoordonnees = new HttpEntity<>(p3.getCoord());
-        template.exchange("http://localhost:8080/0/DeplacerPanda", HttpMethod.POST, requestCoordonnees,
+        template.exchange("http://localhost:8080/0/0/DeplacerPanda", HttpMethod.POST, requestCoordonnees,
                 String.class);
     }
 
     @When("^joueur appelle getBambouRose$")
     public void joueurAppelleGetBambouRose(){
         response=template.exchange(
-                "http://localhost:8080/0/FeuilleJoueurGetNbBambouRose",
+                "http://localhost:8080/0/0/FeuilleJoueurGetNbBambouRose",
                 HttpMethod.GET,
                 null,
                 int.class);
