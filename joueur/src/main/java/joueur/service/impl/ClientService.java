@@ -247,7 +247,6 @@ public class ClientService implements IClientService {
 
     @Override
     public int[] connect(String name) {
-        System.out.println(REST_SERVICE_URI);
         int[] tab =
                 restTemplate.exchange(
                         REST_SERVICE_URI + "/" + name + "/Connect",

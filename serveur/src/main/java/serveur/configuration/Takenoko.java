@@ -27,6 +27,8 @@ public class Takenoko {
     private LaPiocheParcelle laPiocheParcelle;
     private LesPiochesObjectif lesPiochesObjectif;
 
+    Boolean dejaLancer = false;
+
     /*
         public String nbPartie(int nbPartie, int nbBotBob, int nbBotJoe) {
             LOGGER.info(nbPartie + " parties avec " + nbBotBob + " IA random et " + nbBotJoe + " IA panda");
@@ -63,7 +65,7 @@ public class Takenoko {
         this.listPlayer = listPlayer;
         LOGGER.info("Partie id : " + idGame + " lancer avec " + listPlayer.size() + " joueur(s)");
         partie(listPlayer, idGame);
-        LOGGER.info("---> Fin partie id : " + idGame+" <---");
+        LOGGER.info("---> Fin partie id : " + idGame + " <---");
         afficherVainqueur(listPlayer, 1);
     }
 
@@ -215,5 +217,13 @@ public class Takenoko {
 
     public void setListPlayer(ArrayList<StatistiqueJoueur> listPlayer) {
         this.listPlayer = listPlayer;
+    }
+
+    public Boolean getDejaLancer() {
+        return dejaLancer;
+    }
+
+    public void setDejaLancer(Boolean dejaLancer) {
+        this.dejaLancer = dejaLancer;
     }
 }

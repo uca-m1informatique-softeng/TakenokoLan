@@ -14,19 +14,16 @@ public class Controller {
 
     @RequestMapping(path = "/newPlayer")
     public String launch() {
-        System.out.println("new player");
         IAPanda iaPanda = new IAPanda();
         int[] tab = iaPanda.connect();
-        System.out.println("connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
-        if (listPlayer.get(tab[0])!=null) {
+        System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
+        if (listPlayer.get(tab[0]) != null) {
             listPlayer.get(tab[0]).put(tab[1], iaPanda);
         } else {
             listPlayer.put(tab[0], new LinkedHashMap<>());
             listPlayer.get(tab[0]).put(tab[1], iaPanda);
         }
-        System.out.println("debut partie " + tab[0]);
         iaPanda.launch();
-        System.out.println("fin partie " + tab[0]);
         return "done";
     }
 
