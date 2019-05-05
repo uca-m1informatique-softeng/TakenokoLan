@@ -16,9 +16,15 @@ import java.util.ArrayList;
 
 @Service
 public class ClientService implements IClientService {
+
     private String REST_SERVICE_URI = "http://192.168.99.100:8080";
+
+   // private String REST_SERVICE_URI = "http://localhost:8080";
+
     private RestTemplate restTemplate = new RestTemplate();
 
+   // private String REST_SERVICE_URI_ID_JOUEUR = "http://localhost:8080";
+private String REST_SERVICE_URI_ID_JOUEUR = "http://192.168.99.100:8080";
     @Override
     public ArrayList<Parcelle> piocher() {
         return restTemplate.exchange(
@@ -80,13 +86,13 @@ public class ClientService implements IClientService {
 
     @Override
     public void feuilleJoueurInitNbAction() {
-        restTemplate.postForObject(REST_SERVICE_URI + "/FeuilleJoueurInitNbAction", null, FeuilleJoueur.class);
+        restTemplate.postForObject(REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurInitNbAction", null, FeuilleJoueur.class);
     }
 
     @Override
     public int feuilleJoueurGetNbAction() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/FeuilleJoueurGetNbAction",
+                REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurGetNbAction",
                 HttpMethod.GET,
                 null,
                 int.class).getBody();
@@ -95,7 +101,7 @@ public class ClientService implements IClientService {
     @Override
     public int feuilleJoueurGetActionChoisie() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/FeuilleJoueurGetActionChoisie",
+                REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurGetActionChoisie",
                 HttpMethod.GET,
                 null,
                 int.class).getBody();
@@ -103,13 +109,13 @@ public class ClientService implements IClientService {
 
     @Override
     public void feuilleJoueurSetActionChoisie(int actionChoisie) {
-        restTemplate.postForObject(REST_SERVICE_URI + "/FeuilleJoueurSetActionChoisie", actionChoisie, int.class);
+        restTemplate.postForObject(REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurSetActionChoisie", actionChoisie, int.class);
     }
 
     @Override
     public int feuilleJoueurGetNbBambouRose() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/FeuilleJoueurGetNbBambouRose",
+                REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurGetNbBambouRose",
                 HttpMethod.GET,
                 null,
                 int.class).getBody();
@@ -118,7 +124,7 @@ public class ClientService implements IClientService {
     @Override
     public int feuilleJoueurGetNbBambouVert() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/FeuilleJoueurGetNbBambouVert",
+                REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurGetNbBambouVert",
                 HttpMethod.GET,
                 null,
                 int.class).getBody();
@@ -127,7 +133,7 @@ public class ClientService implements IClientService {
     @Override
     public int feuilleJoueurGetNbBambouJaune() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/FeuilleJoueurGetNbBambouJaune",
+                REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurGetNbBambouJaune",
                 HttpMethod.GET,
                 null,
                 int.class).getBody();
@@ -135,14 +141,14 @@ public class ClientService implements IClientService {
 
     @Override
     public void feuilleJoueurDecNbACtion() {
-        restTemplate.postForObject(REST_SERVICE_URI + "/FeuilleJoueurDecNbACtion", null, FeuilleJoueur.class);
+        restTemplate.postForObject(REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurDecNbACtion", null, FeuilleJoueur.class);
     }
 
     @Override
     public void deplacerPanda(Coordonnees coordonnees) throws TricheException {
         HttpEntity<Coordonnees> request = new HttpEntity<>(coordonnees);
         String result = restTemplate.exchange(
-                REST_SERVICE_URI + "/DeplacerPanda",
+                REST_SERVICE_URI_ID_JOUEUR + "/DeplacerPanda",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
@@ -155,7 +161,7 @@ public class ClientService implements IClientService {
     public void deplacerJardinier(Coordonnees coordonnees) throws TricheException {
         HttpEntity<Coordonnees> request = new HttpEntity<>(coordonnees);
         String result = restTemplate.exchange(
-                REST_SERVICE_URI + "/DeplacerJardinier",
+                REST_SERVICE_URI_ID_JOUEUR + "/DeplacerJardinier",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
@@ -168,7 +174,7 @@ public class ClientService implements IClientService {
     public void poserParcelle(Parcelle parcelle) throws TricheException {
         HttpEntity<Parcelle> request = new HttpEntity<>(parcelle);
         String result = restTemplate.exchange(
-                REST_SERVICE_URI + "/PoserParcelle",
+                REST_SERVICE_URI_ID_JOUEUR + "/PoserParcelle",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
@@ -181,7 +187,7 @@ public class ClientService implements IClientService {
     public void piocherUnObjectif(int i) throws TricheException {
         HttpEntity<Integer> request = new HttpEntity<>(i);
         String result = restTemplate.exchange(
-                REST_SERVICE_URI + "/PiocherUnObjectif",
+                REST_SERVICE_URI_ID_JOUEUR + "/PiocherUnObjectif",
                 HttpMethod.POST,
                 request,
                 String.class).getBody();
@@ -193,7 +199,7 @@ public class ClientService implements IClientService {
     @Override
     public ArrayList<CartesObjectifs> feuilleJoueurGetMainObjectif() {
         return restTemplate.exchange(
-                REST_SERVICE_URI + "/FeuilleJoueurGetMainObjectif",
+                REST_SERVICE_URI_ID_JOUEUR + "/FeuilleJoueurGetMainObjectif",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<ArrayList<CartesObjectifs>>() {
@@ -202,7 +208,7 @@ public class ClientService implements IClientService {
 
     @Override
     public void verifObjectifAccompli() {
-        restTemplate.postForObject(REST_SERVICE_URI + "/VerifObjectifAccompli", null, CartesObjectifs.class);
+        restTemplate.postForObject(REST_SERVICE_URI_ID_JOUEUR + "/VerifObjectifAccompli", null, CartesObjectifs.class);
     }
 
 
@@ -244,15 +250,15 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public int connect(String name) {
-        int[] tab =
-         restTemplate.exchange(
-                 REST_SERVICE_URI +"/"+name+ "/Connect",
-                HttpMethod.GET,
-                null,
-                int[].class).getBody();
-        REST_SERVICE_URI = REST_SERVICE_URI+"/"+tab[0];
-        return tab[1];
+    public int[] connect(String name) {
+        int[] tab = restTemplate.exchange(
+                        REST_SERVICE_URI + "/" + name + "/Connect",
+                        HttpMethod.GET,
+                        null,
+                        int[].class).getBody();
+        REST_SERVICE_URI = REST_SERVICE_URI + "/" + tab[0];
+        REST_SERVICE_URI_ID_JOUEUR = REST_SERVICE_URI + "/" + tab[1];
+        return tab;
     }
 
     @Override

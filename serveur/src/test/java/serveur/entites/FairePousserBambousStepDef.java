@@ -35,7 +35,6 @@ public class FairePousserBambousStepDef {
 
     @When("^on pose d'une parcelle")
     public void poseParcelle() {
-        initTerrain();
         terrain.getZoneJouee().put(p.getCoord(), p);
         p.setIrriguee(true);
         terrain.getZoneJouee().put(p1.getCoord(), p1);
@@ -45,14 +44,12 @@ public class FairePousserBambousStepDef {
 
     @Then("^il y a un seul bambou")
     public void nbBambou() {
-        initTerrain();
         Assert.assertEquals(1, p.getBambou());
     }
 
 
     @When("^le jardinier se déplace sur une parcelle")
     public void deplacementJardinier() throws TricheException {
-        initTerrain();
         initJardinier();
         poseParcelle();
         deplacementPossible = jardinier.getDeplacementsPossible(terrain.getZoneJouee());

@@ -54,7 +54,7 @@ public interface IClientService {
 
     Coordonnees jardinierGetCoordonnees();
 
-    int connect(String name);
+    int[] connect(String name);
 
     ArrayList<Parcelle> getZoneJouee();
 

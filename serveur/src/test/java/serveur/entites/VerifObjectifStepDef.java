@@ -41,7 +41,7 @@ public class VerifObjectifStepDef {
     @When("^le client appelle /VerifObjectifAccompli")
     public void verifObjectif() {
 
-        response = template.exchange("http://localhost:8080/0/VerifObjectifAccompli", HttpMethod.GET, null,
+        response = template.exchange("http://localhost:8080/0/0/VerifObjectifAccompli", HttpMethod.GET, null,
                 CartesObjectifs.class);
     }
 
@@ -52,7 +52,7 @@ public class VerifObjectifStepDef {
 
     @When("^le client appelle /FeuilleJoueurGetMainObjectif")
     public void verifMain() {
-        response1 = template.exchange("http://localhost:8080/0/FeuilleJoueurGetMainObjectif", HttpMethod.GET, null,
+        response1 = template.exchange("http://localhost:8080/0/0/FeuilleJoueurGetMainObjectif", HttpMethod.GET, null,
                 new ParameterizedTypeReference<ArrayList<CartesObjectifs>>() {
                 });
     }
