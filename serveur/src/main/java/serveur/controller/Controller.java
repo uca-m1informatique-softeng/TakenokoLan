@@ -34,31 +34,39 @@ public class Controller {
             int numPlayer = new Random().nextInt(5000);
             listParti.put(numGame, new Takenoko());
             listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+            System.out.println("new Game");
+            System.out.println("ID partie | id joueur | nom joueur");
             System.out.println(numGame+" | " +numPlayer+" | "+namePlayer);
             tab[0] = numGame;
             tab[1] = numPlayer;
             return tab;
         } else {
+            boolean noGame=false;
             for (Map.Entry<Integer, Takenoko> entry : listParti.entrySet()) {
                 Takenoko game = entry.getValue();
                 Integer numGame = entry.getKey();
-                if (game.getListPlayer().size() <= 1) {
-                    // 1 joueur par parti pour le moment
-                    int num = new Random().nextInt(5000) + 1;
-                    int numPlayer = new Random().nextInt(5000);
-                    listParti.put(num, new Takenoko());
-                    listParti.get(num).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
-                    System.out.println(numGame+" | " +numPlayer+" | "+namePlayer);
-                    tab[0] = num;
-                    tab[1] = numPlayer;
-                    return tab;
-                } else {
+                if (game.getListPlayer().size() < 2) {
                     int numPlayer = new Random().nextInt(5000);
                     game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+                    System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
                     tab[0] = numGame;
                     tab[1] = numPlayer;
                     return tab;
+                } else {
+                    noGame=true;
                 }
+            }
+            if(noGame) {
+                int num = new Random().nextInt(5000) + 1;
+                int numPlayer = new Random().nextInt(5000);
+                listParti.put(num, new Takenoko());
+                listParti.get(num).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+                System.out.println("new Game");
+                System.out.println("ID partie | id joueur | nom joueur");
+                System.out.println(num + " | " + numPlayer + " | " + namePlayer);
+                tab[0] = num;
+                tab[1] = numPlayer;
+                return tab;
             }
         }
         return tab;
@@ -66,8 +74,8 @@ public class Controller {
 
     @PostMapping(path = "/{id}/launch")
     public void launch(@PathVariable(value = "id") int id) {
-        if (listParti.get(id).getListPlayer().size() == 1) {
-            listParti.get(id).lancerParti(listParti.get(id).getListPlayer());
+        if (listParti.get(id).getListPlayer().size() == 2) {
+            listParti.get(id).lancerParti(listParti.get(id).getListPlayer(),id);
         }
     }
 
