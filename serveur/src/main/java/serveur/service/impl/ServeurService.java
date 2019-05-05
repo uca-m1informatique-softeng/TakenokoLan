@@ -7,7 +7,7 @@ import serveur.service.IServeurService;
 
 @Service
 public class ServeurService implements IServeurService {
-    private static String REST_SERVICE_URI = "http://localhost:8081";
+    private static String REST_SERVICE_URI = "http://192.168.99.100:8081";
     private RestTemplate restTemplate = new RestTemplate();
 
     @Override

@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  serveur:
+    image: serveur
+    restart: always
+    ports:
+    - "8080:8080"
+
+
+  joueur:
+    image: joueur
+    restart: always
+    ports:
+    - "8081:8081"
+
+

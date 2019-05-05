@@ -16,11 +16,15 @@ import java.util.ArrayList;
 
 @Service
 public class ClientService implements IClientService {
-    private String REST_SERVICE_URI = "http://localhost:8080";
+
+    private String REST_SERVICE_URI = "http://192.168.99.100:8080";
+
+   // private String REST_SERVICE_URI = "http://localhost:8080";
+
     private RestTemplate restTemplate = new RestTemplate();
 
-    private String REST_SERVICE_URI_ID_JOUEUR = "http://localhost:8080";
-
+   // private String REST_SERVICE_URI_ID_JOUEUR = "http://localhost:8080";
+private String REST_SERVICE_URI_ID_JOUEUR = "http://192.168.99.100:8080";
     @Override
     public ArrayList<Parcelle> piocher() {
         return restTemplate.exchange(
@@ -247,8 +251,7 @@ public class ClientService implements IClientService {
 
     @Override
     public int[] connect(String name) {
-        int[] tab =
-                restTemplate.exchange(
+        int[] tab = restTemplate.exchange(
                         REST_SERVICE_URI + "/" + name + "/Connect",
                         HttpMethod.GET,
                         null,

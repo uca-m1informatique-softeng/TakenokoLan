@@ -1,2 +1,3 @@
 server:
   port : 8081
+  adresse : 127.0.0.1
