@@ -8,14 +8,16 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class JoueurConfig {
-
+    //private String REST_SERVICE_URI = "http://192.168.99.100:8080";
+    private String REST_SERVICE_URI = "http://localhost:8080";
     @Bean
     JoueurConfig lancement() {
+
         boolean alive;
         RestTemplate restTemplate = new RestTemplate();
         do {
             try {
-                restTemplate.exchange("http://localhost:8080/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange(REST_SERVICE_URI+"/alive", HttpMethod.GET, null, String.class);
                 alive = true;
             } catch (Exception e) {
                 alive = false;

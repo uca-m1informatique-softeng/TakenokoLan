@@ -14,6 +14,3 @@ se placer dans le dossier ProjetM1 et effectuer les commandes suivantes:
         cd ..
         docker-compose up 
         
-ensuite vous allez dans votre navigateur et vous lancez l'url suivante :
-
-            http://192.168.99.100:8081/newPlayer //nouveau joueur
