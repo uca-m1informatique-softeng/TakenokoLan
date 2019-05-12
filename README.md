@@ -1,5 +1,10 @@
 # TakenokoLan
 
+
+Ci dessous un schéma de la communication serveur-joueur :
+
+![routes](routes.png)
+
 Docker : 
 Pour lancer l'application dans docker :
 se placer dans le dossier ProjetM1 et effectuer les commandes suivantes:
