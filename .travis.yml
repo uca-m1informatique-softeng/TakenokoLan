@@ -1,7 +1,4 @@
 language: java
-rvm:
-- 2.2
-- jruby
 
 env:
 DOCKER_COMPOSE_VERSION: 1.20.1
