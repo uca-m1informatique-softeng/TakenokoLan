@@ -9,7 +9,11 @@ import joueur.service.IClientService;
 import joueur.service.impl.ClientService;
 import joueur.utilitaires.MainJoueur;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Component
-public class IAPanda {
+public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
 
     public static final Logger LOGGER = Logger.getLogger(IAPanda.class.getCanonicalName());
     private ArrayList<CartesObjectifs> mainObjectif = new ArrayList<>();
@@ -25,19 +29,45 @@ public class IAPanda {
     private String nomBot;
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
     private IClientService iService;
-    int numeroParti;
 
     public IAPanda() {
-        nomBot=RandomStringUtils.randomAlphabetic(10);
+        nomBot = RandomStringUtils.randomAlphabetic(10);
         iService = new ClientService();
         LOGGER.setLevel(Level.OFF);
     }
 
-    public int[] connect() {
-        return iService.connect(nomBot);
+
+    /**
+     * Cet événement est exécuté le plus tard possible pour indiquer
+     * que l'application est prête à repondre aux demandes.
+     */
+    @Override
+    public void onApplicationEvent(final ApplicationReadyEvent event) {
+        int[] tab = connect("localhost", "8080", "localhost", "8081");
+        System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
+        launch();
     }
 
-    public void launch(){
+    private int[] connect(String serveurHost, String serveurPort, String joueurHost, String joueurPort) {
+        boolean alive;
+        RestTemplate restTemplate = new RestTemplate();
+        do {
+            try {
+                restTemplate.exchange("http://" + serveurHost + ":" + serveurPort + "/alive", HttpMethod.GET, null, String.class);
+                alive = true;
+            } catch (Exception e) {
+                alive = false;
+                //Pour attendre 10s
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException a) {
+                }
+            }
+        } while (!alive);
+        return iService.connect(nomBot, serveurHost, serveurPort, joueurHost, joueurPort);
+    }
+
+    private void launch() {
         iService.launch();
     }
 

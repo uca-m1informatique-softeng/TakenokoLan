@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class StatistiqueJoueurTest {
-    StatistiqueJoueur statistiqueJoueur = new StatistiqueJoueur(1, 0, 0, 0, "");
+    StatistiqueJoueur statistiqueJoueur = new StatistiqueJoueur(1, 0, 0, 0, "","");
 
     @Test
     public void setRefJoueur() {

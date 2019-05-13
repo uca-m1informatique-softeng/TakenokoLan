@@ -19,11 +19,11 @@ public class ClientService implements IClientService {
 
    // private String REST_SERVICE_URI = "http://192.168.99.100:8080";
 
-    private String REST_SERVICE_URI = "http://localhost:8080";
+    private String REST_SERVICE_URI = "http://";
 
     private RestTemplate restTemplate = new RestTemplate();
 
-    private String REST_SERVICE_URI_ID_JOUEUR = "http://localhost:8080";
+    private String REST_SERVICE_URI_ID_JOUEUR = "http://";
 //private String REST_SERVICE_URI_ID_JOUEUR = "http://192.168.99.100:8080";
     @Override
     public ArrayList<Parcelle> piocher() {
@@ -250,9 +250,10 @@ public class ClientService implements IClientService {
     }
 
     @Override
-    public int[] connect(String name) {
+    public int[] connect(String name,String serveurHost, String serveurPort,String joueurHost, String joueurPort) {
+        REST_SERVICE_URI=REST_SERVICE_URI+serveurHost+":"+serveurPort;
         int[] tab = restTemplate.exchange(
-                        REST_SERVICE_URI + "/" + name + "/Connect",
+                        REST_SERVICE_URI + "/" +joueurHost+ "/"+joueurPort+ "/"+ name + "/Connect",
                         HttpMethod.GET,
                         null,
                         int[].class).getBody();
