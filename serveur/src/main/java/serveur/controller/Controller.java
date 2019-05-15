@@ -19,7 +19,7 @@ import java.util.Random;
 public class Controller {
     @Autowired
     JLolo jLolo;
-    
+
     int nbjoueur=1;
 
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
