@@ -21,8 +21,9 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
         RestTemplate restTemplate = new RestTemplate();
         do {
             try {
-                restTemplate.exchange("http://" + "172.18.0.2" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "localhost" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive = true;
+                System.out.println("Serveur accessible");
             } catch (Exception e) {
                 System.out.println("Serveur inaccessible");
                 alive = false;
