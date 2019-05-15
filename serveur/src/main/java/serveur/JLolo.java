@@ -18,58 +18,42 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
         }
         System.out.println("loopback" + InetAddress.getLoopbackAddress().getHostAddress());
         boolean alive;
-
+        boolean alive1;
         RestTemplate restTemplate = new RestTemplate();
 
         boolean alive2;
         do {
             try {
-                restTemplate.exchange("http://" + "172.18.0.10" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "nat.gce-us-central1.travisci.net" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive2 = true;
-                System.out.println("serveur accessible");
+                System.out.println("serveur accessible nat.gce-us-central1.travisci.net");
             } catch (Exception e) {
-                System.out.println("serveur inaccessible");
+                System.out.println("serveur inaccessible nat.gce-us-central1.travisci.net");
                 alive2 = false;
-                //Pour attendre 10s
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException a) {
-                }
             }
-        } while (!alive2);
-        do {
             try {
                 restTemplate.exchange("http://" + "localhost" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive = true;
                 InetAddress address = InetAddress.getLocalHost();
                 String ip = address.getHostAddress();
-                System.out.println("Serveur accessible : "+ip);
+                System.out.println("Serveur accessible localhost:8080 : "+ip);
             } catch (Exception e) {
-                System.out.println("Serveur inaccessible");
+                System.out.println("Serveur inaccessible localhost:8080");
                 alive = false;
-                //Pour attendre 10s
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException a) {
-                }
             }
-        } while (!alive);
-        boolean alive1;
-        do {
             try {
                 restTemplate.exchange("http://" + "localhost" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
                 alive1 = true;
-                System.out.println("Joueur accessible");
+                System.out.println("Joueur accessible localhost:8081");
             } catch (Exception e) {
-                System.out.println("Joueur inaccessible");
+                System.out.println("Joueur inaccessiblelocalhost:8081");
                 alive1 = false;
-                //Pour attendre 10s
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException a) {
-                }
             }
-        } while (!alive1);
-
+            //Pour attendre 10s
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException a) {
+            }
+        } while (!alive2 && !alive && !alive1);
     }
 }
