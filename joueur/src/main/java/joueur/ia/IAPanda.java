@@ -43,7 +43,7 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        int[] tab = connect("localhost", "8080", "localhost", "8081");
+        int[] tab = connect("127.0.0.1", "8080", "127.0.0.1", "8081");
         System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         launch();
     }
