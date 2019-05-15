@@ -6,8 +6,11 @@ DOCKER_COMPOSE_VERSION: 1.24.0
 services:
 - docker
 
-script:
+before_install:
 - cd  serveur && docker build -f Dockerfile -t serveur .
 - cd ../joueur && docker build -f Dockerfile -t joueur .
-- docker-compose up
+
+script:
 - docker-compose ps
+- docker-compose up
+
