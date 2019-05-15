@@ -5,17 +5,16 @@ Ci dessous un schéma de la communication serveur-joueur :
 
 ![routes](routes.png)
 
+Les points à montrer :
+
 Docker : 
-Pour lancer l'application dans docker :
-se placer dans le dossier ProjetM1 et effectuer les commandes suivantes:
+    -> lancer 2 clients et 1 serveur
+    Appli : 
+    -> lancement en parallèle de plusieurs parties 
+    -> tests de charges
     
-        mvn clean install //crée les fichiers .jar utiles
-        # docker system prune -a -f && docker pull docker// attention supprime toutes vos images et containers déjà existant on doit recuperer l'image docker dans ce cas
-        cd serveur
-        docker build -f Dockerfile -t serveur . //crée l'image serveur
-        cd ..
-        cd joueur
-        docker build -f Dockerfile -t joueur . //crée l'image joueur
-        cd ..
-        docker-compose up 
-        
+Test :
+    -> Serveur renvoie au joueur un tableau avec son Id et un Id random de partie
+    
+
+    
