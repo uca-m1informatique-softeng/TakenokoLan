@@ -44,7 +44,9 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        System.out.println(InetAddress.getLoopbackAddress().getHostAddress());
+        try{
+        System.out.println("local :"+InetAddress.getLocalHost().getHostAddress());}catch (Exception e){}
+        System.out.println("loopback"+InetAddress.getLoopbackAddress().getHostAddress());
         int[] tab = connect(InetAddress.getLoopbackAddress().getHostAddress(), "8080", InetAddress.getLoopbackAddress().getHostAddress(), "8081");
         System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         launch();

@@ -4,7 +4,9 @@ import commun.ressources.CartesObjectifs;
 import commun.ressources.Coordonnees;
 import commun.ressources.Parcelle;
 import commun.triche.TricheException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import serveur.JLolo;
 import serveur.configuration.Takenoko;
 import serveur.utilitaires.StatistiqueJoueur;
 
@@ -15,6 +17,9 @@ import java.util.Random;
 
 @RestController
 public class Controller {
+    @Autowired
+    JLolo jLolo;
+    
     int nbjoueur=1;
 
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
