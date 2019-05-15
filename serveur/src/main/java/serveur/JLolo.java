@@ -23,7 +23,9 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
             try {
                 restTemplate.exchange("http://" + "localhost" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive = true;
-                System.out.println("Serveur accessible");
+                InetAddress address = InetAddress.getLocalHost();
+                String ip = address.getHostAddress();
+                System.out.println("Serveur accessible : "+ip);
             } catch (Exception e) {
                 System.out.println("Serveur inaccessible");
                 alive = false;
@@ -34,5 +36,21 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
                 }
             }
         } while (!alive);
+        boolean alive1;
+        do {
+            try {
+                restTemplate.exchange("http://" + "localhost" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
+                alive1 = true;
+                System.out.println("Joueur accessible");
+            } catch (Exception e) {
+                System.out.println("Joueur inaccessible");
+                alive1 = false;
+                //Pour attendre 10s
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException a) {
+                }
+            }
+        } while (!alive1);
     }
 }
