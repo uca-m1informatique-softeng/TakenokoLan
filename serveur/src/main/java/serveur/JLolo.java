@@ -18,7 +18,25 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
         }
         System.out.println("loopback" + InetAddress.getLoopbackAddress().getHostAddress());
         boolean alive;
+
         RestTemplate restTemplate = new RestTemplate();
+
+        boolean alive2;
+        do {
+            try {
+                restTemplate.exchange("http://" + "172.18.0.10" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                alive2 = true;
+                System.out.println("serveur accessible");
+            } catch (Exception e) {
+                System.out.println("serveur inaccessible");
+                alive2 = false;
+                //Pour attendre 10s
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException a) {
+                }
+            }
+        } while (!alive2);
         do {
             try {
                 restTemplate.exchange("http://" + "localhost" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
@@ -52,5 +70,6 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
                 }
             }
         } while (!alive1);
+
     }
 }
