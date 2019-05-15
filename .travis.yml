@@ -9,5 +9,5 @@ services:
 script:
 - cd  serveur && docker build -f Dockerfile -t serveur .
 - cd ../joueur && docker build -f Dockerfile -t joueur .
-- docker-compose up -d
+- docker-compose up
 - docker-compose ps
