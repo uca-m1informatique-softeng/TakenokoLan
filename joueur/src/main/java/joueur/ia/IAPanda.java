@@ -47,7 +47,7 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
         try{
         System.out.println("local :"+InetAddress.getLocalHost().getHostAddress());}catch (Exception e){}
         System.out.println("loopback"+InetAddress.getLoopbackAddress().getHostAddress());
-        int[] tab = connect("172.18.0.3", "8080", "172.18.0.2", "8081");
+        int[] tab = connect("172.18.0.2", "8080", "localhost", "8081");
         System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         launch();
     }
