@@ -32,6 +32,14 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
                 alive2 = false;
             }
             try {
+                restTemplate.exchange("http://" + "127.0.0.1" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                alive2 = true;
+                System.out.println("serveur accessible 127.0.0.1");
+            } catch (Exception e) {
+                System.out.println("serveur inaccessible 127.0.0.1");
+                alive2 = false;
+            }
+            try {
                 restTemplate.exchange("http://" + "localhost" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive = true;
                 InetAddress address = InetAddress.getLocalHost();
