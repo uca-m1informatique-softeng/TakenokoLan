@@ -62,6 +62,14 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
 
         }
         try {
+            restTemplate.exchange("http://" + InetAddress.getLocalHost().getHostAddress() + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
+
+            System.out.println("joueur accessible "+InetAddress.getLocalHost().getHostAddress());
+        } catch (Exception e) {
+            try {System.out.println("joueur inaccessible "+InetAddress.getLocalHost().getHostAddress());}catch (Exception ee){}
+
+        }
+        try {
             restTemplate.exchange("http://" + "172.18.0.2" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
 
             System.out.println("joueur accessible 172.18.0.2");
@@ -69,11 +77,12 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
             System.out.println("joueur inaccessible 172.18.0.2");
 
         }
+        /*
         try {
             int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
             System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         } catch (Exception e) {
-        }
+        }*/
         //launch();
     }
 

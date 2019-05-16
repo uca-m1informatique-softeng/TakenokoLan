@@ -23,14 +23,7 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
 
         boolean alive2;
         do {
-            try {
-                restTemplate.exchange("http://" + "172.18.0.3" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
-                alive2 = true;
-                System.out.println("joueur accessible 172.18.0.3");
-            } catch (Exception e) {
-                System.out.println("joueur inaccessible 172.18.0.3");
-                alive2 = false;
-            }
+
             try {
                 restTemplate.exchange("http://" + "172.0.0.1" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
                 alive2 = true;
@@ -56,6 +49,14 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
             } catch (Exception e) {
                 System.out.println("Serveur inaccessible 172.18.0.2");
                 alive = false;
+            }
+            try {
+                restTemplate.exchange("http://" + "172.18.0.3" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
+                alive2 = true;
+                System.out.println("joueur accessible 172.18.0.3");
+            } catch (Exception e) {
+                System.out.println("joueur inaccessible 172.18.0.3");
+                alive2 = false;
             }
             try {
                 restTemplate.exchange("http://" + "localhost" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
