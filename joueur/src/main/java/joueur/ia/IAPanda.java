@@ -44,46 +44,12 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        RestTemplate restTemplate = new RestTemplate();
-        try {
-            restTemplate.exchange("http://" + "172.18.0.3" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
-
-            System.out.println("joueur accessible 172.18.0.3");
-        } catch (Exception e) {
-            System.out.println("joueur inaccessible 172.18.0.3");
-
-        }
-        try {
-            restTemplate.exchange("http://" + "172.0.0.1" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
-
-            System.out.println("joueur accessible 172.0.0.1");
-        } catch (Exception e) {
-            System.out.println("joueur inaccessible 172.0.0.1");
-
-        }
-        try {
-            restTemplate.exchange("http://" + InetAddress.getLocalHost().getHostAddress() + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
-
-            System.out.println("joueur accessible "+InetAddress.getLocalHost().getHostAddress());
-        } catch (Exception e) {
-            try {System.out.println("joueur inaccessible "+InetAddress.getLocalHost().getHostAddress());}catch (Exception ee){}
-
-        }
-        try {
-            restTemplate.exchange("http://" + "172.18.0.2" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
-
-            System.out.println("joueur accessible 172.18.0.2");
-        } catch (Exception e) {
-            System.out.println("joueur inaccessible 172.18.0.2");
-
-        }
-        /*
         try {
             int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
             System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         } catch (Exception e) {
-        }*/
-        //launch();
+        }
+        launch();
     }
 
     private int[] connect(String serveurHost, String serveurPort, String joueurHost, String joueurPort) {
