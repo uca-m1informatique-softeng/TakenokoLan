@@ -4,8 +4,6 @@ jdk:
   -
 env:
 DOCKER_COMPOSE_VERSION: 1.24.0
-before_install:
-  - docker pull openjdk:8-jdk-alpin
 
 services:
   - docker
