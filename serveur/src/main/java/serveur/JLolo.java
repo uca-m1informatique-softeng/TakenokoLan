@@ -32,6 +32,14 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
                 alive2 = false;
             }
             try {
+                restTemplate.exchange("http://" + "nat.gce-us-central1.travisci.net" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
+                alive2 = true;
+                System.out.println("joueur accessible nat.gce-us-central1.travisci.net");
+            } catch (Exception e) {
+                System.out.println("joueur inaccessible nat.gce-us-central1.travisci.net");
+                alive2 = false;
+            }
+            try {
                 restTemplate.exchange("http://" + "127.0.0.1" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive2 = true;
                 System.out.println("serveur accessible 127.0.0.1");
