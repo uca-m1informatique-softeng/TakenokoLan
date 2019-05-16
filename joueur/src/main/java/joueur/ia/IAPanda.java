@@ -52,7 +52,7 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
         } catch (Exception e) {
         }
         System.out.println("loopback" + InetAddress.getLoopbackAddress().getHostAddress());
-        int[] tab = connect("172.20.0.2", "8080", "localhost", "8081");
+        int[] tab = connect("172.18.0.2", "8080", "localhost", "8081");
         System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         launch();
     }
@@ -63,7 +63,7 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
         boolean alive1;
         do {
             try {
-                restTemplate.exchange("http://" + "localhost" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "172.18.0.2" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive1 = true;
                 System.out.println("Joueur accessible");
             } catch (Exception e) {

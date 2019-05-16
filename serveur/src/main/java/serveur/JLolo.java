@@ -52,7 +52,7 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
                 alive = true;
                 InetAddress address = InetAddress.getLocalHost();
                 String ip = address.getHostAddress();
-                System.out.println("Serveur accessible localhost:8080 : "+ip);
+                System.out.println("Serveur accessible localhost:8080 : ");
             } catch (Exception e) {
                 System.out.println("Serveur inaccessible localhost:8080");
                 alive = false;
