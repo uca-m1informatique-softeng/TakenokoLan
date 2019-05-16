@@ -24,37 +24,37 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
         boolean alive2;
         do {
             try {
-                restTemplate.exchange("http://" + "nat.gce-us-central1.travisci.net" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "172.18.0.3" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
                 alive2 = true;
-                System.out.println("serveur accessible nat.gce-us-central1.travisci.net");
+                System.out.println("joueur accessible 172.18.0.3");
             } catch (Exception e) {
-                System.out.println("serveur inaccessible nat.gce-us-central1.travisci.net");
+                System.out.println("joueur inaccessible 172.18.0.3");
                 alive2 = false;
             }
             try {
-                restTemplate.exchange("http://" + "nat.gce-us-central1.travisci.net" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "172.0.0.1" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
                 alive2 = true;
-                System.out.println("joueur accessible nat.gce-us-central1.travisci.net");
+                System.out.println("joueur accessible 172.0.0.1");
             } catch (Exception e) {
-                System.out.println("joueur inaccessible nat.gce-us-central1.travisci.net");
+                System.out.println("joueur inaccessible 172.0.0.1");
                 alive2 = false;
             }
             try {
-                restTemplate.exchange("http://" + "127.0.0.1" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "172.18.0.2" + ":" + "8081" + "/alive", HttpMethod.GET, null, String.class);
                 alive2 = true;
-                System.out.println("serveur accessible 127.0.0.1");
+                System.out.println("joueur accessible 172.18.0.2");
             } catch (Exception e) {
-                System.out.println("serveur inaccessible 127.0.0.1");
+                System.out.println("joueur inaccessible 172.18.0.2");
                 alive2 = false;
             }
             try {
-                restTemplate.exchange("http://" + "172.18.0.3" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "172.18.0.2" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive = true;
                 InetAddress address = InetAddress.getLocalHost();
                 String ip = address.getHostAddress();
-                System.out.println("Serveur accessible 172.18.0.3 : ");
+                System.out.println("Serveur accessible 172.18.0.2 : ");
             } catch (Exception e) {
-                System.out.println("Serveur inaccessible 172.18.0.3");
+                System.out.println("Serveur inaccessible 172.18.0.2");
                 alive = false;
             }
             try {
