@@ -17,8 +17,8 @@ import java.util.Random;
 
 @RestController
 public class Controller {
-    @Autowired
-    JLolo jLolo;
+    //@Autowired
+   // JLolo jLolo;
 
     int nbjoueur=1;
 

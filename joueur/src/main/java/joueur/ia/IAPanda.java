@@ -44,38 +44,17 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-
         try {
-            System.out.println("local :" + InetAddress.getLocalHost().getHostAddress());
-            //int[] tab = connect(InetAddress.getLocalHost().getHostAddress(), "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
-           // System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
+            int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
+            System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         } catch (Exception e) {
         }
-        System.out.println("loopback" + InetAddress.getLoopbackAddress().getHostAddress());
-        int[] tab = connect("172.18.0.2", "8080", "localhost", "8081");
-        System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         launch();
     }
 
     private int[] connect(String serveurHost, String serveurPort, String joueurHost, String joueurPort) {
         boolean alive;
         RestTemplate restTemplate = new RestTemplate();
-        boolean alive1;
-        do {
-            try {
-                restTemplate.exchange("http://" + "172.18.0.2" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
-                alive1 = true;
-                System.out.println("Joueur accessible");
-            } catch (Exception e) {
-                System.out.println("Joueur inaccessible");
-                alive1 = false;
-                //Pour attendre 10s
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException a) {
-                }
-            }
-        } while (!alive1);
         do {
             try {
                 restTemplate.exchange("http://" + serveurHost + ":" + serveurPort + "/alive", HttpMethod.GET, null, String.class);

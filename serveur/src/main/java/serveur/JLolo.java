@@ -48,13 +48,13 @@ public class JLolo implements ApplicationListener<ApplicationReadyEvent> {
                 alive2 = false;
             }
             try {
-                restTemplate.exchange("http://" + "localhost" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
+                restTemplate.exchange("http://" + "172.18.0.3" + ":" + "8080" + "/alive", HttpMethod.GET, null, String.class);
                 alive = true;
                 InetAddress address = InetAddress.getLocalHost();
                 String ip = address.getHostAddress();
-                System.out.println("Serveur accessible localhost:8080 : ");
+                System.out.println("Serveur accessible 172.18.0.3 : ");
             } catch (Exception e) {
-                System.out.println("Serveur inaccessible localhost:8080");
+                System.out.println("Serveur inaccessible 172.18.0.3");
                 alive = false;
             }
             try {
