@@ -57,7 +57,6 @@ public class Takenoko {
             }
             //affichage final de toutes les statistiques
             afficherVainqueur(listPlayer, nbPartie);
-
             return "hello";
         }
     */
@@ -90,7 +89,7 @@ public class Takenoko {
             //LOGGER.info("Tour numéro " + (nbTour + 1));
             for (StatistiqueJoueur c : listPlayer) {
                 //c.getIa().joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
-                iServeurService.JoueClient(idGame, c.getRefJoueur());
+                iServeurService.JoueClient(c.getUrlJoueur(), idGame, c.getRefJoueur());
             }
             for (int j = 0; j < listPlayer.size(); j++) {
                 if (listPlayer.get(j).getFeuilleJoueur().getNbObjectifsValide() >= 9 && j == 0) {
@@ -104,7 +103,7 @@ public class Takenoko {
                     for (StatistiqueJoueur c : listPlayer) {
                         if (listPlayer.indexOf(c) != j) {
                             //c.getIa().joue(laPiocheParcelle, terrain, lesPiochesObjectif, jardinier, panda);
-                            iServeurService.JoueClient(idGame, c.getRefJoueur());
+                            iServeurService.JoueClient(c.getUrlJoueur(), idGame, c.getRefJoueur());
                         }
                     }
                 }

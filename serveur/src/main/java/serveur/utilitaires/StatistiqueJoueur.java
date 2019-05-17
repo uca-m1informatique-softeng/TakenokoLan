@@ -9,11 +9,12 @@ public class StatistiqueJoueur {
     private int nbPointsTotal;
     private int nbToursMIN = 0;
     private int nbToursMAX = 0;
-
+    private String urlJoueur;
 
     private FeuilleJoueur feuilleJoueur;
 
-    public StatistiqueJoueur(int refJoueur, int nbVictoire, int nbPointsTotal, int nbToursTotal, String name) {
+    public StatistiqueJoueur(int refJoueur, int nbVictoire, int nbPointsTotal, int nbToursTotal, String name,String urlJoueur) {
+        this.urlJoueur=urlJoueur;
         this.refJoueur = refJoueur;
         this.nbVictoire = nbVictoire;
         this.nbPointsTotal = nbPointsTotal;
@@ -74,5 +75,9 @@ public class StatistiqueJoueur {
 
     public void setRefJoueur(int refJoueur) {
         this.refJoueur = refJoueur;
+    }
+
+    public String getUrlJoueur() {
+        return urlJoueur;
     }
 }

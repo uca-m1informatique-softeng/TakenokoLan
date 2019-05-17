@@ -28,16 +28,16 @@ public class IAPanda {
     int numeroParti;
 
     public IAPanda() {
-        nomBot=RandomStringUtils.randomAlphabetic(10);
+        nomBot = RandomStringUtils.randomAlphabetic(10);
         iService = new ClientService();
         LOGGER.setLevel(Level.OFF);
     }
 
-    public int[] connect() {
-        return iService.connect(nomBot);
+    public int[] connect(String serveurHost, String serveurPort, String joueurHost, String joueurPort) {
+        return iService.connect(nomBot, serveurHost, serveurPort, joueurHost, joueurPort);
     }
 
-    public void launch(){
+    public void launch() {
         iService.launch();
     }
 

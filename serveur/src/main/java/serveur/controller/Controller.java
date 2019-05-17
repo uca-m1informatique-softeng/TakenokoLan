@@ -16,18 +16,19 @@ import java.util.Random;
 @RestController
 public class Controller {
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
+    int nbjoueur = 1;
 
     @GetMapping(value = "/init")
     public String init() {
         listParti.clear();
         listParti.put(0, new Takenoko());
         listParti.get(0).initPartie();
-        listParti.get(0).getListPlayer().add(new StatistiqueJoueur(0, 0, 0, 0, "joueurTest"));
+        listParti.get(0).getListPlayer().add(new StatistiqueJoueur(0, 0, 0, 0, "joueurTest", "http://localhost:8080"));
         return "init done";
     }
 
-    @GetMapping(value = "/{namePlayer}/Connect")
-    public int[] connect(@PathVariable(value = "namePlayer") String namePlayer) {
+    @GetMapping(value = "/{joueurHost}/{joueurPort}/{namePlayer}/Connect")
+    public int[] connect(@PathVariable(value = "joueurHost") String joueurHost, @PathVariable(value = "joueurPort") String joueurPort, @PathVariable(value = "namePlayer") String namePlayer) {
         synchronized (listParti) {
             int[] tab = new int[2];
             if (listParti.isEmpty()) {
@@ -38,7 +39,7 @@ public class Controller {
                 } while (listParti.get(numGame) != null);
                 int numPlayer = 0;
                 listParti.put(numGame, new Takenoko());
-                listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+                listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
                 System.out.println("new Game");
                 System.out.println("ID partie | id joueur | nom joueur");
                 System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
@@ -50,9 +51,9 @@ public class Controller {
                 for (Map.Entry<Integer, Takenoko> entry : listParti.entrySet()) {
                     Takenoko game = entry.getValue();
                     Integer numGame = entry.getKey();
-                    if (game.getListPlayer().size() < 2) {
+                    if (game.getListPlayer().size() < nbjoueur) {
                         int numPlayer = game.getListPlayer().size();
-                        game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+                        game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
                         System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
                         tab[0] = numGame;
                         tab[1] = numPlayer;
@@ -69,7 +70,7 @@ public class Controller {
                     } while (listParti.get(numGame) != null);
                     int numPlayer = 0;
                     listParti.put(numGame, new Takenoko());
-                    listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer));
+                    listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
                     System.out.println("new Game");
                     System.out.println("ID partie | id joueur | nom joueur");
                     System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
@@ -85,7 +86,7 @@ public class Controller {
     @PostMapping(path = "/{id}/launch")
     public void launch(@PathVariable(value = "id") int id) {
         synchronized (listParti) {
-            if (listParti.get(id).getListPlayer().size() == 2 && !listParti.get(id).getDejaLancer()) {
+            if (listParti.get(id).getListPlayer().size() == nbjoueur && !listParti.get(id).getDejaLancer()) {
                 listParti.get(id).setDejaLancer(true);
                 listParti.get(id).lancerParti(listParti.get(id).getListPlayer(), id);
             }
