@@ -13,6 +13,7 @@ services:
 
 script:
   - cd serveur && docker build -f Dockerfile -t serveur .
-  - cd ../joueur && docker build -f Dockerfile -t joueur .
-  - docker-compose up -d -t 30
+  #- cd ../joueur && docker build -f Dockerfile -t joueur .
+  - docker-compose up -d
+  - cd ../joueur/target && java -jar joueur-1.0.jar
   - docker-compose ps
