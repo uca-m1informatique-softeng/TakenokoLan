@@ -14,6 +14,5 @@ services:
 script:
   - cd serveur && docker build -f Dockerfile -t serveur .
   - cd ../joueur && docker build -f Dockerfile -t joueur .
+  - docker-compose up || travis_terminate 1
   - docker-compose ps
-  - docker-compose up
-

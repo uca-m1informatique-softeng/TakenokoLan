@@ -24,12 +24,15 @@ import java.util.logging.Logger;
 @Component
 public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
 
+
+
     public static final Logger LOGGER = Logger.getLogger(IAPanda.class.getCanonicalName());
     private ArrayList<CartesObjectifs> mainObjectif = new ArrayList<>();
     private ArrayList<MainJoueur> mainObjectifValeur = new ArrayList<>();
     private String nomBot;
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
     private IClientService iService;
+
 
     public IAPanda() {
         nomBot = RandomStringUtils.randomAlphabetic(10);
@@ -38,18 +41,22 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
     }
 
 
+
     /**
      * Cet événement est exécuté le plus tard possible pour indiquer
      * que l'application est prête à repondre aux demandes.
      */
+
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         try {
-            int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
+            int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");//pour travis
             System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         } catch (Exception e) {
         }
         launch();
+
+
     }
 
     private int[] connect(String serveurHost, String serveurPort, String joueurHost, String joueurPort) {
