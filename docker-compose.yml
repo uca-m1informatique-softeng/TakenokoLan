@@ -21,4 +21,4 @@ services:
       - network1
 
 networks:
-network1:
+  network1:
