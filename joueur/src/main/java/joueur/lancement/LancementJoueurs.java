@@ -37,7 +37,7 @@ public class LancementJoueurs implements ApplicationListener<ApplicationReadyEve
                 }
             }
         } while (!alive);
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 600; i++) {
             new Thread(new NewJoueur()).start();
         }
     }

@@ -85,11 +85,15 @@ public class Controller {
 
     @PostMapping(path = "/{id}/launch")
     public void launch(@PathVariable(value = "id") int id) {
+        boolean start=false;
         synchronized (listParti) {
             if (listParti.get(id).getListPlayer().size() == nbjoueur && !listParti.get(id).getDejaLancer()) {
                 listParti.get(id).setDejaLancer(true);
-                listParti.get(id).lancerParti(listParti.get(id).getListPlayer(), id);
+                start = true;
             }
+        }
+        if (start) {
+            listParti.get(id).lancerParti(listParti.get(id).getListPlayer(), id);
         }
     }
 

@@ -16,7 +16,6 @@ import java.util.LinkedHashMap;
 public class Controller {
     @Autowired
     LancementJoueurs lancementJoueurs;
-
     private LinkedHashMap<Integer, LinkedHashMap<Integer, IAPanda>> listPlayer = new LinkedHashMap<>();
 
     @RequestMapping(path = "/newPlayer")
