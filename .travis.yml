@@ -14,6 +14,6 @@ services:
 script:
   - cd serveur && docker build -f Dockerfile -t serveur .
   - cd ../joueur && docker build -f Dockerfile -t joueur .
-  - docker-compose up -d
-  - docker-compose ps
-  - cd ../joueur && mvn clean test #lancer test de connexion  au serveur
+  - docker-compose up
+  #- echo " LANCEMENT DE TEST DE COMMUNICATION ENTRE JOUEUR ET SERVEUR"
+  #- cd ../joueur && mvn clean test #lancer test de connexion  au serveur pour montrer la communication entre les 2 containers
