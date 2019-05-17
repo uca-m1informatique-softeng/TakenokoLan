@@ -11,12 +11,11 @@ import serveur.utilitaires.StatistiqueJoueur;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Random;
 
 @RestController
 public class Controller {
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
-    int nbjoueur = 1;
+    int nbjoueur = 2;
 
     @GetMapping(value = "/init")
     public String init() {
@@ -32,11 +31,7 @@ public class Controller {
         synchronized (listParti) {
             int[] tab = new int[2];
             if (listParti.isEmpty()) {
-                int numGame;
-                do {
-                    numGame = new Random().nextInt(5000);
-
-                } while (listParti.get(numGame) != null);
+                int numGame = listParti.size() + 1;
                 int numPlayer = 0;
                 listParti.put(numGame, new Takenoko());
                 listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
@@ -63,11 +58,7 @@ public class Controller {
                     }
                 }
                 if (noGame) {
-                    int numGame;
-                    do {
-                        numGame = new Random().nextInt(5000);
-
-                    } while (listParti.get(numGame) != null);
+                    int numGame = listParti.size() + 1;
                     int numPlayer = 0;
                     listParti.put(numGame, new Takenoko());
                     listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
@@ -85,7 +76,7 @@ public class Controller {
 
     @PostMapping(path = "/{id}/launch")
     public void launch(@PathVariable(value = "id") int id) {
-        boolean start=false;
+        boolean start = false;
         synchronized (listParti) {
             if (listParti.get(id).getListPlayer().size() == nbjoueur && !listParti.get(id).getDejaLancer()) {
                 listParti.get(id).setDejaLancer(true);

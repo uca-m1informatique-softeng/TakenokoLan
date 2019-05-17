@@ -21,18 +21,31 @@ public class Controller {
     @RequestMapping(path = "/newPlayer")
     public String launch() {
         IAPanda iaPanda = new IAPanda();
+        int[] tab = null;
         try {
-            int[] tab = iaPanda.connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
+            tab = iaPanda.connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
 
-        System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
-        if (listPlayer.get(tab[0]) != null) {
-            listPlayer.get(tab[0]).put(tab[1], iaPanda);
-        } else {
-            listPlayer.put(tab[0], new LinkedHashMap<>());
-            listPlayer.get(tab[0]).put(tab[1], iaPanda);
+            System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
+            synchronized (listPlayer) {
+                if (listPlayer.get(tab[0]) != null) {
+                    listPlayer.get(tab[0]).put(tab[1], iaPanda);
+                } else {
+                    listPlayer.put(tab[0], new LinkedHashMap<>());
+                    listPlayer.get(tab[0]).put(tab[1], iaPanda);
+                }
+
+            }
+        } catch (UnknownHostException e) {
         }
-        }catch (UnknownHostException e){}
-        iaPanda.launch();
+        boolean start = false;
+        synchronized (listPlayer) {
+            if (listPlayer.get(tab[0]).size() == 2) {
+                start = true;
+            }
+        }
+        if (start) {
+            iaPanda.launch();
+        }
         return "done";
     }
 
