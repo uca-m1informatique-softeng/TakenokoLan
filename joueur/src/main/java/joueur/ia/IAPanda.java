@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -36,15 +37,17 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
         LOGGER.setLevel(Level.OFF);
     }
 
-
     /**
      * Cet événement est exécuté le plus tard possible pour indiquer
      * que l'application est prête à repondre aux demandes.
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
-        int[] tab = connect("127.0.0.1", "8080", "127.0.0.1", "8081");
-        System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
+        try {
+            int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
+            System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
+        } catch (Exception e) {
+        }
         launch();
     }
 

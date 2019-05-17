@@ -15,32 +15,27 @@ import java.util.Random;
 
 @RestController
 public class Controller {
-    int nbjoueur=1;
-
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
+    int nbjoueur = 2;
 
     @GetMapping(value = "/init")
     public String init() {
         listParti.clear();
         listParti.put(0, new Takenoko());
         listParti.get(0).initPartie();
-        listParti.get(0).getListPlayer().add(new StatistiqueJoueur(0, 0, 0, 0, "joueurTest","http://localhost:8080"));
+        listParti.get(0).getListPlayer().add(new StatistiqueJoueur(0, 0, 0, 0, "joueurTest", "http://localhost:8080"));
         return "init done";
     }
 
     @GetMapping(value = "/{joueurHost}/{joueurPort}/{namePlayer}/Connect")
-    public int[] connect(@PathVariable(value = "joueurHost") String joueurHost,@PathVariable(value = "joueurPort") String joueurPort,@PathVariable(value = "namePlayer") String namePlayer) {
+    public int[] connect(@PathVariable(value = "joueurHost") String joueurHost, @PathVariable(value = "joueurPort") String joueurPort, @PathVariable(value = "namePlayer") String namePlayer) {
         synchronized (listParti) {
             int[] tab = new int[2];
             if (listParti.isEmpty()) {
-                int numGame;
-                do {
-                    numGame = new Random().nextInt(5000);
-
-                } while (listParti.get(numGame) != null);
+                int numGame = listParti.size() + 1;
                 int numPlayer = 0;
                 listParti.put(numGame, new Takenoko());
-                listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer,"http://"+joueurHost+":"+joueurPort));
+                listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
                 System.out.println("new Game");
                 System.out.println("ID partie | id joueur | nom joueur");
                 System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
@@ -54,7 +49,7 @@ public class Controller {
                     Integer numGame = entry.getKey();
                     if (game.getListPlayer().size() < nbjoueur) {
                         int numPlayer = game.getListPlayer().size();
-                        game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer,"http://"+joueurHost+":"+joueurPort));
+                        game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
                         System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
                         tab[0] = numGame;
                         tab[1] = numPlayer;
@@ -64,14 +59,10 @@ public class Controller {
                     }
                 }
                 if (noGame) {
-                    int numGame;
-                    do {
-                        numGame = new Random().nextInt(5000);
-
-                    } while (listParti.get(numGame) != null);
+                    int numGame = listParti.size() + 1;
                     int numPlayer = 0;
                     listParti.put(numGame, new Takenoko());
-                    listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer,"http://"+joueurHost+":"+joueurPort));
+                    listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer, "http://" + joueurHost + ":" + joueurPort));
                     System.out.println("new Game");
                     System.out.println("ID partie | id joueur | nom joueur");
                     System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
@@ -86,11 +77,15 @@ public class Controller {
 
     @PostMapping(path = "/{id}/launch")
     public void launch(@PathVariable(value = "id") int id) {
+        boolean start = false;
         synchronized (listParti) {
             if (listParti.get(id).getListPlayer().size() == nbjoueur && !listParti.get(id).getDejaLancer()) {
                 listParti.get(id).setDejaLancer(true);
-                listParti.get(id).lancerParti(listParti.get(id).getListPlayer(), id);
+                start = true;
             }
+        }
+        if (start) {
+            listParti.get(id).lancerParti(listParti.get(id).getListPlayer(), id);
         }
     }
 
