@@ -14,4 +14,5 @@ services:
 script:
   - cd serveur && docker build -f Dockerfile -t serveur .
   - cd ../joueur && docker build -f Dockerfile -t joueur .
-  - docker-compose up -t 30
+  - docker-compose up -d -t 30
+  - docker-compose ps
