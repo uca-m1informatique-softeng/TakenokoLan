@@ -24,7 +24,7 @@ public class Application {
             }
         });
 
-        Thread.sleep(120000);
+        Thread.sleep(600000);
         System.exit(exitCode);
     }
 
