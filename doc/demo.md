@@ -35,7 +35,15 @@ On lance 10 images joueurs et 1 image serveur.
      
     ****** DEMO 3 Alexandre *****
     
-   
+Branche "testIntegrationJoueurServeurTravis"
+
+On veut montrer la communication entre un joueur et le serveur sur Travis.
+
+- On créé un test d'intégration en nous basant sur la fonction connect() du joueur.
+Elle nous permet de récupérer un id de partie compris entre 0 et 4999 ainsi qu'un id de joueur
+qui doit être égal à 0.
+- Sur Travis, on lance d'abord le serveur avant de pouvoir exécuter le test d'intégration
+(ce sera le seul test qui sera alors affiché).
    
    
     
