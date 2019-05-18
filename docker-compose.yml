@@ -8,6 +8,14 @@ services:
     depends_on:
     - serveur
     network_mode: host
+  joueur2:
+    build: joueur/
+    command: java -jar joueur-1.0.jar
+    depends_on:
+    - serveur
+    network_mode: host
+
+
   serveur:
     build: serveur/
     command: java -jar serveur-1.0.jar

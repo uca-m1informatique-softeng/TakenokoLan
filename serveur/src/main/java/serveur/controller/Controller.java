@@ -16,7 +16,7 @@ import java.util.Random;
 @RestController
 public class Controller {
 
-    int nbjoueur=2;
+    int nbjoueur=1;
 
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
 
@@ -73,9 +73,9 @@ public class Controller {
                     int numPlayer = 0;
                     listParti.put(numGame, new Takenoko());
                     listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer,"http://"+joueurHost+":"+joueurPort));
-                    System.out.println("new Game");
-                    System.out.println("ID partie | id joueur | nom joueur");
-                    System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
+                   // System.out.println("new Game");
+                   // System.out.println("ID partie | id joueur | nom joueur");
+                    //System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
                     tab[0] = numGame;
                     tab[1] = numPlayer;
                     return tab;
