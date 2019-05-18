@@ -12,13 +12,13 @@ class LoadTest extends Simulation {
   val httpProtocol: HttpProtocolBuilder = http
     .baseUrl("http://localhost:8080")
 
-  object HelloWorldResource {
+  object TryConnect {
     val get: ChainBuilder = exec(http("TryConnect")
       .get("/127.0.0.1/8081/Bob/Connect"))
   }
 
   val myScenario: ScenarioBuilder = scenario("TryConnect")
-    .exec(HelloWorldResource.get)
+    .exec(TryConnect.get)
 
   setUp(myScenario.inject(
     incrementUsersPerSec(40)
@@ -27,5 +27,12 @@ class LoadTest extends Simulation {
       .separatedByRampsLasting(5 seconds)
       .startingFrom(20)
   )).protocols(httpProtocol)
-    .assertions(global.successfulRequests.percent.between(80,100))
+    .assertions(global.successfulRequests.percent.is(100))
+
+  val myScenario2: ScenarioBuilder = scenario("TryConnect")
+    .exec(TryConnect.get)
+
+  setUp(myScenario2.inject(
+    atOnceUsers(500)))
+    .assertions(global.successfulRequests.percent.is(100))
 }
