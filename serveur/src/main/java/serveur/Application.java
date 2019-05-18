@@ -12,13 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class Application {
 
     public static void main(String[] args) {
+
+       // SpringApplication.run(Application.class, args);
+
         ConfigurableApplicationContext ctx= SpringApplication.run(Application.class, args);
 
-        try {
+       /* try {
             Thread.sleep(60000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         int exitCode = SpringApplication.exit(ctx, new ExitCodeGenerator() {
             @Override
             public int getExitCode() {
