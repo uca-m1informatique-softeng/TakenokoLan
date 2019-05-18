@@ -2,9 +2,9 @@ sudo: required
 
 language: java
 
-jobs:
-  include:
-    - stage: IT
-      script: mvn exec:java -pl serveur -Dexec.mainClass=Application
-    -
-      script: mvn failsafe:integration-test
+services:
+- docker
+
+script:
+- cd serveur && docker build -f Dockerfile -t serveur .
+- mvn failsafe:integration-test
