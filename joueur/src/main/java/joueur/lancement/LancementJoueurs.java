@@ -12,8 +12,8 @@ import java.util.LinkedHashMap;
 @Component
 public class LancementJoueurs implements ApplicationListener<ApplicationReadyEvent> {
     private LinkedHashMap<Integer, LinkedHashMap<Integer, IAPanda>> listPlayer = new LinkedHashMap<>();
-    //private String serveurHost="172.18.0.2";
-    private String serveurHost = "localhost";
+    private String serveurHost="172.18.0.2";
+    //private String serveurHost = "localhost";
     private String serveurPort = "8080";
 
     /**
