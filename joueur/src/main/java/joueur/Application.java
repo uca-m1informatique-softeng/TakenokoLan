@@ -1,18 +1,20 @@
 package joueur;
-
-
-import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) throws InterruptedException {
-        //SpringApplication.run(Application.class, args);
+  /*  private final Environment environment;
 
-        ConfigurableApplicationContext ctx= SpringApplication.run(Application.class, args);
+    public  Application(Environment environment) {
+        this.environment = environment;
+    }*/
+
+    public static void main(String[] args){
+        SpringApplication.run(Application.class, args);
+
+       /* ConfigurableApplicationContext ctx= SpringApplication.run(Application.class, args);
         int exitCode = SpringApplication.exit(ctx, new ExitCodeGenerator() {
             @Override
             public int getExitCode() {
@@ -21,8 +23,8 @@ public class Application {
             }
         });
 
-        Thread.sleep(600000);
-        System.exit(exitCode);
+        /*Thread.sleep(600000);
+        System.exit(exitCode);*/
     }
 
 

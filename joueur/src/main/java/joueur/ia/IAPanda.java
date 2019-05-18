@@ -9,6 +9,8 @@ import joueur.service.IClientService;
 import joueur.service.impl.ClientService;
 import joueur.utilitaires.MainJoueur;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.http.HttpMethod;
@@ -34,10 +36,27 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
     private IClientService iService;
 
 
+    @Value("${server.port}")
+    private String port;
+
+    public String getPort() {
+        return port;
+    }
+    @Value("${server.additionalPorts}")
+    private String ports;
+
+    public String getPorts() {
+        return ports;
+    }
+
+
+
+    @Autowired
     public IAPanda() {
         nomBot = RandomStringUtils.randomAlphabetic(10);
         iService = new ClientService();
         LOGGER.setLevel(Level.OFF);
+
     }
 
 
@@ -50,7 +69,9 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         try {
-            int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");//pour travis
+            //int[] tab = connect("localhost", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour travis
+           // int[] tab = connect("localhost", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour travis
+            int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour travis
             System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         } catch (Exception e) {
         }
@@ -530,4 +551,6 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
     public void setiService(ClientService iService) {
         this.iService = iService;
     }
+
+
 }
