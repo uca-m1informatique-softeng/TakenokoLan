@@ -27,5 +27,5 @@ class LoadTest extends Simulation {
       .separatedByRampsLasting(5 seconds)
       .startingFrom(20)
   )).protocols(httpProtocol)
-    .assertions(global.successfulRequests.percent.is(80))
+    .assertions(global.successfulRequests.percent.between(80,100))
 }
