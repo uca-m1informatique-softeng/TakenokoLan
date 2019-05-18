@@ -1,26 +1,19 @@
+version: "3"
 
-
-version: '3.3'
 services:
 
-  serveur:
-    image: serveur
-    restart: always
-    ports:
-    - "8080:8080"
-    networks:
-    - network1
-
-
   joueur:
-    image: joueur
-    restart: always
-    ports:
-    - "8081:8081"
+    build: joueur/
+    command: java -jar joueur-1.0.jar
     depends_on:
     - serveur
-    networks:
-    - network1
+    network_mode: host
 
-networks:
-  network1:
+
+  serveur:
+    build: serveur/
+    command: java -jar serveur-1.0.jar
+    ports:
+    - "8080:8080"
+    network_mode: host
+

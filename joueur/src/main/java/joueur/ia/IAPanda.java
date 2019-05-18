@@ -10,9 +10,9 @@ import joueur.service.impl.ClientService;
 import joueur.utilitaires.MainJoueur;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -36,19 +36,13 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
     private IClientService iService;
 
 
-    @Value("${server.port}")
-    private String port;
 
-    public String getPort() {
-        return port;
+
+    @Autowired
+    Environment environment;
+    String getPort(){
+        return environment.getProperty("local.server.port");
     }
-    @Value("${server.additionalPorts}")
-    private String ports;
-
-    public String getPorts() {
-        return ports;
-    }
-
 
 
     @Autowired
@@ -69,8 +63,9 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         try {
-            //int[] tab = connect("localhost", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour travis
-           // int[] tab = connect("localhost", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour travis
+
+           //int[] tab = connect("192.168.99.100", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour docker local
+
             int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour travis
             System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
         } catch (Exception e) {
