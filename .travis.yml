@@ -16,3 +16,4 @@ script:
   - cd ../joueur && docker build -f Dockerfile -t joueur .
   - docker-compose ps
   - docker-compose up -d
+  - cd serveur && mvn getling:test

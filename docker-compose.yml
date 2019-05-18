@@ -10,15 +10,15 @@ services:
       - network1
 
 
-  joueur:
-    image: joueur
-    restart: always
-    ports:
-      - "8081:8081"
-    depends_on:
-      - serveur
-    networks:
-      - network1
+#  joueur:
+#    image: joueur
+#    restart: always
+#    ports:
+#      - "8081:8081"
+#    depends_on:
+#      - serveur
+#    networks:
+#      - network1
 
 networks:
   network1:
