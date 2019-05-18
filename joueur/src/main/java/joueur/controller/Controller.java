@@ -27,7 +27,7 @@ public class Controller {
         IAPanda iaPanda = new IAPanda();
         int[] tab = null;
         try {
-            tab = iaPanda.connect("localhost", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
+            tab = iaPanda.connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
 
             System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
             synchronized (listPlayer) {
