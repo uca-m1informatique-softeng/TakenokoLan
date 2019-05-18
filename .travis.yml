@@ -3,5 +3,4 @@ sudo: required
 language: java
 
 script:
-- mvn exec:java -pl serveur -Dexec.mainClass=Application
-- mvn failsafe:integration-test
+- mvn exec:java -pl serveur -Dexec.mainClass=Application & mvn failsafe:integration-test
