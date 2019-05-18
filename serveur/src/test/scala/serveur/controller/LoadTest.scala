@@ -29,10 +29,10 @@ class LoadTest extends Simulation {
   )).protocols(httpProtocol)
     .assertions(global.successfulRequests.percent.is(100))
 
-  val myScenario2: ScenarioBuilder = scenario("TryConnect")
+ /* val myScenario2: ScenarioBuilder = scenario("TryConnect")
     .exec(TryConnect.get)
 
   setUp(myScenario2.inject(
     atOnceUsers(500)))
-    .assertions(global.successfulRequests.percent.is(100))
+    .assertions(global.successfulRequests.percent.is(100))*/
 }
