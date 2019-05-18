@@ -16,7 +16,7 @@ import java.util.Random;
 @RestController
 public class Controller {
 
-    int nbjoueur=1;
+    int nbjoueur=2;
 
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
 

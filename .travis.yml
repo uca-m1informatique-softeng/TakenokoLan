@@ -19,5 +19,6 @@ script:
   - docker-compose scale serveur=1 joueur=10
   - docker-compose logs
   - docker-compose ps
+  - docker-compose up
   #- echo " LANCEMENT DE TEST DE COMMUNICATION ENTRE JOUEUR ET SERVEUR"
   #- cd ../joueur && mvn clean test #lancer test de connexion  au serveur pour montrer la communication entre les 2 containers
