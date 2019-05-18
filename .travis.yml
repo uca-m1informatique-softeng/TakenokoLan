@@ -2,8 +2,9 @@ sudo: required
 
 language: java
 
-before_script:
-- mvn exec:java -pl serveur -Dexec.mainClass=Application
-
-script:
-- mvn failsafe:integration-test
+jobs:
+  include:
+    - stage: IT
+      script: mvn exec:java -pl serveur -Dexec.mainClass=Application
+    -
+      script: mvn failsafe:integration-test
