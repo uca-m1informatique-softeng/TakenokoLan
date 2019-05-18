@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 @RestController
 public class Controller {
 
     int nbjoueur=1;
+    public static final Logger LOGGER = Logger.getLogger(Controller.class.getCanonicalName());
 
     private LinkedHashMap<Integer, Takenoko> listParti = new LinkedHashMap<>();
 
@@ -42,9 +44,9 @@ public class Controller {
                 int numPlayer = 0;
                 listParti.put(numGame, new Takenoko());
                 listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer,"http://"+joueurHost+":"+joueurPort));
-                System.out.println("new Game");
-                System.out.println("ID partie | id joueur | nom joueur");
-                System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
+                LOGGER.info("ID partie | id joueur | nom joueur -> nouvelle partie ");
+                LOGGER.info("ID partie | id joueur | nom joueur");
+                LOGGER.info(numGame + " | " + numPlayer + " | " + namePlayer);
                 tab[0] = numGame;
                 tab[1] = numPlayer;
                 return tab;
@@ -56,7 +58,7 @@ public class Controller {
                     if (game.getListPlayer().size() < nbjoueur) {
                         int numPlayer = game.getListPlayer().size();
                         game.getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer,"http://"+joueurHost+":"+joueurPort));
-                        System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
+                        LOGGER.info(numGame + " | " + numPlayer + " | " + namePlayer);
                         tab[0] = numGame;
                         tab[1] = numPlayer;
                         return tab;
@@ -73,9 +75,9 @@ public class Controller {
                     int numPlayer = 0;
                     listParti.put(numGame, new Takenoko());
                     listParti.get(numGame).getListPlayer().add(new StatistiqueJoueur(numPlayer, 0, 0, 0, namePlayer,"http://"+joueurHost+":"+joueurPort));
-                   // System.out.println("new Game");
-                   // System.out.println("ID partie | id joueur | nom joueur");
-                    //System.out.println(numGame + " | " + numPlayer + " | " + namePlayer);
+                    LOGGER.info("ID partie | id joueur | nom joueur -> nouvelle partie ");
+                    LOGGER.info("ID partie | id joueur | nom joueur");
+                    LOGGER.info(numGame + " | " + numPlayer + " | " + namePlayer);
                     tab[0] = numGame;
                     tab[1] = numPlayer;
                     return tab;

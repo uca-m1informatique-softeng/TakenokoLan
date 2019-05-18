@@ -16,7 +16,7 @@ script:
   - cd ../joueur && docker build -f Dockerfile -t joueur .
   #- docker-compose up -d
   - echo "ON LANCE 100 PARTIES"
-  - docker-compose scale serveur=1 joueur=5 joueur2=5
+  - docker-compose scale serveur=1 joueur=10
   - docker-compose logs
   - docker-compose ps
   #- echo " LANCEMENT DE TEST DE COMMUNICATION ENTRE JOUEUR ET SERVEUR"

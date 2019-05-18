@@ -27,15 +27,12 @@ import java.util.logging.Logger;
 public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
 
 
-
     public static final Logger LOGGER = Logger.getLogger(IAPanda.class.getCanonicalName());
     private ArrayList<CartesObjectifs> mainObjectif = new ArrayList<>();
     private ArrayList<MainJoueur> mainObjectifValeur = new ArrayList<>();
     private String nomBot;
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
     private IClientService iService;
-
-
 
 
     @Autowired
@@ -71,8 +68,6 @@ public class IAPanda implements ApplicationListener<ApplicationReadyEvent> {
         } catch (Exception e) {
         }
         launch();
-
-
     }
 
     private int[] connect(String serveurHost, String serveurPort, String joueurHost, String joueurPort) {
