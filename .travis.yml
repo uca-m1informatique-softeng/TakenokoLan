@@ -3,4 +3,5 @@ sudo: required
 language: java
 
 script:
-- cd joueur & mvn failsafe:integration-test
+- cd serveur & mvn exec:java
+- cd ../joueur & mvn failsafe:integration-test
