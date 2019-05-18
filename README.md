@@ -3,7 +3,7 @@
 
 Ci dessous un schéma de la communication serveur-joueur :
 
-![routes](routes.png)
+![routes](doc/images/routes.png)
 
 Les points à montrer :
 
