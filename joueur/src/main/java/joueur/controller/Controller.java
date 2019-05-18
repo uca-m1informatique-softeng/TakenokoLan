@@ -16,14 +16,18 @@ import java.util.LinkedHashMap;
 public class Controller {
     @Autowired
     LancementJoueurs lancementJoueurs;
+
     private LinkedHashMap<Integer, LinkedHashMap<Integer, IAPanda>> listPlayer = new LinkedHashMap<>();
 
+
+
+
     @RequestMapping(path = "/newPlayer")
-    public String launch() {
+    public int launch() {
         IAPanda iaPanda = new IAPanda();
         int[] tab = null;
         try {
-            tab = iaPanda.connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
+            tab = iaPanda.connect("localhost", "8080", InetAddress.getLocalHost().getHostAddress(), "8081");
 
             System.out.println("new player connecté à la partie num : " + tab[0] + " en tant que joueur : " + tab[1]);
             synchronized (listPlayer) {
@@ -37,21 +41,19 @@ public class Controller {
             }
         } catch (UnknownHostException e) {
         }
-        boolean start = false;
-        synchronized (listPlayer) {
-            if (listPlayer.get(tab[0]).size() == 2) {
-                start = true;
-            }
-        }
-        if (start) {
-            iaPanda.launch();
-        }
-        return "done";
+        return tab[0];
     }
 
     @PostMapping(value = "/{id}/{idPlayer}/Joue")
     public String Joue(@PathVariable(value = "id") int id, @PathVariable(value = "idPlayer") int idPlayer) {
         listPlayer.get(id).get(idPlayer).joue();
+        //System.out.println("joue -> partie : "+id+" joueur id : "+idPlayer);
+        return "done";
+    }
+
+    @RequestMapping(path = "/setList")
+    public String setList(){
+        lancementJoueurs.setListPlayer(listPlayer);
         return "done";
     }
 }

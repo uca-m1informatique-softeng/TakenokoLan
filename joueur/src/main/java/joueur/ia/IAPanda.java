@@ -25,7 +25,6 @@ public class IAPanda {
     private String nomBot;
     private static final int TAILLE_MAX_MAIN_OBJECTIF = 5;
     private IClientService iService;
-    int numeroParti;
 
     public IAPanda() {
         nomBot = RandomStringUtils.randomAlphabetic(10);

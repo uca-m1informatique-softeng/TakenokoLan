@@ -62,10 +62,10 @@ public class Takenoko {
     */
     public void lancerParti(ArrayList<StatistiqueJoueur> listPlayer, int idGame) {
         this.listPlayer = listPlayer;
-        LOGGER.info("Partie id : " + idGame + " lancer avec " + listPlayer.size() + " joueur(s)");
+        //LOGGER.info("Partie id : " + idGame + " lancer avec " + listPlayer.size() + " joueur(s)");
         partie(listPlayer, idGame);
         LOGGER.info("---> Fin partie id : " + idGame + " <---");
-        afficherVainqueur(listPlayer, 1);
+        //afficherVainqueur(listPlayer, 1);
     }
 
     private void partie(ArrayList<StatistiqueJoueur> listPlayer, int idGame) {
