@@ -7,4 +7,4 @@ services:
 
 script:
 - cd serveur && docker build -f Dockerfile -t serveur .
-- mvn failsafe:integration-test
+- cd .. && mvn failsafe:integration-test
