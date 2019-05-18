@@ -1,3 +1,20 @@
+            ************************* DECOUPAGE ********************************
+      
+      
+ Après réflexion nous avons répertorié toutes les classes et packages qui étaient dépendant les uns des autres,
+  ainsi nous avons pu déjà mettre en place un sous-projet « commun » qui ne contient pas de classe Application.java.
+  
+ Pour les autres sous-projets, « serveur » et « joueur », nous avons décidé de les implémenter tous 
+ les deux comme des serveurs (ce sont tout les deux des SpringApplication). Ainsi la communication entre le joueur et le serveur peut s’effectuer dans les deux 
+ sens. 
+ Au niveau des classes, le joueur ne contient que la classe IAPanda (le joueur), et les configurations nécessaires à sa
+ fonction de serveur.
+ Le serveur quant à lui contient toutes les autres classes relatives au moteur de jeu, et les configurations 
+ nécessaires à sa fonction de serveur.
+     
+      
+      
+      
       ************************* ECHANGES SERVEUR-JOUEUR ********************************
 
 1/ LES ROUTES IMPLEMENTEES
