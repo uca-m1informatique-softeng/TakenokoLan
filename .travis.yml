@@ -4,3 +4,6 @@ language: java
 
 jdk:
   - openjdk8
+
+script:
+  - mvn -q -Dsurefire.printSummary=false
