@@ -11,14 +11,14 @@ services:
     networks:
     - network1
 #pour logs en local
-  joueur2:
-    build: joueur/
-    command: java -jar joueur-1.0.jar
-    restart: always
-    depends_on:
-     - serveur
-    networks:
-     - network1
+#  joueur2:
+#    build: joueur/
+#    command: java -jar joueur-1.0.jar
+#    restart: always
+#    depends_on:
+#     - serveur
+#    networks:
+#     - network1
 
   serveur:
     build: serveur/
