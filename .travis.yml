@@ -13,5 +13,4 @@ services:
 
 script:
   - docker-compose up -d
-  - echo "ON LANCE 100 PARTIES"
   - docker-compose ps
