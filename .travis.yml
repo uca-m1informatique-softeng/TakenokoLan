@@ -7,8 +7,8 @@ jdk:
 
 logging :
   level :
-    org.springframework.web: OFF
-    guru.springframework.controllers: OFF
+    org.springframework: OFF
+    guru.springframework: OFF
     org.hibernate: OFF
 
 script:
