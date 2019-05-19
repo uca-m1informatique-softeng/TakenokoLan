@@ -5,5 +5,9 @@ language: java
 jdk:
   - openjdk8
 
+logging :
+  level :
+    root : WARN
+
 script:
   - mvn test -q -B
