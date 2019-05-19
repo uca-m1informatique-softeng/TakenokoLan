@@ -38,6 +38,8 @@ Résultats générés dans une archive.
     
 Branche "testIntegrationJoueurServeurTravis"
 
+Build #222 - https://travis-ci.com/uca-m1informatique-softeng/TakenokoLan/builds/112346158
+
 On veut montrer la communication entre un joueur et le serveur sur Travis.
 
 - On créé un test d'intégration en nous basant sur la fonction connect() du joueur.
