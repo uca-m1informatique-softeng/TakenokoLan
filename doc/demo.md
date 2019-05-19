@@ -25,10 +25,11 @@ On lance 5 images joueurs et 1 image serveur.
 
     ****** DEMO 2 Yacine *******
      
+Test de charge : 
 
-
-
-
+Nombre de connexions supportées par le serveur.
+Utilisation de gatling et module scala.
+Résultats générés dans une archive.
 
 
 **
