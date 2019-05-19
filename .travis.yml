@@ -8,11 +8,11 @@ jdk:
 spring :
   logging :
     level :
-#      org.springframework.*: OFF
-#      guru.springframework.*: OFF
-#      org.hibernate: OFF
-      root : OFF
+      org.springframework.*: OFF
+      guru.springframework.*: OFF
+      org.hibernate: OFF
 
 
 script:
+  - logging.level.root=OFF
   - mvn test -q -B
