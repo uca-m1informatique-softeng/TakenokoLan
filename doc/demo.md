@@ -36,7 +36,21 @@ Build #245 - https://travis-ci.com/uca-m1informatique-softeng/TakenokoLan/builds
 Nombre de connexions supportées par le serveur.
 Utilisation de gatling et module scala.
 Résultats générés dans le dossier serveur/gatlingResults/results/{dosser'date'}/index.html.
-
+   
+      setUp(myScenario.inject(
+       incrementUsersPerSec(100)
+         .times(5)
+         .eachLevelLasting(5 seconds)
+         .separatedByRampsLasting(5 seconds)
+         .startingFrom(20)
+        ),myScenario2.inject(
+          nothingFor(58 seconds),
+          constantUsersPerSec(200) during (10 seconds),
+          constantUsersPerSec(300) during (5 seconds) randomized,
+          atOnceUsers(500),nothingFor(1),
+          constantUsersPerSec(1000) during (5 seconds),
+          constantUsersPerSec(250) during (5 seconds)).protocols(httpProtocol)).protocols(httpProtocol)
+          .assertions(global.successfulRequests.percent.between(80,100))
 
 **
      
