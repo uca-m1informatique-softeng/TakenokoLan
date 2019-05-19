@@ -2,9 +2,14 @@ sudo: required
 
 language: java
 
+env:
+DOCKER_COMPOSE_VERSION: 1.24.0
+
 services:
-- docker
+  - docker
 
 script:
-- cd serveur && docker build -f Dockerfile -t serveur .
+  - cd serveur && docker build -f Dockerfile -t serveur .
+  - docker-compose ps
+  - docker-compose up -d
 - cd .. && mvn failsafe:integration-test
