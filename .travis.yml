@@ -14,6 +14,6 @@ services:
 script:
   #- docker-compose up -d
   - echo "ON LANCE 100 PARTIES"
-  - docker-compose scale serveur=1 joueur=50 joueur2=50
+  - docker-compose scale serveur=1 joueur=5 joueur2=5
   - docker-compose logs
   - docker-compose ps
