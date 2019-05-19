@@ -1,0 +1,18 @@
+{
+  "simulation": "serveur.controller.LoadTest",
+  "simulationId": "loadtest",
+  "start": 1558261487107,
+  "description": "",
+  "scenarios": ["TryConnect", "TryConnect2"],
+  "assertions": [
+{
+  "path": "Global",
+  "target": "percentage of successful events",
+  "condition": "is between inclusive",
+  "expectedValues": [80.0,100.0],
+  "result": true,
+  "message": "Global: percentage of successful events is between inclusive 80.0 and 100.0",
+  "actualValue": [81.2366206999552]
+}
+  ]
+}
