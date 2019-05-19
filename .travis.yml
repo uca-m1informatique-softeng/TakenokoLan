@@ -12,7 +12,7 @@ spring :
       guru.springframework.*: OFF
       org.hibernate: OFF
 
-logging.level.root=OFF
+logging.level.root=OFF 
 
 script:
   - mvn test -q -B
