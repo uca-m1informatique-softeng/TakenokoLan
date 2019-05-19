@@ -21,6 +21,8 @@ On lance 5 images joueurs et 1 image serveur.
      int[] tab = connect("172.18.0.2", "8080", InetAddress.getLocalHost().getHostAddress(), getPort());//pour travis
     ...
 
+
+build :  https://travis-ci.com/uca-m1informatique-softeng/TakenokoLan/jobs/201325928
 **
 
     ****** DEMO 2 Yacine *******
