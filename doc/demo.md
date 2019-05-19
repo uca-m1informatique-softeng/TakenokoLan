@@ -42,10 +42,12 @@ On veut montrer la communication entre un joueur et le serveur sur Travis.
 - On créé un test d'intégration en nous basant sur la fonction connect() du joueur.
 Elle nous permet de récupérer un id de partie compris entre 0 et 4999 ainsi qu'un id de joueur
 qui doit être égal à 0.
-- Sur Travis, on lance d'abord le serveur avant de pouvoir exécuter le test d'intégration
-(ce sera le seul test qui sera alors affiché).
-   
-   
+
+        assertTrue("Error, game numero beyond 5000.",0 <= tab[0] & tab[0] < 5000);
+        assertEquals(0,tab[1]);
+        
+- Sur Travis, on lance dans un premier temps l'image docker du serveur puis on exécute notre test d'intégration
+en nous appuyant sur le plugin Failsafe (ce sera le seul test qui sera alors affiché).
     
   
 **
