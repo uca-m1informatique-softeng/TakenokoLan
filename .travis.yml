@@ -2,6 +2,9 @@ sudo: required
 
 language: java
 
+jdk:
+  - openjdk8
+
 env:
 DOCKER_COMPOSE_VERSION: 1.24.0
 
