@@ -12,12 +12,8 @@ services:
   - docker
 
 script:
-  - cd serveur && docker build -f Dockerfile -t serveur .
-  - cd ../joueur && docker build -f Dockerfile -t joueur .
   #- docker-compose up -d
   - echo "ON LANCE 100 PARTIES"
-  - docker-compose scale serveur=1 joueur=10
+  - docker-compose scale serveur=1 joueur=50 joueur2=50
   - docker-compose logs
   - docker-compose ps
-  #- echo " LANCEMENT DE TEST DE COMMUNICATION ENTRE JOUEUR ET SERVEUR"
-  #- cd ../joueur && mvn clean test #lancer test de connexion  au serveur pour montrer la communication entre les 2 containers
