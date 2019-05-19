@@ -5,14 +5,14 @@ language: java
 jdk:
   - openjdk8
 
-env:
-DOCKER_COMPOSE_VERSION: 1.24.0
-
-services:
-  - docker
-
-script:
-  - cd serveur && docker build -f Dockerfile -t serveur .
-  - cd ../joueur && docker build -f Dockerfile -t joueur .
-  - docker-compose ps
-  - docker-compose up -d
+#env:
+#DOCKER_COMPOSE_VERSION: 1.24.0
+#
+#services:
+#  - docker
+#
+#script:
+#  - cd serveur && docker build -f Dockerfile -t serveur .
+#  - cd ../joueur && docker build -f Dockerfile -t joueur .
+#  - docker-compose ps
+#  - docker-compose up -d
