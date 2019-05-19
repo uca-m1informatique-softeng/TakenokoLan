@@ -6,4 +6,4 @@ jdk:
   - openjdk8
 
 script:
-  - mvn -q -Dsurefire.printSummary=false
+  - mvn install -Dsurefire.printSummary=false
