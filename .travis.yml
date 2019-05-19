@@ -5,11 +5,12 @@ language: java
 jdk:
   - openjdk8
 
-logging :
-  level :
-    org.springframework.*: OFF
-    guru.springframework.*: OFF
-    org.hibernate: OFF
+spring :
+  logging :
+    level :
+      org.springframework.*: OFF
+      guru.springframework.*: OFF
+      org.hibernate: OFF
 
 script:
   - mvn test -q -B
