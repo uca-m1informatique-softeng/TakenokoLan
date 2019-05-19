@@ -20,19 +20,22 @@ class LoadTest extends Simulation {
   val myScenario: ScenarioBuilder = scenario("TryConnect")
     .exec(TryConnect.get)
 
+  val myScenario2: ScenarioBuilder = scenario("TryConnect2")
+    .exec(TryConnect.get)
+
   setUp(myScenario.inject(
-    incrementUsersPerSec(40)
-      .times(10)
+    incrementUsersPerSec(100)
+      .times(5)
       .eachLevelLasting(5 seconds)
       .separatedByRampsLasting(5 seconds)
       .startingFrom(20)
-  )).protocols(httpProtocol)
-    .assertions(global.successfulRequests.percent.is(100))
+  ),myScenario2.inject(
+    nothingFor(58 seconds),
+    constantUsersPerSec(200) during (10 seconds),
+    constantUsersPerSec(300) during (5 seconds) randomized,
+    atOnceUsers(500),nothingFor(1),
+    constantUsersPerSec(1000) during (5 seconds),
+    constantUsersPerSec(250) during (5 seconds)).protocols(httpProtocol)).protocols(httpProtocol)
+    .assertions(global.successfulRequests.percent.between(80,100))
 
- /* val myScenario2: ScenarioBuilder = scenario("TryConnect")
-    .exec(TryConnect.get)
-
-  setUp(myScenario2.inject(
-    atOnceUsers(500)))
-    .assertions(global.successfulRequests.percent.is(100))*/
 }
