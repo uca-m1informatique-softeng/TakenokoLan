@@ -13,7 +13,6 @@ services:
 
 script:
   - cd serveur && docker build -f Dockerfile -t serveur .
-  - cd ../joueur && docker build -f Dockerfile -t joueur .
   - docker-compose ps
   - docker-compose up -d
   - cd .. && mvn failsafe:integration-test
