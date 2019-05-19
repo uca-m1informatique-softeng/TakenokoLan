@@ -24,7 +24,9 @@ public class GetNbBambousStepDef {
     private ResponseEntity<Integer> response;
     private HttpEntity<Parcelle> requestParcelle;
     private HttpEntity<Coordonnees> requestCoordonnees;
+
     @Given("^un terrain avec une parcelle de chaque couleur$")
+
     public void init(){
         template.getForEntity("http://localhost:8080/init", String.class);
     }

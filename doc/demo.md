@@ -25,10 +25,11 @@ On lance 5 images joueurs et 1 image serveur.
 
     ****** DEMO 2 Yacine *******
      
+Test de charge : 
 
-
-
-
+Nombre de connexions supportées par le serveur.
+Utilisation de gatling et module scala.
+Résultats générés dans une archive.
 
 
 **
@@ -53,3 +54,35 @@ en nous appuyant sur le plugin Failsafe (ce sera le seul test qui sera alors aff
 **
   
     ****** DEMO 4 Pierre *******
+
+On veut montrer que les tests d'intégrations couvrent les échanges joueur/serveur (une partie) avec des tests cucumber.
+
+-On exécute les tests dans travis qui confirme que tous nos scénarios sont réalisables.
+- Les routes sont testées dans les scénarios.
+
+        Scenario: le client appelle /DeplacerJardinier
+        When le client appelle /DeplacerJardinier
+        Then si c'est possible le jardinier est déplacé sur le terrain
+
+        ...
+
+        @When("^le client appelle /DeplacerJardinier")
+            public void deplacementJardinier() {
+                poserParcelle(); // a cause du Background on doit reposer la parcelle
+                HttpEntity<Coordonnees> request = new HttpEntity<>(p.getCoord());
+                response = template.exchange("http://localhost:8080/0/0/DeplacerJardinier", HttpMethod.POST, request,
+                        String.class);
+            }
+
+        @Then("^si c'est possible le jardinier est déplacé sur le terrain")
+            public void deplacementJardinierEffectue() {
+                ResponseEntity<Coordonnees> temp = template.exchange(
+                        "http://localhost:8080/0/JardinierGetCoordonnees",
+                        HttpMethod.GET,
+                        null,
+                        Coordonnees.class);
+                Assert.assertEquals(p.getCoord(), temp.getBody());
+                assertEquals("done", response.getBody());
+            }
+
+        ...
