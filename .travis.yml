@@ -12,4 +12,4 @@ script:
   - cd serveur && docker build -f Dockerfile -t serveur .
   - docker-compose ps
   - docker-compose up -d
-- cd .. && mvn failsafe:integration-test
+  - cd .. && mvn failsafe:integration-test
