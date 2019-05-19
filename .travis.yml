@@ -6,4 +6,4 @@ jdk:
   - openjdk8
 
 script:
-  - mvn install -Dsurefire.printSummary=false
+  - mvn install -Dsurefire.printSummary=false -Dmaven.javadoc.skip=true
