@@ -25,11 +25,15 @@ On lance 5 images joueurs et 1 image serveur.
 
     ****** DEMO 2 Yacine *******
      
+Branche "PerformanceTestingGatling"
+
 Test de charge : 
+
+Build #245 - https://travis-ci.com/uca-m1informatique-softeng/TakenokoLan/builds/112350021
 
 Nombre de connexions supportées par le serveur.
 Utilisation de gatling et module scala.
-Résultats générés dans une archive.
+Résultats générés dans le dossier serveur/gatlingResults/results/{dosser'date'}/index.html.
 
 
 **
