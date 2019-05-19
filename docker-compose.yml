@@ -7,27 +7,27 @@ services:
     command: java -jar joueur-1.0.jar
     restart: always
     depends_on:
-     - serveur
+      - serveur
     networks:
-    - network1
+      - network1
 #pour logs en local
   joueur2:
     build: joueur/
     command: java -jar joueur-1.0.jar
     restart: always
     depends_on:
-     - serveur
+       - serveur
     networks:
-     - network1
+       - network1
 
-   joueur3:
+  joueur3:
     build: joueur/
     command: java -jar joueur-1.0.jar
     restart: always
     depends_on:
-     - serveur
+      - serveur
     networks:
-     - network1
+       - network1
 
   serveur:
     build: serveur/
@@ -35,7 +35,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-    - network1
+      - network1
 
 networks:
   network1:
