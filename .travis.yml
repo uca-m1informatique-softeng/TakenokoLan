@@ -7,7 +7,9 @@ jdk:
 
 logging :
   level :
-    root : WARN
+    org.springframework.web: OFF
+    guru.springframework.controllers: OFF
+    org.hibernate: OFF
 
 script:
   - mvn test -q -B
