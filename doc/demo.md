@@ -2,11 +2,11 @@
     
 Branche  "PlusieursPartiesDocker":
 
-On veut montrer le lancement de 5 parties dans docker.
+On veut montrer le lancement de 3 parties dans docker.
     Sur travis : on affiche les connexions et créations des containers, images, etc.
     En local : le log du docker-compose up
 
-On lance 5 images joueurs et 1 image serveur.
+On lance 3 images joueurs et 1 image serveur.
 
 => connexion de "joueur" sur un port aléatoire (on récupère le port sur lequel tomcat s'est initialisé)
 => connexion de "serveur" sur port 8080
