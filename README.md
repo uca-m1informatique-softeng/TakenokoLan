@@ -14,7 +14,8 @@ Lancement des tests :
         mvn gatling:test
         
         
-        
+      
+Test en local :
 ![routes](doc/graphique1.png)
 ![routes](doc/graphique2.png)
  
