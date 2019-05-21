@@ -24,15 +24,15 @@ public class Lancement1000PartiesIT {
                 fin = true;
             } else {
                 fin = false;
-                System.out.println("En cours nb parties fini : "+nb);
+                System.out.println("En cours nb parties terminées : "+nb);
                 try {
                     Thread.sleep(60000);
                 } catch (InterruptedException e) {
                 }
             }
         } while (!fin);
-
         nb = restTemplate.exchange("http://localhost:8081/getnbFin", HttpMethod.GET, null, int.class).getBody();
         Assert.assertEquals(1000, nb);
+        System.out.println(nb/1000+" % terminées soit : "+nb+ "sur 1000 parties");
     }
 }
