@@ -14,7 +14,7 @@ Lancement du test :
         mvn failsafe:integration-test
         
         
-Test en local (job trop long sur travis) :
+Test en local 1 partie = 2 joueurs (job trop long sur travis) :
 
 ![routes](doc/Test1000Parties.PNG)
 
