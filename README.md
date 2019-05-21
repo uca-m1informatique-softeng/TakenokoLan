@@ -15,4 +15,6 @@ Lancement des tests :
         
         
         
+![routes](doc/graphique1.png)
+![routes](doc/graphique2.png)
  
