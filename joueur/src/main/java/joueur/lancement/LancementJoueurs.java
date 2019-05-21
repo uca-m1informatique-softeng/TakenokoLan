@@ -40,7 +40,7 @@ public class LancementJoueurs implements ApplicationListener<ApplicationReadyEve
                 sleep(10000);
             }
         } while (!alive);
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 1000; i++) {
             sleep(30);
             new Thread(new Runnable() {
                 @Override
