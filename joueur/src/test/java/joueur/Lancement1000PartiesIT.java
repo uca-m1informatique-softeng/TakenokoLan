@@ -14,9 +14,24 @@ import org.springframework.web.client.RestTemplate;
 @ContextConfiguration
 public class Lancement1000PartiesIT {
     @Test
-    public void test(){
-        RestTemplate restTemplate=new RestTemplate();
-        int nb =restTemplate.exchange("http://localhost:8081/getnbFin", HttpMethod.GET, null, int.class).getBody();
-        Assert.assertEquals(1000,nb);
+    public void test() {
+        RestTemplate restTemplate = new RestTemplate();
+        boolean fin = false;
+        int nb = 0;
+        do {
+            nb = restTemplate.exchange("http://localhost:8081/getnbFin", HttpMethod.GET, null, int.class).getBody();
+            if (nb == 1000) {
+                fin = true;
+            } else {
+                fin = false;
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                }
+            }
+        } while (!fin);
+
+        nb = restTemplate.exchange("http://localhost:8081/getnbFin", HttpMethod.GET, null, int.class).getBody();
+        Assert.assertEquals(1000, nb);
     }
 }
