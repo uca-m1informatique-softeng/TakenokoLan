@@ -3,8 +3,17 @@
 Branche  "PlusieursPartiesDocker":
 
 On veut montrer le lancement de 3 parties dans docker.
-    Sur travis : on affiche les connexions et créations des containers, images, etc.
-    En local : le log du docker-compose up
+    Sur travis : on affiche les connexions et créations des containers, images, etc. 
+               le docker-compose.yml contient les 3 images joueurs et une image serveur créées en direct.
+    En local : le log du docker-compose up 
+               L'image serveur est récupérée sur le hub docker :
+                   
+                   serveur:
+                     image: chloemaccarinelli/serveur_hub:part1 #images serveur récupérée dur le hub docker
+                   ports:
+                     - "8080:8080"
+                    networks:
+                     - network1
 
 On lance 3 images joueurs et 1 image serveur.
 
