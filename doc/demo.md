@@ -61,6 +61,15 @@ Résultats générés dans le dossier serveur/gatlingResults/results/{dosser'dat
           constantUsersPerSec(250) during (5 seconds)).protocols(httpProtocol)).protocols(httpProtocol)
           .assertions(global.successfulRequests.percent.between(80,100))
 
+Graphiques :
+
+![routes](doc/images/graphique1.PNG)
+![routes](doc/images/graphique2.PNG)
+
+Test en local 1000 parties = 2000 joueurs (job trop long sur travis) :
+
+![routes](doc/images/Test1000Parties.PNG)
+  
 **
      
     ****** DEMO 3 Alexandre *****
