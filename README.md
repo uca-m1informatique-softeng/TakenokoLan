@@ -1,6 +1,6 @@
 # TakenokoLan
 
-Lancement des tests :
+Lancement du test :
 
 1ere console :
 
