@@ -24,8 +24,9 @@ public class Lancement1000PartiesIT {
                 fin = true;
             } else {
                 fin = false;
+                System.out.println("En cours");
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(60000);
                 } catch (InterruptedException e) {
                 }
             }
