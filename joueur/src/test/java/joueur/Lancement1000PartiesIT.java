@@ -24,7 +24,7 @@ public class Lancement1000PartiesIT {
                 fin = true;
             } else {
                 fin = false;
-                System.out.println("En cours");
+                System.out.println("En cours nb parties fini : "+nb);
                 try {
                     Thread.sleep(60000);
                 } catch (InterruptedException e) {
