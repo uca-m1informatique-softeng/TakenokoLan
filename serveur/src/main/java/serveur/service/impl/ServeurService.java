@@ -14,4 +14,9 @@ public class ServeurService implements IServeurService {
     public void JoueClient(String urlJoueur,int id, int idPlayer) {
         restTemplate.exchange(urlJoueur + "/" + id + "/" + idPlayer + "/Joue", HttpMethod.POST, null, String.class);
     }
+
+    @Override
+    public void finPartie(String urlJoueur) {
+        restTemplate.exchange(urlJoueur +"/nbfin", HttpMethod.POST, null, String.class);
+    }
 }

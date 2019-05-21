@@ -17,10 +17,9 @@ public class Controller {
     @Autowired
     LancementJoueurs lancementJoueurs;
 
+    int fin=0;
+
     private LinkedHashMap<Integer, LinkedHashMap<Integer, IAPanda>> listPlayer = new LinkedHashMap<>();
-
-
-
 
     @RequestMapping(path = "/newPlayer")
     public int launch() {
@@ -51,9 +50,20 @@ public class Controller {
         return "done";
     }
 
+    @RequestMapping(path = "/nbfin")
+    public String nbFin(){
+       fin++;
+       return "done";
+    }
+
     @RequestMapping(path = "/setList")
     public String setList(){
         lancementJoueurs.setListPlayer(listPlayer);
         return "done";
     }
+    @RequestMapping(path = "/getnbFin")
+    public int getnbFin(){
+        return fin;
+    }
+
 }

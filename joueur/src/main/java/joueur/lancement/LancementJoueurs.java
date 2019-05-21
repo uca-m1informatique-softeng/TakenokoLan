@@ -22,6 +22,10 @@ public class LancementJoueurs implements ApplicationListener<ApplicationReadyEve
      */
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
+      go();
+    }
+
+    public void go(){
         boolean alive;
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getForObject("http://localhost:8081/setList",String.class);
@@ -44,7 +48,7 @@ public class LancementJoueurs implements ApplicationListener<ApplicationReadyEve
                     RestTemplate restTemplate = new RestTemplate();
                     //restTemplate.put("http://localhost:8081" + "/newPlayer", null);
                     int idP=restTemplate.exchange(
-                           "http://localhost:8081" + "/newPlayer",
+                            "http://localhost:8081" + "/newPlayer",
                             HttpMethod.GET,
                             null,
                             int.class).getBody();
@@ -61,7 +65,6 @@ public class LancementJoueurs implements ApplicationListener<ApplicationReadyEve
             }).start();
         }
     }
-
     private void sleep(int time) {
         try {
             Thread.sleep(time);
