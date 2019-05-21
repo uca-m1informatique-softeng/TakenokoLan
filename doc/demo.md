@@ -87,6 +87,10 @@ en nous appuyant sur le plugin Failsafe (ce sera le seul test qui sera alors aff
 **
   
     ****** DEMO 4 Pierre *******
+    
+Branche "test_echange_joueur_serveur"
+
+Build #242 https://travis-ci.com/uca-m1informatique-softeng/TakenokoLan/builds/112349223
 
 On veut montrer que les tests d'intégrations couvrent les échanges joueur/serveur (une partie) avec des tests cucumber.
 
