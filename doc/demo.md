@@ -63,8 +63,9 @@ Résultats générés dans le dossier serveur/gatlingResults/results/{dosser'dat
 
 Graphiques :
 
-![routes](images/graphique1.PNG)
-![routes](images/graphique2.PNG)
+![routes](images/graphique2.png)
+
+![routes](images/graphique2.png)
 
 Test en local 1000 parties = 2000 joueurs (job trop long sur travis) :
 
