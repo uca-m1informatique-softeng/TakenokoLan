@@ -4,5 +4,5 @@ public interface IServeurService {
 
     void JoueClient(String urlJoueur,int id, int idPlayer);
 
-    void finPartie(String urlJoueur);
+    void finPartie(String urlJoueur,int id);
 }

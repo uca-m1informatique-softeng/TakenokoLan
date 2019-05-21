@@ -130,7 +130,7 @@ public class Takenoko {
             nbTour++;
         }
         pointVictoire(listPlayer, nbTour);
-        iServeurService.finPartie(listPlayer.get(0).getUrlJoueur());
+        iServeurService.finPartie(listPlayer.get(0).getUrlJoueur(),idGame);
     }
 
     private void afficherVainqueur(ArrayList<StatistiqueJoueur> listPlayer, int nbPartie) {

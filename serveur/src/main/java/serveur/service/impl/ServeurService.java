@@ -16,7 +16,7 @@ public class ServeurService implements IServeurService {
     }
 
     @Override
-    public void finPartie(String urlJoueur) {
-        restTemplate.exchange(urlJoueur +"/nbfin", HttpMethod.POST, null, String.class);
+    public void finPartie(String urlJoueur,int id) {
+        restTemplate.exchange(urlJoueur + "/" + id +"/nbfin", HttpMethod.POST, null, String.class);
     }
 }

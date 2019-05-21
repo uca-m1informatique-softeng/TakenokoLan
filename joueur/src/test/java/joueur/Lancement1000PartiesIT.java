@@ -16,7 +16,7 @@ public class Lancement1000PartiesIT {
     @Test
     public void test(){
         RestTemplate restTemplate=new RestTemplate();
-        int nb =restTemplate.exchange("http://localhost8081/getnbFin", HttpMethod.GET, null, int.class).getBody();
+        int nb =restTemplate.exchange("http://localhost:8081/getnbFin", HttpMethod.GET, null, int.class).getBody();
         Assert.assertEquals(1000,nb);
     }
 }

@@ -3,10 +3,7 @@ package joueur.controller;
 import joueur.ia.IAPanda;
 import joueur.lancement.LancementJoueurs;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -50,8 +47,9 @@ public class Controller {
         return "done";
     }
 
-    @RequestMapping(path = "/nbfin")
-    public String nbFin(){
+    @RequestMapping(path = "/{id}/nbfin")
+    public String nbFin(@PathVariable(value = "id") int id){
+        System.out.println("fin partie id : "+id);
        fin++;
        return "done";
     }
@@ -61,7 +59,7 @@ public class Controller {
         lancementJoueurs.setListPlayer(listPlayer);
         return "done";
     }
-    @RequestMapping(path = "/getnbFin")
+    @GetMapping(path = "/getnbFin")
     public int getnbFin(){
         return fin;
     }
