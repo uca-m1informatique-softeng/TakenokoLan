@@ -41,7 +41,7 @@ public class LancementJoueurs implements ApplicationListener<ApplicationReadyEve
             }
         } while (!alive);
         for (int i = 0; i < 2000; i++) {
-            sleep(10);
+            sleep(30);
             new Thread(new Runnable() {
                 @Override
                 public void run() {
