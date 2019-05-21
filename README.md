@@ -15,6 +15,7 @@ Lancement du test :
         
         
 Test en local (job trop long sur travis) :
-![routes](doc/Test1000Parties.png)
+
+![routes](doc/Test1000Parties.PNG)
 
         
