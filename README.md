@@ -14,7 +14,7 @@ Lancement des tests :
         mvn failsafe:integration-test
         
         
-        
- 
+Test en local (job trop long sur travis) :
+![routes](doc/Test1000Parties.png)
 
         
